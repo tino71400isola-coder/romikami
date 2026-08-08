@@ -73,51 +73,6 @@
             <input type="password" style="background: #0f172a; color: #e11d48; border: 1px solid #e11d48; padding: 10px; font-family: monospace; font-size: 1.1rem; border-radius: 5px; width: 220px; text-align: center;" placeholder="PASSWORD DI STATO" oninput="if(this.value==='zhuaoromikami2026'){document.getElementById('secretGovernmentContent').style.display='block'}else{document.getElementById('secretGovernmentContent').style.display='none'}">
             
             <div id="secretGovernmentContent" style="display: none; margin-top: 25px; border-top: 1px dashed #e11d48; padding-top: 20px;">
-                                    // BAN PERMANENTE ED ETERNO CON LOCALSTORAGE
-                    let bannedNames = JSON.parse(localStorage.getItem("romikami_blacklist")) || [];
-
-                    // Controlla all'avvio se il PC corrente è già bandito
-                    if (localStorage.getItem("romikami_banned_status") === "true") {
-                        activateBanScreen();
-                    }
-
-                    function executeMikaKick() {
-                        const target = document.getElementById("banTargetInput").value.trim().toLowerCase();
-                        const statusLabel = document.getElementById("banStatusLabel");
-                        if (target === "") return;
-                        
-                        if (!bannedNames.includes(target)) {
-                            bannedNames.push(target);
-                            // Salva la lista nera nella memoria
-                            localStorage.setItem("romikami_blacklist", JSON.stringify(bannedNames));
-                            
-                            statusLabel.style.display = "block";
-                            statusLabel.style.color = "#34d399";
-                            statusLabel.innerText = "✔ BAN ETERNO ATTIVATO: " + target.toUpperCase() + " inserito nel database.";
-                            document.getElementById("banTargetInput").value = "";
-                        }
-                    }
-
-                    // Controlla ogni mezzo secondo se qualcuno scrive parole vietate
-                    setInterval(() => {
-                        const inIta = document.getElementById("inputIta") ? document.getElementById("inputIta").value.toLowerCase() : "";
-                        const inRmk = document.getElementById("inputRmk") ? document.getElementById("inputRmk").value.toLowerCase() : "";
-                        
-                        if (bannedNames.some(name => inIta.includes(name) || inRmk.includes(name))) {
-                            // Salva lo stato di BAN PERMANENTE sul browser del nemico
-                            localStorage.setItem("romikami_banned_status", "true");
-                            activateBanScreen();
-                        }
-                    }, 500);
-
-                    function activateBanScreen() {
-                        if (document.getElementById("permaBanOverlay")) return;
-                        const bScreen = document.createElement("div");
-                        bScreen.id = "permaBanOverlay";
-                        bScreen.style.position = "fixed"; bScreen.style.top = "0"; bScreen.style.left = "0"; bScreen.style.width = "100%"; bScreen.style.height = "100%"; bScreen.style.background = "#7f1d1d"; bScreen.style.color = "#fecaca"; bScreen.style.zIndex = "99999"; bScreen.style.textAlign = "center"; bScreen.style.paddingTop = "15%"; bScreen.style.fontFamily = "monospace";
-                        bScreen.innerHTML = '<h1 style="color: #ef4444; font-size: 4rem; text-shadow: 0 0 20px rgba(0,0,0,0.8);">⚠️ ACCESSO NEGATO ⚠️</h1><p style="font-size: 2rem; font-weight: bold; margin-top: 20px;">SEI STATO BANDITO DALLA REPUBBLICA DI ROMIKAMI</p><p style="font-size: 1.3rem; color: #fca5a5; margin-top: 10px;">La tua sessione hardware è stata interrotta permanentemente dal Consiglio dei Quattro.</p><p style="font-size: 1.1rem; color: #ef4444; margin-top: 30px; font-style: italic;">Fortezza Hardware Predator 5000 Security Active</p>';
-                        document.body.appendChild(bScreen);
-                    }
 
                 <p style="color: #34d399; font-weight: bold; font-family: monospace; font-size: 1.1rem; margin-bottom: 20px;">🔓 ACCESSO AUTORIZZATO — BACHECA DEI COMPITI</p>
                 
