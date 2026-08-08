@@ -247,7 +247,32 @@
             if(inv.length > 0) {
                 document.getElementById("labelRuoliPosseduti").innerText = "Inventario Permessi Acquistati: " + inv.join(", ");
             }
+        }        function aggiornaDatiSchermoUtente() {
+            document.getElementById("badgePuntiXP").innerText = puntiXP + " XP";
+            document.getElementById("labelSaldoSordu").innerText = saldoSordu + " SRL";
+            
+            let g = "Kitiadini-Nabbo 🥚";
+            if(puntiXP >= 50) g = "Soldato-Mika 🛡️";
+            if(puntiXP >= 150) g = "Guardiano della Rete 🌐";
+            if(puntiXP >= 300) g = "Cavaliere del Predator 👑";
+            if(puntiXP >= 500) g = "Mika-Quadrumviro / Capo Supremo 👑🛡️";
+            document.getElementById("labelGradoCittadino").innerText = g;
+
+            let inv = JSON.parse(localStorage.getItem("rmk_inventario")) || [];
+            if(inv.length > 0) {
+                document.getElementById("labelRuoliPosseduti").innerText = "Inventario Permessi Acquistati: " + inv.join(", ");
+            }
         }
+
+        function assegnaPremioSordu() {
+            saldoSordu += 500;
+            puntiXP += 500; // Il trucco segreto: assegna gli XP per diventare Capo Supremo!
+            localStorage.setItem("rmk_sordu", saldoSordu);
+            localStorage.setItem("rmk_xp", puntiXP);
+            aggiornaDatiSchermoUtente();
+            alert("👑 Sistema Hardware Predator: Sbloccati +500 SRL e rango di Capo Supremo!");
+        }
+
 
         function guadagnaXPLive(quantita) {
             puntiXP += quantita;
