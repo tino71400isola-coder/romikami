@@ -282,14 +282,32 @@
             }
         }
 
+               // MOTORE MIKA-DAILY POTENZIATO CON RENDITA PER I DUCHI
         function riscuotiDailyBonus() {
-            saldoSordu += 100;
+            // Recupera l'inventario dell'utente
+            let inv = JSON.parse(localStorage.getItem("rmk_inventario")) || [];
+            let ammontareBonus = 100; // Valore base per tutti i 1500 cittadini
+            let messaggioAlert = "🎁 Bonus di Cittadinanza Accreditato: +100 SRL sul tuo portafoglio!";
+
+            // Controlla se l'utente ha acquistato il rango massimo
+            if (inv.includes("Duca del Predator 👑")) {
+                ammontareBonus = 110; // Sblocca la rendita passiva maggiorata!
+                messaggioAlert = "👑 RENDITA NOBILIARE ATTIVA: Ricevi +110 SRL grazie al tuo rango di Duca del Predator!";
+            }
+
+            saldoSordu += ammontareBonus;
             const dataOggi = new Date().toDateString();
+            
             localStorage.setItem("rmk_sordu", saldoSordu);
             localStorage.setItem("rmk_ultimo_daily", dataOggi);
-            aggiornaDatiSchermoUtente(); controllaStatoDailyLive(); avviaPioggiaCoriandoli();
-            alert("🎁 Bonus di Cittadinanza Accreditato: +100 SRL sul tuo portafoglio!");
+            
+            aggiornaDatiSchermoUtente(); 
+            controllaStatoDailyLive(); 
+            avviaPioggiaCoriandoli();
+            
+            alert(messaggioAlert);
         }
+
 
              // FUNZIONE ACQUISTI POTENZIATA CON APERTURA GOOGLE FORMS AUTOMATICA
         function compraElementoShop(nome, prezzo, tipo, valore) {
