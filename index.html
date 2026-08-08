@@ -156,7 +156,93 @@
         <div class="output-box inverse" id="outputIta">In attesa del testo...</div>
 
         <!-- DIZIONARIO VISIVO -->
+             <!-- DIZIONARIO VISIVO -->
         <h2 id="sezione-dizionario">📖 Dizionario Completo della Nazione</h2>
+        <p>Elenco dei vocaboli ufficiali approvati (Scorri la lista):</p>
+        <div class="dict-grid" id="dictionaryVisualGrid">
+            <!-- Riempito automaticamente da JavaScript -->
+        </div>
+
+        <!-- DOCUMENTI E LINKS -->
+        <h2>🪪 Richieste e Documenti di Stato</h2>
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="https://forms.gle" target="_blank" class="nav-btn">Richiedi Cittadinanza (Quiz)</a>
+            <a href="passaporto_vuoto.pdf" download class="nav-btn gold-btn">👑 Scarica il Passaporto (Mika-visualu)</a>
+        </div>
+    </div>
+
+    <script>
+        // Funzione per la tendina dei tre trattini
+        function toggleMenu() {
+            const menu = document.getElementById("dropdownMenu");
+            if (menu.style.display === "block") {
+                menu.style.display = "none";
+            } else {
+                menu.style.display = "block";
+            }
+        }
+
+        document.querySelectorAll('.dropdown-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById("dropdownMenu").style.display = "none";
+            });
+        });
+
+        const dictionary = {
+            // I Numeri di Stato
+            "zero": "ze", "uno": "un", "due": "do", "tre": "tri", "quattro": "quat",
+            "cinque": "kink", "sei": "se", "sette": "setis", "otto": "oto", "nove": "nufi",
+
+            // Relazioni e Persone
+            "ciao": "zhuao", "arrivederci": "zhuaorami", "sì": "zhu", "si": "zhu", "no": "koza",
+            "io": "zi", "tu": "ko", "noi": "ziko", "questo": "kiti", "anche": "anku", "tutto": "totu",
+            "cittadino": "kitiadini", "amico": "zhuadini", "nemico": "banadini", "capo": "mika",
+            "uomo": "omu", "donna": "femina", "padre": "babbu", "madre": "mamma", "fratello": "frati", "sorella": "sorru",
+
+            // Tecnologia e Casa
+            "computer": "predatori", "internet": "netu", "sito": "netu-pagu", "schermo": "visualu",
+            "tastiera": "tastu", "cavo": "linia", "elettricità": "voltu", "elettricita": "voltu",
+            "casa": "domu", "porta": "janna", "letto": "lettis", "comodino": "biku-lettis",
+            "armadio": "domu-bestiri", "sedia": "cadrea", "tavolo": "mesa", "luce": "lughi",
+
+            // Natura, Mare e Tempo
+            "mondo": "mundu", "paese": "biddai", "strada": "stradu", "cielo": "kelu",
+            "sole": "sko", "luna": "juna", "fuoco": "fogu", "acqua": "abba",
+            "mare": "mari", "spiaggia": "rena-biddai", "ombrellone": "tentu-sole", "asciugamano": "panno-abba",
+            "giorno": "die", "notte": "noti", "tempo": "tempu", "pioggia": "frore", "vento": "bentis", "neve": "nii",
+
+            // I Colori Ufficiali
+            "blu": "burk", "azzurro": "burk", "rosso": "ruju", "verde": "birde", "giallo": "grogu",
+            "oro": "oru", "nero": "nieddu", "bianco": "albu", "grigio": "fumofis", "arancione": "fogu-ruju",
+            "viola": "lughis-noti", "rosa": "frore-albu",
+
+            // Vita Quotidiana e Società
+            "soldi": "sordu", "lavoro": "traballu", "macchina": "makinari", "zaino": "saccu",
+            "vestiti": "bestiri", "scarpe": "kalzatru", "legge": "lege", "guerra": "guerru", "pace": "pakis",
+
+            // Qualità (Aggettivi)
+            "bene": "benu", "male": "malu", "grande": "magnu", "piccolo": "biku", "bello": "bellu",
+            "brutto": "bruttu", "forte": "fortis", "debole": "scuru", "nuovo": "nou", "vecchio": "antigu",
+            "veloce": "flussu", "lento": "ze-flussu", "caldo": "kallenti", "freddo": "frittu",
+            "felicità": "allia", "felicita": "allia", "tristezza": "buggis", "paura": "timore",
+
+            // Azioni Fondamentali (Verbi)
+            "essere": "essere", "avere": "tenere", "fare": "fakere", "andare": "andare",
+            "sapere": "sapare", "volere": "bolere", "mangiare": "papare", "dormire": "dormire",
+            "vedere": "mirare", "ascoltare": "askoltare", "comprare": "akattare", "cercare": "kerkare", "rompere": "spaccare",
+
+            // Gaming Tech
+            "giocare": "jukare", "vincere": "binkere", "perdere": "perdere", "sparare": "spara-voltu", 
+            "alleato": "team-zhuadini", "grado": "gradu", "livello": "gradu", "bandito": "kickatu", 
+            "segreto": "segretu", "blindato": "segretu", "password": "clabi-voltu", "chiave": "clabi-voltu", 
+            "riunione": "cussorgia", "consiglio": "cussorgia", "falso": "ze-mika", "pane": "pani", 
+            "carne": "petza", "pizza": "pitzas", "bere": "buffare", "bibita": "lattis-abba",
+
+            // Insulti Anti-Infiltrati
+            "scemo": "baddu-omu", "sciocho": "baddu-omu", "sciocco": "baddu-omu", "traditore": "ze-zhuadini", 
+            "spia": "ze-zhuadini", "nabbo": "ze-predatori", "fifone": "timore-saccu", "rompipalle": "buggu-bentis", "fastidioso": "buggu-bentis"
+        };
+
         <p>Elenco dei vocaboli ufficiali approvati (Scorri la lista):</p>
         <div class="dict-grid" id="dictionaryVisualGrid">
             <!-- Riempito automaticamente da JavaScript -->
