@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>Repubblica di Romikami - Mega-Up v3.0 Ufficiale</title>
+    <title>Repubblica di Romikami - Centrale Imperiale v3.0</title>
     <style>
         body { font-family: 'Segoe UI', sans-serif; text-align: center; background-color: #0f172a; color: #f8fafc; padding: 40px 20px; position: relative; transition: background 0.5s; }
         body.allerta-attiva { background-color: #451a03 !important; animation: pulse-allerta 2s infinite; }
@@ -26,12 +26,10 @@
         .output-box.inverse { border-color: #eab308; color: #eab308; }
         .panel-box { background: #0f172a; padding: 20px; border-radius: 12px; border: 1px solid #334155; margin-top: 15px; }
         .xp-badge { background: #38bdf8; color: #0f172a; padding: 3px 8px; border-radius: 6px; font-weight: bold; font-size: 0.9rem; }
-        
         .header-controls { position: absolute; top: 15px; right: 25px; display: flex; gap: 12px; align-items: center; z-index: 1000; }
         .hamburger-icon { font-size: 1.8rem; color: #38bdf8; cursor: pointer; background: #1e293b; border: 2px solid #38bdf8; padding: 4px 14px; border-radius: 8px; transition: 0.3s; user-select: none; }
         .dropdown-menu { display: none; position: absolute; top: 55px; right: 0; background: #1e293b; border: 2px solid #38bdf8; border-radius: 12px; padding: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); width: 220px; z-index: 1001; }
         .dropdown-menu a { display: block; width: 100%; text-decoration: none; color: #f8fafc; background: #0f172a; border: 1px solid #334155; padding: 10px; margin-bottom: 8px; border-radius: 8px; font-weight: bold; text-align: center; font-size: 0.95rem; box-sizing: border-box; }
-        
         .passport-card { background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%); border: 2px dashed #eab308; padding: 20px; border-radius: 12px; margin-top: 15px; font-family: monospace; display: none; box-shadow: 0 0 15px rgba(234, 179, 8, 0.2); }
         .chat-box { background: #0f172a; border: 1px solid #334155; border-radius: 10px; padding: 15px; height: 160px; overflow-y: auto; font-family: monospace; font-size: 0.95rem; }
         .msg { margin-bottom: 8px; line-height: 1.4; }
@@ -39,7 +37,6 @@
     </style>
 </head>
 <body>
-
     <div class="header-controls">
         <a href="#" class="nav-btn home-btn" style="margin: 0; padding: 8px 16px; font-size: 0.95rem;">🏠 Home</a>
         <div class="hamburger-icon" onclick="toggleMenu()">☰</div>
@@ -52,8 +49,9 @@
             <a href="#sezione-ministri">🔑 Area Capi</a>
         </div>
     </div>
+
     <div class="container">
-        <!-- BANDIERA NAZIONALE UFFICIALE CON LINK AGGIORNATO -->
+        <!-- BANDIERA NAZIONALE UFFICIALE -->
         <div style="text-align: center; margin-bottom: 20px;">
             <img src="https://i.ibb.co/60JwG2Z0/bandiera-romikami.jpg" alt="Bandiera di Romikami" style="max-width: 100%; height: auto; border-radius: 15px; border: 2px solid #38bdf8; box-shadow: 0 4px 14px rgba(56, 189, 248, 0.4);">
         </div>
@@ -64,7 +62,7 @@
         <p style="text-align: center; font-style: italic; color: #64748b;">Mika-Romikami - Portale Governativo Centrale v3.0</p>
 
         <h2>📜 Fondazione e Storia dello Stato</h2>
-        <p>La Repubblica di Romikami conta oggi oltre <strong>1500 cittadini ufficiali</strong>. Fondata sulla stabilità e sulla potenza di calcolo della fortezza hardware <strong>Predator 5000</strong>, la nostra nazione si erge come baluardo di indipendenza e sovranità tecnologica nel mondo digitale.</p>
+        <p>La Repubblica di Romikami conta oggi oltre <strong>1500 cittadini ufficiali</strong> ed è priva di infiltrazioni. Fondata sulla stabilità e sulla potenza di calcolo della fortezza hardware <strong>Predator 5000</strong>, la nostra nazione si erge come baluardo di indipendenza e sovranità tecnologica nel mondo digitale.</p>
 
         <!-- 1. BONUS GIORNALIERO (MIKA-DAILY) -->
         <h2 id="sezione-daily">🎁 Ricompensa di Stato Giornaliera (Mika-Daily)</h2>
@@ -74,7 +72,7 @@
             <p id="labelDailyStatus" style="font-size: 0.95rem; color: #34d399; margin-top: 10px; font-family: monospace; font-weight: bold;"></p>
         </div>
 
-                     <!-- 2. MEGA-SHOP V3.0 POTENZIATO CON 8 ELEMENTI -->
+        <!-- 2. MEGA-SHOP V3.0 (PARTE PRIMA) -->
         <h2 id="sezione-shop">🛒 Il Mega-Shop di Romikami (Mika-Shop)</h2>
         <div class="panel-box" style="border-color: #38bdf8;">
             <p style="margin-top: 0;">Spendi i tuoi Sordu (SRL) per sbloccare chip di potenziamento, titoli nobiliari o licenze speciali:</p>
@@ -103,9 +101,10 @@
                     <span style="color:#eab308; font-weight:bold; display:block; margin-bottom:8px;">1500 SRL</span>
                     <button class="action-btn" onclick="compraElementoShop('Licenza Parola 📝', 1500, 'licenza', 0)">COMPRA LICENZA</button>
                 </div>
+
                 <div style="background:#1e293b; padding:15px; border-radius:8px; border:1px solid #334155; text-align:center;">
                     <strong style="color:#fff; display:block; font-size:1.05rem;">TEMA PREDATOR MATRIX 🎨</strong>
-                    <span style="color:#94a3b8; display:block; font-size:0.85rem; margin:3px 0;">Sblocca il bottone per attivare il tema Matrix</span>
+                    <span style="color:#94a3b8; display:block; font-size:0.85rem; margin:3px 0;">Sblocca lo sfondo hacker verde</span>
                     <span style="color:#eab308; font-weight:bold; display:block; margin-bottom:8px;">1200 SRL</span>
                     <button class="action-btn" onclick="compraElementoShop('Tema Matrix 🎨', 1200, 'matrix', 0)">SBLOCCA TEMA</button>
                 </div>
@@ -117,7 +116,7 @@
                 </div>
                 <div style="background:#1e293b; padding:15px; border-radius:8px; border:1px solid #334155; text-align:center;">
                     <strong style="color:#fff; display:block; font-size:1.05rem;">MODIFICA ID PASSAPORTO 🛡️</strong>
-                    <span style="color:#94a3b8; display:block; font-size:0.85rem; margin:3px 0;">Sblocca la scritta ID personalizzata sulla tessera</span>
+                    <span style="color:#94a3b8; display:block; font-size:0.85rem; margin:3px 0;">Sblocca il codice ID personalizzato sulla tessera</span>
                     <span style="color:#eab308; font-weight:bold; display:block; margin-bottom:8px;">2000 SRL</span>
                     <button class="action-btn" onclick="compraElementoShop('Modifica ID 🛡️', 2000, 'custom_id', 0)">COMPRA MODIFICA</button>
                 </div>
@@ -128,13 +127,21 @@
                     <button class="action-btn" onclick="compraElementoShop('Lotteria 🃏', 300, 'lotteria', 0)">GIOCA BIGLIETTO</button>
                 </div>
             </div>
+            
+            <!-- CASSETTA DI CONTROLLO EXTRA SBLOCCABILI -->
+            <div id="controlliExtraShop" style="margin-top:15px; display:none; background:#0f172a; padding:15px; border-radius:8px; text-align:center; border:2px dashed #38bdf8;">
+                <p style="margin:0 0 10px 0; font-size:0.9rem; color:#94a3b8;">🎛️ Terminale di Attivazione Elementi Comprati:</p>
+                <button class="action-btn gold-btn" id="btnAttivaMatrix" style="width:auto; margin:5px; display:none;" onclick="attivaTemaMatrixLive()">ATTIVA TEMA MATRIX 🎨</button>
+                <div id="divCustomId" style="margin-top:10px; display:none;"><input type="text" id="textCustomIdInput" style="background:#1e293b; color:#fff; border:1px solid #334155; padding:6px; border-radius:4px; width:150px; font-size:0.85rem;" placeholder="NUOVO ID ES: PRO-PLAYER"><button class="action-btn" style="width:auto; padding:6px 12px; display:inline-block; margin-left:5px;" onclick="salvaCustomIdLive()">SALVA CODICE ID</button></div>
+            </div>
+            <div id="labelRuoliPosseduti" style="margin-top:15px; padding:10px; background:#0f172a; border-radius:6px; font-family:monospace; color:#34d399; font-size:0.95rem; text-align:center;">Inventario Elementi Sbloccati: Nessuno</div>
+        </div>
 
         <!-- STAMPATRICE AUTOMATICA PASAPORTI -->
         <h2 id="sezione-passaporto">🪪 Stampatrice Automatica di Passaporti</h2>
         <div class="panel-box" style="border-color: #eab308;">
             <p style="margin-top: 0;">Digita il tuo nome per generare la tessera ufficiale sincronizzata con il database locale:</p>
-            <input type="text" id="inputNomePassaporto" style="background:#0f172a; color:#fff; border:1px solid #334155; padding:8px; border-radius:6px; width:200px;" placeholder="INSERISCI NOME">
-            <button class="action-btn" style="width:auto; display:inline-block; margin-left:10px;" onclick="generaPassaportoLive()">STAMPA PASSAPORTO</button>
+            <input type="text" id="inputNomePassaporto" style="background:#0f172a; color:#fff; border:1px solid #334155; padding:8px; border-radius:6px; width:200px;" placeholder="INSERISCI NOME"><button class="action-btn" style="width:auto; display:inline-block; margin-left:10px;" onclick="generaPassaportoLive()">STAMPA PASSAPORTO</button>
             
             <div class="passport-card" id="cardPassaportoVisivo">
                 <div style="border-bottom:1px solid #eab308; padding-bottom:10px; margin-bottom:10px; text-align:center;">
@@ -146,6 +153,17 @@
                 <p>SOLDI ATTUALI: <span id="passSaldo" style="color:#34d399; font-weight:bold;">---</span></p>
                 <p>CHIP DI MEMORIA ID: <span id="passID" style="color:#64748b;">---</span></p>
                 <div style="text-align:right; font-size:0.75rem; color:#eab308; margin-top:10px; font-style:italic;">Approvato da Tynox (Mika-Un)</div>
+            </div>
+        </div>
+
+
+        <!-- 3. BACHECA MESSAGGI SEGRETATI WHATSAPP -->
+        <h2 id="sezione-chat">💬 Bacheca Direttive Militari (Mika-Net)</h2>
+        <div class="panel-box" style="border-color: #ef4444;">
+            <p style="margin-top: 0;">Incolla la Password dei Capi per decrittare gli ordini decisi dal Quadrumvirato su WhatsApp:</p>
+            <input type="password" id="inputPassChat" style="background:#0f172a; color:#ef4444; border:1px solid #ef4444; padding:8px; border-radius:6px; width:200px; text-align:center; font-family:monospace;" placeholder="PASSWORD DI STATO" oninput="controllaPasswordChat()">
+            <div id="boxChatMilitare" style="display:none; margin-top:15px;">
+                <div class="chat-box" id="corpoChatMilitare"></div>
             </div>
         </div>
 
@@ -174,21 +192,12 @@
                 </div>
             </div>
         </div>
-        <!-- 3. BACHECA MESSAGGI SEGRETATI WHATSAPP -->
-        <h2 id="sezione-chat">💬 Bacheca Direttive Militari (Mika-Net)</h2>
-        <div class="panel-box" style="border-color: #ef4444;">
-            <p style="margin-top: 0;">Incolla la Password dei Capi per decrittare gli ordini decisi dal Quadrumvirato su WhatsApp:</p>
-            <input type="password" id="inputPassChat" style="background:#0f172a; color:#ef4444; border:1px solid #ef4444; padding:8px; border-radius:6px; width:200px; text-align:center; font-family:monospace;" placeholder="PASSWORD DI STATO" oninput="controllaPasswordChat()">
-            <div id="boxChatMilitare" style="display:none; margin-top:15px;">
-                <div class="chat-box" id="corpoChatMilitare"></div>
-            </div>
-        </div>
 
         <!-- TERMINALE BLINDATO GOVERNATIVO v3.0 -->
         <h2 id="sezione-ministri">🔑 Terminale Governativo Blindato</h2>
         <div style="background: #1e1b4b; border: 2px dashed #e11d48; padding: 25px; border-radius: 15px; margin-top: 20px; margin-bottom: 30px;">
             <p style="color: #e11d48; font-weight: bold; margin-top: 0; font-size: 1.2rem;">⚠️ AREA RISERVATA AL QUADRUMVIRATO</p>
-            <p style="font-size: 1rem; color: #94a3b8; margin-bottom: 15px;">Inserisci la chiave d'accesso per sbloccare i controls dei quattro Capi di Stato:</p>
+            <p style="font-size: 1rem; color: #94a3b8; margin-bottom: 15px;">Inserisci la chiave d'accesso per sbloccare i controlli dei quattro Capi di Stato:</p>
             <input type="password" style="background: #0f172a; color: #e11d48; border: 1px solid #e11d48; padding: 10px; font-family: monospace; font-size: 1.1rem; border-radius: 5px; width: 220px; text-align: center;" placeholder="PASSWORD DI STATO" oninput="if(this.value==='zhuaoromikami2026'){document.getElementById('secretGovernmentContent').style.display='block'}else{document.getElementById('secretGovernmentContent').style.display='none'}">
             
             <div id="secretGovernmentContent" style="display: none; margin-top: 25px; border-top: 1px dashed #e11d48; padding-top: 20px;">
@@ -217,6 +226,7 @@
             </div>
         </div>
 
+
         <!-- TRADUTTORI DI STATO -->
         <h2 id="sezione-traduttori">🗣️ Traduttore di Stato (Italiano ➡️ Romikamese)</h2>
         <textarea id="inputIta" placeholder="Scrivi in italiano... Es: il capo vuole il passaporto blu" oninput="translateItaToRmk()"></textarea>
@@ -226,10 +236,12 @@
         <textarea id="inputRmk" placeholder="Scrivi in romikamese... Es: mika bolere lettis nou kun juna" oninput="translateRmkToIta()"></textarea>
         <div class="output-box inverse" id="outputIta">In attesa del testo...</div>
 
-        <h2>📖 Dizionario Completo della Nazione</h2>
+        <!-- DIZIONARIO VISIVO A SCORRIMENTO -->
+        <h2 id="sezione-dizionario">📖 Dizionario Completo della Nazione</h2>
+        <p>Elenco dei vocaboli ufficiali approvati (Scorri la lista):</p>
         <div class="dict-grid" id="dictionaryVisualGrid"></div>
 
-        <!-- COLLEGAMENTO AL NUOVO GOOGLE FORMS -->
+        <!-- LINKS ISTITUZIONALI CON NUOVO GOOGLE FORMS -->
         <h2>🪪 Richieste e Documenti di Romikami</h2>
         <div style="text-align: center; margin-top: 20px;">
             <a href="https://forms.gle/32T28kATvY74Jjbd8" target="_blank" class="nav-btn">Richiedi Cittadinanza (Quiz)</a>
@@ -239,99 +251,9 @@
 
     <!-- EFFETTI DI PIOGGIA CELEBRATIVA -->
     <div id="rainContainer" style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:99999; display:none;"></div>
-        <script>
-let puntiXP=parseInt(localStorage.getItem("rmk_xp"))||50,saldoSordu=parseInt(localStorage.getItem("rmk_sordu"))||500,allertaStato=localStorage.getItem("rmk_allerta")==="true",idPersonalizzato=localStorage.getItem("rmk_custom_id")||"";
-const dictionary={"zero":"ze","uno":"un","due":"do","tre":"tri","quattro":"quat","cinque":"kink","sei":"se","sette":"setis","otto":"oto","nove":"nufi","ciao":"zhuao","arrivederci":"zhuaorami","sì":"zhu","si":"zhu","no":"koza","io":"zi","tu":"ko","noi":"ziko","capo":"mika","computer":"predatori","blu":"burk","rosso":"ruju","verde":"birde","giallo":"grogu","soldi":"sordu","lavoro":"traballu","nemico":"banadini","amico":"zhuadini"};
-const inverseDictionary={};Object.keys(dictionary).forEach(k=>{inverseDictionary[dictionary[k]]=k;});
-aggiornaDatiSchermoUtente();applicaStatoAllertaGrafica();controllaStatoDailyLive();ripristinaControlliAcquistiPrecedenti();
-
-function aggiornaDatiSchermoUtente(){
-    document.getElementById("badgePuntiXP").innerText=puntiXP+" XP";
-    document.getElementById("labelSaldoSordu").innerText=saldoSordu+" SRL";
-    let g="Cittadino Scelto 🏅";if(puntiXP>=150)g="Guardiano della Rete 🌐";if(puntiXP>=300)g="Cavaliere del Predator 👑";if(puntiXP>=500)g="Mika-Quadrumviro / Capo Supremo 👑🛡️";
-    document.getElementById("labelGradoCittadino").innerText=g;
-}
-function ripristinaControlliAcquistiPrecedenti(){
-    let inv=JSON.parse(localStorage.getItem("rmk_inventario"))||[];
-    if(inv.length>0){
-        document.getElementById("labelRuoliPosseduti").innerText="Inventario Elementi Sbloccati: "+inv.join(", ");
-        if(inv.includes("Tema Matrix 🎨")){
-            let b=document.getElementById("btnAttivaMatrix");b.disabled=false;b.style.background="#eab308";b.style.cursor="pointer";b.innerText="ATTIVA TEMA MATRIX 🎨";
-        }
-        if(inv.includes("Modifica ID 🛡️")){
-            document.getElementById("divCustomId").style.opacity="1";document.getElementById("textCustomIdInput").disabled=false;
-            let s=document.getElementById("btnSalvaCustomId");s.disabled=false;s.style.background="#10b981";s.style.cursor="pointer";
-        }
-    }
-}
-function controllaStatoDailyLive(){
-    const u=localStorage.getItem("rmk_ultimo_daily"),d=new Date().toDateString(),btn=document.getElementById("btnDailyBonus"),lbl=document.getElementById("labelDailyStatus");
-    if(u===d){btn.disabled=true;btn.style.background="#64748b";btn.style.cursor="not-allowed";lbl.innerText="✔ BONUS RISCOSSO OGGI! Torna domani.";}
-    else{btn.disabled=false;btn.style.background="#34d399";btn.style.cursor="pointer";lbl.innerText="🎁 Bonus disponibile!";}
-}
-function riscuotiDailyBonus(){
-    let inv=JSON.parse(localStorage.getItem("rmk_inventario"))||[],b=100,x=10,m="🎁 RISCOSSIONE COMPLETATA!\n\n+100 SRL e +10 XP";
-    if(inv.includes("Cavaliere ⚔️")){x=50;m="⚔️ PRIVILEGIO CAVALIERE:\n\n+100 SRL e +50 XP";}
-    if(inv.includes("Duca del Predator 👑")){b=110;x=150;m="👑 RENDITA SUPREMA DA DUCA:\n\n+110 SRL e +150 XP";}
-    saldoSordu+=b;puntiXP+=x;localStorage.setItem("rmk_sordu",saldoSordu);localStorage.setItem("rmk_xp",puntiXP);localStorage.setItem("rmk_ultimo_daily",new Date().toDateString());
-    aggiornaDatiSchermoUtente();controllaStatoDailyLive();avviaPioggiaCoriandoli();alert(m);
-}
-function compraElementoShop(nome,prezzo,tipo,valore){
-    if(saldoSordu>=prezzo){
-        saldoSordu-=prezzo;localStorage.setItem("rmk_sordu",saldoSordu);
-        if(tipo==="xp"){puntiXP+=valore;localStorage.setItem("rmk_xp",puntiXP);}
-        let inv=JSON.parse(localStorage.getItem("rmk_inventario"))||[];inv.push(nome);localStorage.setItem("rmk_inventario",JSON.stringify(inv));
-        aggiornaDatiSchermoUtente();ripristinaControlliAcquistiPrecedenti();
-        if(tipo==="licenza"){alert("📝 LICENZA ATTIVA! Verrai reindirizzato al modulo.");window.open("https://forms.gle","_blank");return;}
-        if(tipo==="lotteria"){
-            let n=Math.floor(Math.random()*10);
-            if(n===7){saldoSordu+=1000;localStorage.setItem("rmk_sordu",saldoSordu);aggiornaDatiSchermoUtente();avviaPioggiaCoriandoli();alert("🎰 LOTTERIA: Uscito il 7! Vinci +1000 SRL!");}
-            else{alert("❌ Non vincente! Uscito il numero "+n);}return;
-        }
-        alert("🛒 ACQUISTO EFFETTUATO: "+nome.toUpperCase());
-    }else{alert("❌ Sordu insufficienti!");}
-}
-function attivaTemaMatrixLive(){document.body.style.background="#052e16";document.body.style.color="#22c55e";alert("🎨 TEMA PREDATOR MATRIX ATTIVATO!");}
-function salvaCustomIdLive(){
-    const t=document.getElementById("textCustomIdInput").value.trim().toUpperCase();if(t===""){alert("Inserisci un codice!");return;}
-    idPersonalizzato="RMK-"+t;localStorage.setItem("rmk_custom_id",idPersonalizzato);alert("🛡️ ID REGISTRATO: "+idPersonalizzato);
-}
-function generaPassaportoLive(){
-    const n=document.getElementById("inputNomePassaporto").value.trim().toUpperCase();if(n===""){alert("Inserisci il tuo nome!");return;}
-    let inv=JSON.parse(localStorage.getItem("rmk_inventario"))||[],t=inv.length>0?inv.join(", "):"Nessuno";
-    document.getElementById("cardPassaportoVisivo").style.display="block";document.getElementById("passNome").innerText=n;
-    document.getElementById("passGrado").innerText=document.getElementById("labelGradoCittadino").innerText+" ("+t+")";
-    document.getElementById("passSaldo").innerText=saldoSordu+" SRL";document.getElementById("passID").innerText=idPersonalizzato?idPersonalizzato:"RMK-"+Math.floor(100000+Math.random()*900000);
-}
-function controllaPasswordChat(){
-    if(document.getElementById("inputPassChat").value==="zhuaoromikami2026"){
-        document.getElementById("boxChatMilitare").style.display="block";
-        document.getElementById("corpoChatMilitare").innerHTML='<div class="msg"><span class="msg-ty">[TYNOX]:</span> Server Predator v3.0 online. Conto Daily attivo.</div><div class="msg"><span class="msg-ny">[NYNX]:</span> Firewall protetti. Controllo sanzioni attivo.</div><div class="msg"><span class="msg-le">[LEO]:</span> Logistica munizioni coordinata via WhatsApp.</div>';
-    }else{document.getElementById("boxChatMilitare").style.display="none";}
-}
-function assegnaPremioSordu(){saldoSordu+=500;puntiXP+=500;localStorage.setItem("rmk_sordu",saldoSordu);localStorage.setItem("rmk_xp",puntiXP);aggiornaDatiSchermoUtente();alert("👑 +500 SRL e rango Capo Supremo sbloccati per TYNOX!");}
-function applicaMultaDiStato(){saldoSordu=(saldoSordu>=200)?saldoSordu-200:0;localStorage.setItem("rmk_sordu",saldoSordu);aggiornaDatiSchermoUtente();alert("🛑 NYNX ha applicato una sanzione di -200 SRL.");}
-function azzeraTuttiXP(){puntiXP=50;saldoSordu=500;localStorage.setItem("rmk_xp",puntiXP);localStorage.setItem("rmk_sordu",saldoSordu);localStorage.removeItem("rmk_inventario");document.getElementById("labelRuoliPosseduti").innerText="Inventario Elementi Sbloccati: Nessuno";aggiornaDatiSchermoUtente();alert("Database livelli azzerato.");}
-function toggleAllertaStato(){allertaStato=!allertaStato;localStorage.setItem("rmk_allerta",allertaStato);applicaStatoAllertaGrafica();}
-function applicaStatoAllertaGrafica(){
-    const b=document.getElementById("btnAllertaDifesa"),banner=document.getElementById("statoAllertaBanner");
-    if(allertaStato){document.body.classList.add("allerta-attiva");if(b)b.innerText="DISATTIVA ALLERTA";if(banner)banner.style.display="block";}
-    else{document.body.classList.remove("allerta-attiva");if(b)b.innerText="ATTIVA ALLERTA";if(banner)banner.style.display="none";}
-}
-function avviaPioggiaCoriandoli(){
-    const c=document.getElementById("rainContainer");c.style.display="block";c.innerHTML="";
-    for(let i=0;i<30;i++){const drop=document.createElement("div");drop.style="position:absolute;width:15px;height:15px;border-radius:50%;background:"+(Math.random()>0.5?"#38bdf8":"#eab308")+";left:"+Math.random()*100+"%;top:-20px;animation:fall "+(1+Math.random()*1.5)+"s linear forwards;";c.appendChild(drop);}
-    setTimeout(()=>c.style.display="none",2500);
-}
-const grid=document.getElementById("dictionaryVisualGrid");Object.keys(dictionary).sort().forEach(w=>{if(w!=="si"){const item=document.createElement("div");item.className="dict-item";item.innerHTML=`${w.charAt(0).toUpperCase()+w.slice(1)} ➡️ <span>${dictionary[w]}</span>`;grid.appendChild(item);}});
-function translateItaToRmk(){const input=document.getElementById("inputIta").value.toLowerCase();if(!input.trim()){document.getElementById("outputRmk").innerText="In attesa del testo...";return;}const words=input.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(/\s+/);document.getElementById("outputRmk").innerText=words.map(word=>dictionary[word]?dictionary[word]:word).join(" ");}
-function translateRmkToIta(){const input=document.getElementById("inputRmk").value.toLowerCase();if(!input.trim()){document.getElementById("outputIta").innerText="In attesa del testo...";return;}const words=input.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(/\s+/);document.getElementById("outputIta").innerText=words.map(word=>inverseDictionary[word]?inverseDictionary[word]:word).join(" ");}
-</script>
-<style>@keyframes fall{to{top:100%;transform:rotate(360deg);}}</style>
-</body>
-</html>
 
     <script>
+        // Gestione Menu Tendina ☰
         function toggleMenu() {
             const m = document.getElementById("dropdownMenu");
             m.style.display = (m.style.display === "block") ? "none" : "block";
@@ -344,7 +266,9 @@ function translateRmkToIta(){const input=document.getElementById("inputRmk").val
         let puntiXP = parseInt(localStorage.getItem("rmk_xp")) || 50;
         let saldoSordu = parseInt(localStorage.getItem("rmk_sordu")) || 500;
         let allertaStato = localStorage.getItem("rmk_allerta") === "true";
+        let idPersonalizzato = localStorage.getItem("rmk_custom_id") || "";
 
+        // Dizionario Enciclopedico Completo v3.0
         const dictionary = {
             "zero": "ze", "uno": "un", "due": "do", "tre": "tri", "quattro": "quat", "cinque": "kink", "sei": "se", "sette": "setis", "otto": "oto", "nove": "nufi",
             "ciao": "zhuao", "arrivederci": "zhuaorami", "sì": "zhu", "si": "zhu", "no": "koza", "io": "zi", "tu": "ko", "noi": "ziko", "questo": "kiti", "anche": "anku", "tutto": "totu",
@@ -369,6 +293,7 @@ function translateRmkToIta(){const input=document.getElementById("inputRmk").val
         aggiornaDatiSchermoUtente();
         applicaStatoAllertaGrafica();
         controllaStatoDailyLive();
+        ripristinaControlliAcquistiPrecedenti();
 
         function aggiornaDatiSchermoUtente() {
             document.getElementById("badgePuntiXP").innerText = puntiXP + " XP";
@@ -376,97 +301,83 @@ function translateRmkToIta(){const input=document.getElementById("inputRmk").val
             let g = "Cittadino Scelto 🏅";
             if(puntiXP >= 150) g = "Guardiano della Rete 🌐";
             if(puntiXP >= 300) g = "Cavaliere del Predator 👑";
-            if(puntiXP >= 500) g = "Mika-Quadrumviro 🛡️";
-            if(puntiXP >= 1000) g = "Capo Supremo 🛡️👑";
+            if(puntiXP >= 500) g = "Mika-Quadrumviro / Capo Supremo 👑🛡️";
             document.getElementById("labelGradoCittadino").innerText = g;
         }
 
-        // CONTROL CALENDARIO PER IL BONUS GIORNALIERO
+        function ripristinaControlliAcquistiPrecedenti() {
+            let inv = JSON.parse(localStorage.getItem("rmk_inventario")) || [];
+            if(inv.length > 0) {
+                document.getElementById("labelRuoliPosseduti").innerText = "Inventario Elementi Sbloccati: " + inv.join(", ");
+                document.getElementById("controlliExtraShop").style.display = "block";
+                if (inv.includes("Tema Matrix 🎨")) {
+                    let b = document.getElementById("btnAttivaMatrix");
+                    b.disabled = false; b.style.background = "#eab308"; b.style.cursor = "pointer";
+                    b.innerText = "ATTIVA TEMA MATRIX 🎨"; b.style.display = "inline-block";
+                }
+                if (inv.includes("Modifica ID 🛡️")) {
+                    document.getElementById("divCustomId").style.display = "block";
+                }
+            }
+        }
+
         function controllaStatoDailyLive() {
-            const ultimaData = localStorage.getItem("rmk_ultimo_daily");
-            const dataOggi = new Date().toDateString();
+            const u = localStorage.getItem("rmk_ultimo_daily");
+            const d = new Date().toDateString();
             const btn = document.getElementById("btnDailyBonus");
             const lbl = document.getElementById("labelDailyStatus");
-            if (ultimaData === dataOggi) {
+            if (u === d) {
                 btn.disabled = true; btn.style.background = "#64748b"; btn.style.cursor = "not-allowed";
-                lbl.innerText = "✔ BONUS RISCOSSO OGGI! Torna domani per altri 100 Sordu.";
+                lbl.innerText = "✔ BONUS RISCOSSO OGGI! Torna domani per altri Sordu.";
             } else {
                 btn.disabled = false; btn.style.background = "#34d399"; btn.style.cursor = "pointer";
                 lbl.innerText = "🎁 Bonus disponibile per la riscossione!";
             }
         }
 
-                       // MOTORE MIKA-DAILY POTENZIATO: CALCOLO LIVELLO ED ECONOMIA PER RANGHI
         function riscuotiDailyBonus() {
             let inv = JSON.parse(localStorage.getItem("rmk_inventario")) || [];
-            
-            // 1. Configurazione valori di base (Cittadino normale senza titoli)
-            let ammontareBonus = 100;
-            let ammontareXP = 10;
-            let messaggioAlert = "🎁 RISCOSSIONE COMPLETATA!\n\nRicevi i fondi base di cittadinanza:\n+100 SRL (Sordu)\n+10 XP (Esperienza)";
+            let b = 100; let x = 10;
+            let m = "🎁 RISCOSSIONE COMPLETATA!\n\n+100 SRL (Sordu)\n+10 XP (Esperienza)";
 
-            // 2. Controllo se l'utente è un CAVALIERE
-            if (inv.includes("Cavaliere ⚔️")) {
-                ammontareBonus = 100; // Mantiene i Sordu base
-                ammontareXP = 50;     // Riceve un grande boost di XP!
-                messaggioAlert = "⚔️ PRIVILEGIO CAVALIERE ATTIVO:\n\nIl tuo addestramento quotidiano ti premia:\n+100 SRL (Sordu)\n+50 XP (Esperienza)";
-            }
+            if (inv.includes("Cavaliere ⚔️")) { x = 50; m = "⚔️ PRIVILEGIO CAVALIERE:\n\n+100 SRL\n+50 XP"; }
+            if (inv.includes("Duca del Predator 👑")) { b = 110; x = 150; m = "👑 RENDITA SUPREMA DA DUCA:\n\n+110 SRL\n+150 XP"; }
 
-            // 3. Controllo se l'utente è un DUCA DEL PREDATOR (Rango Massimo)
-            if (inv.includes("Duca del Predator 👑")) {
-                ammontareBonus = 110; // Rendita monetaria maggiorata
-                ammontareXP = 150;    // Carica di XP leggendaria!
-                messaggioAlert = "👑 RENDITA SUPREMA DA DUCA:\n\nLa tua fedeltà al Predator 5000 sblocca il massimo dei premi:\n+110 SRL (Sordu)\n+150 XP (Esperienza)";
-            }
-
-            // Accredito punti e salvataggio nel database locale
-            saldoSordu += ammontareBonus;
-            puntiXP += ammontareXP;
-            
-            const dataOggi = new Date().toDateString();
-            
-            localStorage.setItem("rmk_sordu", saldoSordu);
-            localStorage.setItem("rmk_xp", puntiXP);
-            localStorage.setItem("rmk_ultimo_daily", dataOggi);
-            
-            // Aggiorna la grafica, il calendario e avvia la festa
-            aggiornaDatiSchermoUtente(); 
-            controllaStatoDailyLive(); 
-            avviaPioggiaCoriandoli();
-            
-            alert(messaggioAlert);
+            saldoSordu += b; puntiXP += x;
+            localStorage.setItem("rmk_sordu", saldoSordu); localStorage.setItem("rmk_xp", puntiXP);
+            localStorage.setItem("rmk_ultimo_daily", new Date().toDateString());
+            aggiornaDatiSchermoUtente(); controllaStatoDailyLive(); avviaPioggiaCoriandoli();
+            alert(m);
         }
 
-
-             // FUNZIONE ACQUISTI POTENZIATA CON APERTURA GOOGLE FORMS AUTOMATICA
         function compraElementoShop(nome, prezzo, tipo, valore) {
             if (saldoSordu >= prezzo) {
-                saldoSordu -= prezzo;
-                localStorage.setItem("rmk_sordu", saldoSordu);
-                
-                if (tipo === "xp") { 
-                    puntiXP += valore; 
-                    localStorage.setItem("rmk_xp", puntiXP); 
-                }
+                saldoSordu -= prezzo; localStorage.setItem("rmk_sordu", saldoSordu);
+                if (tipo === "xp") { puntiXP += valore; localStorage.setItem("rmk_xp", puntiXP); }
                 
                 let inv = JSON.parse(localStorage.getItem("rmk_inventario")) || [];
-                inv.push(nome); 
-                localStorage.setItem("rmk_inventario", JSON.stringify(inv));
+                inv.push(nome); localStorage.setItem("rmk_inventario", JSON.stringify(inv));
                 
-                aggiornaDatiSchermoUtente();
-                document.getElementById("labelRuoliPosseduti").innerText = "Inventario Elementi Sbloccati: " + inv.join(", ");
-                
-                alert("🛒 ACQUISTO APPROVATO! Ottenuto: " + nome.toUpperCase());
+                aggiornaDatiSchermoUtente(); ripristinaControlliAcquistiPrecedenti();
 
-                // SE COMPRA LA LICENZA, APRE IL GOOGLE MODULO IN AUTOMATICO
                 if (tipo === "licenza") {
-                    alert("📝 LICENZA ATTIVA! Ora verrai reindirizzato al Google Modulo ufficiale per inviare la tua parola a Tynox, Nynx e Leo.");
+                    alert("📝 LICENZA ATTIVA! Verrai reindirizzato al modulo.");
                     window.open("https://forms.gle/EDaXYqvN3i9wZX6Q8", "_blank");
+                    return;
                 }
-            } else {
-                alert("❌ Sordu insufficienti sul tuo conto!");
-            }
+                if (tipo === "lotteria") {
+                    let n = Math.floor(Math.random() * 10);
+                    if (n === 7) {
+                        saldoSordu += 1000; localStorage.setItem("rmk_sordu", saldoSordu);
+                        aggiornaDatiSchermoUtente(); avviaPioggiaCoriandoli();
+                        alert("🎰 LOTTERIA: Uscito il numero 7! Vinci +1000 SRL!");
+                    } else { alert("❌ Non vincente! Uscito il numero " + n); }
+                    return;
+                }
+                alert("🛒 ACQUISTO EFFETTUATO: " + nome.toUpperCase());
+            } else { alert("❌ Sordu insufficienti!"); }
         }
+
         function attivaTemaMatrixLive() {
             document.body.style.background = "#052e16"; document.body.style.color = "#22c55e";
             alert("🎨 TEMA PREDATOR MATRIX ATTIVATO!");
@@ -474,75 +385,34 @@ function translateRmkToIta(){const input=document.getElementById("inputRmk").val
 
         function salvaCustomIdLive() {
             const t = document.getElementById("textCustomIdInput").value.trim().toUpperCase();
-            if (t === "") { alert("Incolla o scrivi un codice valido!"); return; }
+            if (t === "") { alert("Inserisci un codice!"); return; }
             idPersonalizzato = "RMK-" + t; localStorage.setItem("rmk_custom_id", idPersonalizzato);
             alert("🛡️ ID REGISTRATO: " + idPersonalizzato);
         }
 
         function generaPassaportoLive() {
-            const nome = document.getElementById("inputNomePassaporto").value.trim().toUpperCase();
-            if (nome === "") { alert("Inserisci il tuo nome!"); return; }
+            const n = document.getElementById("inputNomePassaporto").value.trim().toUpperCase();
+            if (n === "") { alert("Inserisci il tuo nome!"); return; }
             let inv = JSON.parse(localStorage.getItem("rmk_inventario")) || [];
-            let titoli = inv.length > 0 ? inv.join(", ") : "Nessuno";
+            let t = inv.length > 0 ? inv.join(", ") : "Nessuno";
             document.getElementById("cardPassaportoVisivo").style.display = "block";
-            document.getElementById("passNome").innerText = nome;
-            document.getElementById("passGrado").innerText = document.getElementById("labelGradoCittadino").innerText + " (" + titoli + ")";
+            document.getElementById("passNome").innerText = n;
+            document.getElementById("passGrado").innerText = document.getElementById("labelGradoCittadino").innerText + " (" + t + ")";
             document.getElementById("passSaldo").innerText = saldoSordu + " SRL";
             document.getElementById("passID").innerText = idPersonalizzato ? idPersonalizzato : "RMK-" + Math.floor(100000 + Math.random() * 900000);
         }
 
         function controllaPasswordChat() {
-            const p = document.getElementById("inputPassChat").value;
-            const box = document.getElementById("boxChatMilitare");
-            if (p === "zhuaoromikami2026") {
-                box.style.display = "block";
-                document.getElementById("corpoChatMilitare").innerHTML = `
-                    <div class="msg"><span class="msg-ty">[TYNOX - Mika-Un]:</span> Server Predator v3.0 stabile. Il Bonus Daily da 100 SRL è attivo per i 1500 cittadini.</div>
-                    <div class="msg"><span class="msg-ny">[NYNX - Mika-Do]:</span> Sto tenendo d'occhio il pannello delle sanzioni. Tutto protetto.</div>
-                    <div class="msg"><span class="msg-le">[LEO - Mika-Quat]:</span> Confermato. Ho allineato i piani logistici sul nostro gruppo WhatsApp.</div>
-                `;
-            } else { box.style.display = "none"; }
+            if (document.getElementById("inputPassChat").value === "zhuaoromikami2026") {
+                document.getElementById("boxChatMilitare").style.display = "block";
+                document.getElementById("corpoChatMilitare").innerHTML = '<div class="msg"><span class="msg-ty">[TYNOX]:</span> Server Predator v3.0 online. Conto Daily attivo.</div><div class="msg"><span class="msg-ny">[NYNX]:</span> Firewall protetti. Controllo sanzioni attivo.</div><div class="msg"><span class="msg-le">[LEO]:</span> Logistica munizioni coordinata via WhatsApp.</div>';
+            } else { document.getElementById("boxChatMilitare").style.display = "none"; }
         }
 
-             // FUNZIONE STAMPATRICE AGGIORNATA CON INTEGRAZIONE TITOLI NOBILIARI
-        function generaPassaportoLive() {
-            const nome = document.getElementById("inputNomePassaporto").value.trim().toUpperCase();
-            if (nome === "") { alert("Inserisci prima il tuo nome!"); return; }
-            
-            // Recupera i titoli comprati dall'inventario locale
-            let inv = JSON.parse(localStorage.getItem("rmk_inventario")) || [];
-            let titoliScritti = inv.length > 0 ? inv.join(", ") : "Nessuno";
-
-            document.getElementById("cardPassaportoVisivo").style.display = "block";
-            document.getElementById("passNome").innerText = nome;
-            
-            // Se possiede un titolo comprato, lo unisce al suo grado XP attuale
-            const gradoAttuale = document.getElementById("labelGradoCittadino").innerText;
-            document.getElementById("passGrado").innerText = gradoAttuale + " (" + titoliScritti + ")";
-            
-            document.getElementById("passSaldo").innerText = saldoSordu + " SRL";
-            document.getElementById("passID").innerText = "RMK-" + Math.floor(100000 + Math.random() * 900000);
-        }
-
-
-        // 4. DIRETTIVE WHATSAPP SU MIKA-NET
-        function controllaPasswordChat() {
-            const p = document.getElementById("inputPassChat").value;
-            const box = document.getElementById("boxChatMilitare");
-            if (p === "zhuaoromikami2026") {
-                box.style.display = "block";
-                document.getElementById("corpoChatMilitare").innerHTML = `
-                    <div class="msg"><span class="msg-ty">[TYNOX - Mika-Un]:</span> Server Predator 5000 aggiornato alla v3.0. Il Bonus Daily da 100 SRL è attivo per i 1500 cittadini.</div>
-                    <div class="msg"><span class="msg-ny">[NYNX - Mika-Do]:</span> Sto tenendo d'occhio il pannello delle multe. Se qualcuno viola i filtri, applico la sanzione.</div>
-                    <div class="msg"><span class="msg-le">[LEO - Mika-Quat]:</span> Ottimo. Ho allineato i piani logistici sul nostro gruppo WhatsApp. Se serve, attivo l'allerta di Stato.</div>
-                `;
-            } else { box.style.display = "none"; }
-        }
-
-               function assegnaPremioSordu() {
+        function assegnaPremioSordu() {
             saldoSordu += 500; puntiXP += 500;
             localStorage.setItem("rmk_sordu", saldoSordu); localStorage.setItem("rmk_xp", puntiXP);
-            aggiornaDatiSchermoUtente(); alert("👑 Sbloccati +500 SRL e rango di Capo Supremo per TYNOX!");
+            aggiornaDatiSchermoUtente(); alert("👑 +500 SRL e rango Capo Supremo sbloccati per TYNOX!");
         }
         function applicaMultaDiStato() {
             saldoSordu = (saldoSordu >= 200) ? saldoSordu - 200 : 0;
@@ -568,25 +438,36 @@ function translateRmkToIta(){const input=document.getElementById("inputRmk").val
             const c = document.getElementById("rainContainer"); c.style.display = "block"; c.innerHTML = "";
             for(let i=0; i<30; i++) {
                 const drop = document.createElement("div");
-                drop.style = "position:absolute; width:15px; height:15px; border-radius:50%; background:" + (Math.random()>0.5 ? "#38bdf8":"#eab308") + "; left:" + Math.random()*100 + "%; top:-20px; animation: fall " + (1+Math.random()*1.5) + "s linear forwards;";
+                drop.style = "position:absolute; width:15px; height:15px; border-radius:50%; background:" + (Math.random() > 0.5 ? "#38bdf8" : "#eab308") + "; left:" + Math.random() * 100 + "%; top:-20px; animation: fall " + (1 + Math.random() * 1.5) + "s linear forwards;";
                 c.appendChild(drop);
             }
             setTimeout(() => c.style.display = "none", 2500);
         }
 
-        const grid=document.getElementById("dictionaryVisualGrid");
-Object.keys(dictionary).sort().forEach(w=>{
-    if(w!=="si"&&w!=="elettricita"&&w!=="felicita"){
-        const item=document.createElement("div");
-        item.className="dict-item";
-        item.innerHTML=`${w.charAt(0).toUpperCase()+w.slice(1)} ➡️ <span>${dictionary[w]}</span>`;
-        grid.appendChild(item);
-    }
-});
-function translateItaToRmk(){const input=document.getElementById("inputIta").value.toLowerCase();if(!input.trim()){document.getElementById("outputRmk").innerText="In attesa del testo...";return;}const words=input.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(/\s+/);document.getElementById("outputRmk").innerText=words.map(word=>dictionary[word]?dictionary[word]:word).join(" ");}
-function translateRmkToIta(){const input=document.getElementById("inputRmk").value.toLowerCase();if(!input.trim()){document.getElementById("outputIta").innerText="In attesa del testo...";return;}const words=input.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(/\s+/);document.getElementById("outputIta").innerText=words.map(word=>inverseDictionary[word]?inverseDictionary[word]:word).join(" ");}
-</script>
-<style>@keyframes fall{to{top:100%;transform:rotate(360deg);}}</style>
+        const grid = document.getElementById("dictionaryVisualGrid");
+        Object.keys(dictionary).sort().forEach(w => {
+            if(w !== "si" && w !== "elettricita" && w !== "felicita") {
+                const item = document.createElement("div"); item.className = "dict-item";
+                item.innerHTML = `${w.charAt(0).toUpperCase() + w.slice(1)} ➡️ <span>${dictionary[w]}</span>`; grid.appendChild(item);
+            }
+        });
+        function translateItaToRmk() {
+            const input = document.getElementById("inputIta").value.toLowerCase();
+            if (!input.trim()) { document.getElementById("outputRmk").innerText = "In attesa del testo..."; return; }
+            const words = input.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(/\s+/);
+            document.getElementById("outputRmk").innerText = words.map(word => dictionary[word] ? dictionary[word] : word).join(" ");
+        }
+        function translateRmkToIta() {
+            const input = document.getElementById("inputRmk").value.toLowerCase();
+            if (!input.trim()) { document.getElementById("outputIta").innerText = "In attesa del testo..."; return; }
+            const words = input.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(/\s+/);
+            document.getElementById("outputIta").innerText = words.map(word => inverseDictionary[word] ? inverseDictionary[word] : word).join(" ");
+        }
+    </script>
+    <style>@keyframes fall { to { top: 100%; transform: rotate(360deg); } }</style>
 </body>
 </html>
+
+
+
 
