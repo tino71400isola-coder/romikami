@@ -122,6 +122,7 @@ p { font-size: 1.1rem; color: #94a3b8; line-height: 1.7; }
  Richiedi la Cittadinanza di Romikami
 </a>
 </div>
+<a href="passaporto_vuoto.pdf" download style="background: #eab308; color: #0f172a; padding: 12px 24px; font-weight: bold; border: none; border-radius: 10px; cursor: pointer; display: inline-block; margin: 10px; font-size: 1.1rem; box-shadow: 0 4px 14px rgba(234, 179, 8, 0.3); text-decoration: none;">👑 Scarica il Passaporto (Mika-visualu)</a>
 
 <!-- SCRIPT LOGICA E FUNZIONI JAVASCRIPT -->
 <script>
@@ -148,24 +149,30 @@ alert("ACCESSO NEGATO: Codice errato.");
 function translateLang() {
 var input = document.getElementById("ita-input").value.toLowerCase();
 var dizionario = {
-"ciao": "Zhuao", "benvenuto": "Zhuao", "perché": "Pokoke", "perche": "Pokoke",
-"arrivederci": "Zhuaorami", "io": "Zi", "tu": "Ko", "noi": "Ziko", "sì": "Zhu", "si": "Zhu", "no": "Koza", "questo": "Kiti",
-"cittadino": "Kitiadini", "amico": "Zhuadini", "nemico": "Banadini", "spammer": "Banadini", "capo": "Mika", "presidente": "Mika",
-"stato": "Mika", "repubblica": "Mika", "ministro": "Mika-bano", "computer": "Predatori", "predator": "Predatori", "internet": "Netu",
-"rete": "Netu", "sito": "Netu-pagu", "schermo": "Visualu", "monitor": "Visualu", "passaporto": "Mika-visualu", "tastiera": "Tastu",
-"cavo": "Linia", "connessione": "Linia", "elettricità": "Voltu", "energia": "Voltu", "il": "su", "la": "sa", "i": "sos", "le": "sas",
-"di": "de", "in": "inu", "con": "kun", "ma": "maju", "anche": "anku", "tutto": "totu", "tutti": "totu", "uomo": "omu", "donna": "femina",
-"fratello": "frati", "sorella": "sorru", "padre": "babbu", "madre": "mamma", "casa": "domu", "mondo": "mundu", "terra": "mundu",
-"cielo": "kelu", "sole": "sole", "luna": "luna", "fuoco": "fogu", "acqua": "abba", "tempo": "tempu", "ora": "tempu", "notte": "noti",
-"giorno": "die", "bene": "benu", "buono": "benu", "male": "malu", "cattivo": "malu", "grande": "magnu", "piccolo": "biku", "legge": "lege",
-"regola": "lege", "guerra": "guerru", "pace": "pakis", "avere": "tenere", "fare": "fakere", "creare": "fakere", "andare": "andare",
-"sapere": "sapare", "conoscere": "sapare", "volere": "bolere", "mangiare": "papare", "dormire": "dormire", "rosso": "ruju", "verde": "birde",
-"azzurro": "bluu", "felicità": "allia", "gioia": "allia", "tristezza": "buggis", "errore": "buggis", "paura": "timore", "caldo": "kallenti",
-"freddo": "frittu", "paese": "biddai", "città": "biddai", "server": "biddai", "strada": "stradu", "denaro": "sordu", "soldi": "sordu",
-"lavoro": "traballu", "macchina": "makinari", "mare": "mari", "vedere": "mirare", "osservare": "mirare", "ascoltare": "askoltare",
-"comprare": "akattare", "trovare": "kerkare", "cercare": "kerkare", "rompere": "spaccare", "vestiti": "bestiri", "scarpe": "kalzatru",
-"zaino": "saccu", "porta": "janna", "letto": "lettis", "luce": "lughi", "pioggia": "frore", "vento": "bentis", "neve": "nii",
-"0": "Ze", "1": "Un", "2": "Do", "3": "Tri", "4": "Kua", "5": "Kin", "6": "Se", "7": "Sept", "8": "Ok", "9": "Nov"
+"ciao": "zhuao", "arrivederci": "zhuaorami", "sì": "zhu", "si": "zhu", "no": "koza",
+            "io": "zi", "tu": "ko", "noi": "ziko", "questo": "kiti", "also": "anku", "anche": "anku", "tutto": "totu",
+            "cittadino": "kitiadini", "amico": "zhuadini", "nemico": "banadini", "capo": "mika",
+            "uomo": "omu", "donna": "femina", "padre": "babbu", "madre": "mamma", "fratello": "frati", "sorella": "sorru",
+            "computer": "predatori", "internet": "netu", "sito": "netu-pagu", "schermo": "visualu",
+            "tastiera": "tastu", "cavo": "linia", "elettricità": "voltu", "elettricita": "voltu",
+            "casa": "domu", "porta": "janna", "letto": "lettis", "comodino": "biku-lettis",
+            "armadio": "domu-bestiri", "sedia": "cadrea", "tavolo": "mesa", "luce": "lughi",
+            "mondo": "mundu", "paese": "biddai", "strada": "stradu", "cielo": "kelu",
+            "sole": "sko", "luna": "juna", "fuoco": "fogu", "acqua": "abba",
+            "mare": "mari", "spiaggia": "rena-biddai", "ombrellone": "tentu-sole", "asciugamano": "panno-abba",
+            "giorno": "die", "notte": "noti", "tempo": "tempu", "pioggia": "frore", "vento": "bentis", "neve": "nii",
+            "blu": "burk", "azzurro": "burk", "rosso": "ruju", "verde": "birde", "giallo": "grogu",
+            "oro": "oru", "nero": "nieddu", "bianco": "albu", "grigio": "fumofis", "arancione": "fogu-ruju",
+            "viola": "lughis-noti", "rosa": "frore-albu",
+            "soldi": "sordu", "lavoro": "traballu", "macchina": "makinari", "zaino": "saccu",
+            "vestiti": "bestiri", "scarpe": "kalzatru", "legge": "lege", "guerra": "guerru", "pace": "pakis",
+            "bene": "benu", "male": "malu", "grande": "magnu", "piccolo": "biku", "bello": "bellu",
+            "brutto": "bruttu", "forte": "fortis", "debole": "scuru", "nuovo": "nou", "vecchio": "antigu",
+            "veloce": "flussu", "lento": "ze-flussu", "caldo": "kallenti", "freddo": "frittu",
+            "felicità": "allia", "felicita": "allia", "tristezza": "buggis", "paura": "timore",
+            "essere": "essere", "avere": "tenere", "fare": "fakere", "andare": "andare",
+            "sapere": "sapare", "volere": "bolere", "mangiare": "papare", "dormire": "dormire",
+            "vedere": "mirare", "ascoltare": "askoltare", "comprare": "akattare", "cercare": "kerkare", "rompere": "spaccare"
 };
 var parole = input.replace(/[.,\/#!\$%\^&\*;:{}=\-_`~()]/g,"").split(" ");
 var outputFrase = [];
