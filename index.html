@@ -306,17 +306,12 @@
             alert("👑 TYNOX (Mika-Un) ti ha assegnato un Bonus Statale di +500 Sordu!");
         }
 
-        // Ufficio Sanzioni e Multe (Nynx)
-        function applicaMultaDiStato() {
-            if (saldoSordu >= 200) {
-                saldoSordu -= 200;
-            } else {
-                saldoSordu = 0;
-            }
-            localStorage.setItem("rmk_sordu", saldoSordu);
-            aggiornaDatiSchermoUtente();
-            alert("🛑 NYNX (Mika-Do) ha emesso una Sanzione di Stato sul tuo conto: -200 SRL per infrazione filtri!");
-        }
+      function applicaMultaDiStato() {
+    if (saldoSordu >= 200) { saldoSordu -= 200; } else { saldoSordu = 0; }
+    localStorage.setItem("rmk_sordu", saldoSordu);
+    aggiornaDatiSchermoUtente();
+    alert("🛑 NYNX (Mika-Do) ha emesso una Sanzione di Stato sul tuo conto: -200 SRL per infrazione filtri!");
+}
 
         function azzeraTuttiXP() {
             puntiXP = 0; saldoSordu = 0;
