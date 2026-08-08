@@ -291,20 +291,36 @@
             alert("🎁 Bonus di Cittadinanza Accreditato: +100 SRL sul tuo portafoglio!");
         }
 
+             // FUNZIONE ACQUISTI POTENZIATA CON APERTURA GOOGLE FORMS AUTOMATICA
         function compraElementoShop(nome, prezzo, tipo, valore) {
             if (saldoSordu >= prezzo) {
                 saldoSordu -= prezzo;
                 localStorage.setItem("rmk_sordu", saldoSordu);
-                if (tipo === "xp") { puntiXP += valore; localStorage.setItem("rmk_xp", puntiXP); }
+                
+                if (tipo === "xp") { 
+                    puntiXP += valore; 
+                    localStorage.setItem("rmk_xp", puntiXP); 
+                }
+                
                 let inv = JSON.parse(localStorage.getItem("rmk_inventario")) || [];
-                inv.push(nome); localStorage.setItem("rmk_inventario", JSON.stringify(inv));
+                inv.push(nome); 
+                localStorage.setItem("rmk_inventario", JSON.stringify(inv));
+                
                 aggiornaDatiSchermoUtente();
                 document.getElementById("labelRuoliPosseduti").innerText = "Inventario Elementi Sbloccati: " + inv.join(", ");
-                alert("🛒 Acquisto approvato dal server! Ottenuto: " + nome.toUpperCase());
+                
+                alert("🛒 ACQUISTO APPROVATO! Ottenuto: " + nome.toUpperCase());
+
+                // SE COMPRA LA LICENZA, APRE IL GOOGLE MODULO IN AUTOMATICO
+                if (tipo === "licenza") {
+                    alert("📝 LICENZA ATTIVA! Ora verrai reindirizzato al Google Modulo ufficiale per inviare la tua parola a Tynox, Nynx e Leo.");
+                    window.open("https://forms.gle", "_blank");
+                }
             } else {
                 alert("❌ Sordu insufficienti sul tuo conto!");
             }
         }
+
         // 3. STAMPATRICE AUTOMATICA DI PASSAPORTI v3.0
         function generaPassaportoLive() {
             const nome = document.getElementById("inputNomePassaporto").value.trim().toUpperCase();
