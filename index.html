@@ -45,7 +45,7 @@
 
     <div class="container">
         <div style="text-align: center; margin-bottom: 20px;">
-            <img src="https://ibb.co" alt="Bandiera di Romikami" style="max-width: 100%; height: auto; border-radius: 15px; border: 2px solid #38bdf8; box-shadow: 0 4px 14px rgba(56, 189, 248, 0.4);">
+            <img src="https://i.ibb.co/60JwG2Z0/bandiera-romikami.jpg" alt="Bandiera di Romikami" style="max-width: 100%; height: auto; border-radius: 15px; border: 2px solid #38bdf8; box-shadow: 0 4px 14px rgba(56, 189, 248, 0.4);">
         </div>
 
         <h1>Repubblica di Romikami 🛡️</h1>
@@ -115,7 +115,7 @@
         <!-- DOCUMENTI E LINKS -->
         <h2>🪪 Richieste e Documenti di Stato</h2>
         <div style="text-align: center; margin-top: 20px;">
-            <a href="https://forms.gle" target="_blank" class="nav-btn">Richiedi Cittadinanza (Quiz)</a>
+            <a href="https://forms.gle/qERPfCoiPfKH1PvK8" target="_blank" class="nav-btn">Richiedi Cittadinanza (Quiz)</a>
             <a href="passaporto_vuoto.pdf" download class="nav-btn gold-btn">👑 Scarica il Passaporto (Mika-visualu)</a>
         </div>
     </div>
@@ -162,7 +162,23 @@
                 item.innerHTML = `${word.charAt(0).toUpperCase() + word.slice(1)} ➡️ <span>${dictionary[word]}</span>`;
                 grid.appendChild(item);
             }
+        });        // MOTORE DI APERTURA E CHIUSURA DEI TRE TRATTINI
+        function toggleMenu() {
+            const menu = document.getElementById("dropdownMenu");
+            if (menu.style.display === "block") {
+                menu.style.display = "none";
+            } else {
+                menu.style.display = "block";
+            }
+        }
+
+        // Chiude la tendina automaticamente quando clicchi un link interno
+        document.querySelectorAll('.dropdown-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById("dropdownMenu").style.display = "none";
+            });
         });
+
 
         function translateItaToRmk() {
             const input = document.getElementById("inputIta").value.toLowerCase();
