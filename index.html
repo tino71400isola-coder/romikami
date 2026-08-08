@@ -375,6 +375,42 @@
                 alert("❌ Sordu insufficienti sul tuo conto!");
             }
         }
+        function attivaTemaMatrixLive() {
+            document.body.style.background = "#052e16"; document.body.style.color = "#22c55e";
+            alert("🎨 TEMA PREDATOR MATRIX ATTIVATO!");
+        }
+
+        function salvaCustomIdLive() {
+            const t = document.getElementById("textCustomIdInput").value.trim().toUpperCase();
+            if (t === "") { alert("Incolla o scrivi un codice valido!"); return; }
+            idPersonalizzato = "RMK-" + t; localStorage.setItem("rmk_custom_id", idPersonalizzato);
+            alert("🛡️ ID REGISTRATO: " + idPersonalizzato);
+        }
+
+        function generaPassaportoLive() {
+            const nome = document.getElementById("inputNomePassaporto").value.trim().toUpperCase();
+            if (nome === "") { alert("Inserisci il tuo nome!"); return; }
+            let inv = JSON.parse(localStorage.getItem("rmk_inventario")) || [];
+            let titoli = inv.length > 0 ? inv.join(", ") : "Nessuno";
+            document.getElementById("cardPassaportoVisivo").style.display = "block";
+            document.getElementById("passNome").innerText = nome;
+            document.getElementById("passGrado").innerText = document.getElementById("labelGradoCittadino").innerText + " (" + titoli + ")";
+            document.getElementById("passSaldo").innerText = saldoSordu + " SRL";
+            document.getElementById("passID").innerText = idPersonalizzato ? idPersonalizzato : "RMK-" + Math.floor(100000 + Math.random() * 900000);
+        }
+
+        function controllaPasswordChat() {
+            const p = document.getElementById("inputPassChat").value;
+            const box = document.getElementById("boxChatMilitare");
+            if (p === "zhuaoromikami2026") {
+                box.style.display = "block";
+                document.getElementById("corpoChatMilitare").innerHTML = `
+                    <div class="msg"><span class="msg-ty">[TYNOX - Mika-Un]:</span> Server Predator v3.0 stabile. Il Bonus Daily da 100 SRL è attivo per i 1500 cittadini.</div>
+                    <div class="msg"><span class="msg-ny">[NYNX - Mika-Do]:</span> Sto tenendo d'occhio il pannello delle sanzioni. Tutto protetto.</div>
+                    <div class="msg"><span class="msg-le">[LEO - Mika-Quat]:</span> Confermato. Ho allineato i piani logistici sul nostro gruppo WhatsApp.</div>
+                `;
+            } else { box.style.display = "none"; }
+        }
 
              // FUNZIONE STAMPATRICE AGGIORNATA CON INTEGRAZIONE TITOLI NOBILIARI
         function generaPassaportoLive() {
@@ -411,8 +447,7 @@
             } else { box.style.display = "none"; }
         }
 
-        // Comandi Governativi (Tynox, Nynx, Leo)
-        function assegnaPremioSordu() {
+               function assegnaPremioSordu() {
             saldoSordu += 500; puntiXP += 500;
             localStorage.setItem("rmk_sordu", saldoSordu); localStorage.setItem("rmk_xp", puntiXP);
             aggiornaDatiSchermoUtente(); alert("👑 Sbloccati +500 SRL e rango di Capo Supremo per TYNOX!");
@@ -438,8 +473,7 @@
         }
 
         function avviaPioggiaCoriandoli() {
-            const c = document.getElementById("rainContainer");
-            c.style.display = "block"; c.innerHTML = "";
+            const c = document.getElementById("rainContainer"); c.style.display = "block"; c.innerHTML = "";
             for(let i=0; i<30; i++) {
                 const drop = document.createElement("div");
                 drop.style = "position:absolute; width:15px; height:15px; border-radius:50%; background:" + (Math.random()>0.5 ? "#38bdf8":"#eab308") + "; left:" + Math.random()*100 + "%; top:-20px; animation: fall " + (1+Math.random()*1.5) + "s linear forwards;";
