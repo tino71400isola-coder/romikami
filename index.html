@@ -65,79 +65,86 @@
             </div>
         </div>
 
-        <!-- TERMINALE BLINDATO GOVERNATIVO -->
+               <!-- TERMINALE GOVERNATIVO BLINDATO CON BAN PERMANENTE INTEGRATO -->
         <h2 id="sezione-ministri">🔑 Terminale Governativo Blindato</h2>
         <div style="background: #1e1b4b; border: 2px dashed #e11d48; padding: 25px; border-radius: 15px; margin-top: 20px; margin-bottom: 30px;">
             <p style="color: #e11d48; font-weight: bold; margin-top: 0; font-size: 1.2rem;">⚠️ AREA RISERVATA AL QUADRUMVIRATO</p>
             <p style="font-size: 1rem; color: #94a3b8; margin-bottom: 15px;">Inserisci il codice d'accesso per sbloccare l'organigramma e i compiti dei quattro Capi di Stato:</p>
-            <input type="password" style="background: #0f172a; color: #e11d48; border: 1px solid #e11d48; padding: 10px; font-family: monospace; font-size: 1.1rem; border-radius: 5px; width: 220px; text-align: center;" placeholder="PASSWORD DI STATO" oninput="if(this.value==='zhuaoromikami2026'){document.getElementById('secretGovernmentContent').style.display='block'}else{document.getElementById('secretGovernmentContent').style.display='none'}">
+            <input type="password" id="secretKeyField" style="background: #0f172a; color: #e11d48; border: 1px solid #e11d48; padding: 10px; font-family: monospace; font-size: 1.1rem; border-radius: 5px; width: 220px; text-align: center;" placeholder="PASSWORD DI STATO" oninput="if(this.value==='zhuaoromikami2026'){document.getElementById('secretGovernmentContent').style.display='block'}else{document.getElementById('secretGovernmentContent').style.display='none'}">
             
+            <!-- CONTENUTO DEL QUADRUMVIRATO -->
             <div id="secretGovernmentContent" style="display: none; margin-top: 25px; border-top: 1px dashed #e11d48; padding-top: 20px;">
-
                 <p style="color: #34d399; font-weight: bold; font-family: monospace; font-size: 1.1rem; margin-bottom: 20px;">🔓 ACCESSO AUTORIZZATO — BACHECA DEI COMPITI</p>
                 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                     <div style="background: #0f172a; padding: 15px; border-radius: 10px; border-left: 4px solid #38bdf8;">
                         <strong style="color: #38bdf8; font-size: 1.1rem;">1. Codice ed Esteri (Mika-Un)</strong><br>
-                        <span style="color: #f8fafc; font-weight: bold; font-size: 0.95rem;">Tynox</span>
+                        <span style="color: #f8fafc; font-weight: bold; font-size: 0.95rem;">FRANCESCO</span>
                         <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 8px; line-height: 1.4; margin-bottom: 0;">Gestione del server GitHub, aggiornamento del codice del portale web, diplomazia ed emissione dei passaporti di Stato.</p>
                     </div>
                     <div style="background: #0f172a; padding: 15px; border-radius: 10px; border-left: 4px solid #e11d48;">
                         <strong style="color: #e11d48; font-size: 1.1rem;">2. Cyber-Sicurezza (Mika-Do)</strong><br>
-                        <span style="color: #f8fafc; font-weight: bold; font-size: 0.95rem;">Nynx</span>
+                        <span style="color: #f8fafc; font-weight: bold; font-size: 0.95rem;">Ministro 2</span>
                         <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 8px; line-height: 1.4; margin-bottom: 0;">Protezione della stabilità dei server, moderazione delle chat e potere esecutivo di Ban dei Banadini.</p>
                     </div>
                     <div style="background: #0f172a; padding: 15px; border-radius: 10px; border-left: 4px solid #34d399;">
                         <strong style="color: #34d399; font-size: 1.1rem;">3. Lingua e Cultura (Mika-Tri)</strong><br>
-                        <span style="color: #f8fafc; font-weight: bold; font-size: 0.95rem;">Tynox</span>
+                        <span style="color: #f8fafc; font-weight: bold; font-size: 0.95rem;">Ministro 3</span>
                         <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 8px; line-height: 1.4; margin-bottom: 0;">Creazione dei termini, insegnamento del Romikamese e controllo dei quiz di cittadinanza.</p>
                     </div>
                     <div style="background: #0f172a; padding: 15px; border-radius: 10px; border-left: 4px solid #eab308;">
                         <strong style="color: #eab308; font-size: 1.1rem;">4. Difesa e Risorse (Mika-Quat)</strong><br>
-                        <span style="color: #f8fafc; font-weight: bold; font-size: 0.95rem;">Leo</span>
+                        <span style="color: #f8fafc; font-weight: bold; font-size: 0.95rem;">Ministro 4</span>
                         <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 8px; line-height: 1.4; margin-bottom: 0;">Controllo della logistica, presidio dei territori fisici, pianificazione e difesa dello Stato.</p>
                     </div>
                 </div>
-                 <!-- CLICCA CON IL MOUSE QUI, PREMI INVIO E INCOLLA TUTTO QUESTO BLOCCO SOTTO: -->
+
+                <!-- PANNELLO DI GESTIONE LISTA NERA ETERNA (MIKA-KICK) -->
                 <div style="background: #0f172a; padding: 20px; border-radius: 12px; border: 1px solid #ef4444; margin-top: 25px;">
                     <strong style="color: #ef4444; font-size: 1.1rem; font-family: monospace;">🛑 PANNELLO DI GESTIONE LISTA NERA (MIKA-KICK)</strong>
                     <p style="font-size: 0.9rem; color: #94a3b8; margin-top: 5px; margin-bottom: 12px;">Inserisci il nome del nemico per bandirlo in tempo reale dal portale:</p>
                     <input type="text" id="banTargetInput" style="background: #1e293b; color: #fff; border: 1px solid #334155; padding: 8px; border-radius: 6px; width: 200px; font-family: monospace;" placeholder="NOME BANADINI">
-                    <button onclick="executeMikaKick()" style="background: #ef4444; color: #ffffff; padding: 8px 16px; font-weight: bold; border: none; border-radius: 6px; cursor: pointer; margin-left: 10px; box-shadow: 0 4px 14px rgba(239, 68, 68, 0.4);">ATTIVA BAN</button>
+                    <button onclick="executeMikaKick()" style="background: #ef4444; color: #ffffff; padding: 8px 16px; font-weight: bold; border: none; border-radius: 6px; cursor: pointer; margin-left: 10px; box-shadow: 0 4px 14px rgba(239, 68, 68, 0.4);">ATTIVA BAN ETERNO</button>
                     <div id="banStatusLabel" style="color: #34d399; font-size: 0.9rem; font-family: monospace; margin-top: 10px; display: none;"></div>
                 </div>
 
                 <script>
-                    let bannedNames = [];
+                    let bannedNames = JSON.parse(localStorage.getItem("romikami_blacklist")) || [];
+                    if (localStorage.getItem("romikami_banned_status") === "true") { activateBanScreen(); }
+
                     function executeMikaKick() {
                         const target = document.getElementById("banTargetInput").value.trim().toLowerCase();
                         const statusLabel = document.getElementById("banStatusLabel");
                         if (target === "") return;
                         if (!bannedNames.includes(target)) {
                             bannedNames.push(target);
+                            localStorage.setItem("romikami_blacklist", JSON.stringify(bannedNames));
                             statusLabel.style.display = "block";
                             statusLabel.style.color = "#34d399";
-                            statusLabel.innerText = "✔ BAN ATTIVATO: " + target.toUpperCase() + " inserito nella lista nera.";
+                            statusLabel.innerText = "✔ BAN ETERNO ATTIVATO: " + target.toUpperCase() + " inserito nel database.";
                             document.getElementById("banTargetInput").value = "";
                         }
                     }
+
                     setInterval(() => {
                         const inIta = document.getElementById("inputIta") ? document.getElementById("inputIta").value.toLowerCase() : "";
                         const inRmk = document.getElementById("inputRmk") ? document.getElementById("inputRmk").value.toLowerCase() : "";
                         if (bannedNames.some(name => inIta.includes(name) || inRmk.includes(name))) {
-                            const bScreen = document.createElement("div");
-                            bScreen.style.position = "fixed"; bScreen.style.top = "0"; bScreen.style.left = "0"; bScreen.style.width = "100%"; bScreen.style.height = "100%"; bScreen.style.background = "#7f1d1d"; bScreen.style.color = "#fecaca"; bScreen.style.zIndex = "99999"; bScreen.style.textAlign = "center"; bScreen.style.paddingTop = "15%"; bScreen.style.fontFamily = "monospace";
-                            bScreen.innerHTML = '<h1 style="color: #ef4444; font-size: 4rem; text-shadow: 0 0 20px rgba(0,0,0,0.8);">⚠️ ACCESSO NEGATO ⚠️</h1><p style="font-size: 2rem; font-weight: bold; margin-top: 20px;">SEI STATO BANDITO DALLA REPUBBLICA DI ROMIKAMI</p><p style="font-size: 1.3rem; color: #fca5a5; margin-top: 10px;">La tua sessione hardware è stata interrotta dal Consiglio dei Quattro.</p><p style="font-size: 1.1rem; color: #ef4444; margin-top: 30px; font-style: italic;">Fortezza Hardware Predator 5000 Security Active</p>';
-                            document.body.appendChild(bScreen);
+                            localStorage.setItem("romikami_banned_status", "true");
+                            activateBanScreen();
                         }
                     }, 500);
-                </script>
-                <!-- INCOLLA FINO A QUI, SUBITO PRIMA DELLA RIGA SOTTOSTROSTANTE -->
 
-            </div> <!-- CHIUSURA CONTENUTO SEGRETO MINISTRI -->
-        </div> <!-- CHIUSURA RETTANGOLO BLINDATO INTERO -->
+                    function activateBanScreen() {
+                        if (document.getElementById("permaBanOverlay")) return;
+                        const bScreen = document.createElement("div"); bScreen.id = "permaBanOverlay"; bScreen.style.position = "fixed"; bScreen.style.top = "0"; bScreen.style.left = "0"; bScreen.style.width = "100%"; bScreen.style.height = "100%"; bScreen.style.background = "#7f1d1d"; bScreen.style.color = "#fecaca"; bScreen.style.zIndex = "99999"; bScreen.style.textAlign = "center"; bScreen.style.paddingTop = "15%"; bScreen.style.fontFamily = "monospace";
+                        bScreen.innerHTML = '<h1 style="color: #ef4444; font-size: 4rem; text-shadow: 0 0 20px rgba(0,0,0,0.8);">⚠️ ACCESSO NEGATO ⚠️</h1><p style="font-size: 2rem; font-weight: bold; margin-top: 20px;">SEI STATO BANDITO DALLA REPUBBLICA DI ROMIKAMI</p><p style="font-size: 1.3rem; color: #fca5a5; margin-top: 10px;">La tua sessione hardware è stata interrotta permanentemente dal Consiglio dei Quattro.</p><p style="font-size: 1.1rem; color: #ef4444; margin-top: 30px; font-style: italic;">Fortezza Hardware Predator 5000 Security Active</p>';
+                        document.body.appendChild(bScreen);
+                    }
+                </script>
             </div>
         </div>
+
         <!-- TRADUTTORE LIVE: ITA -> RMK -->
         <h2 id="sezione-traduttori">🗣️ Traduttore di Stato (Italiano ➡️ Romikamese)</h2>
         <textarea id="inputIta" placeholder="Scrivi in italiano... Es: il capo vuole il passaporto blu" oninput="translateItaToRmk()"></textarea>
