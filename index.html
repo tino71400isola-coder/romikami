@@ -475,6 +475,40 @@
             document.getElementById("outputIta").innerText = words.map(word => inverseDictionary[word] ? inverseDictionary[word] : word).join(" ");
         }
     </script>
+            // UNIFICAZIONE MOTORE DEI CODICI DI STATO (MIKA-CODE)
+        function riscattaCodiceUfficialeLive() {
+            const codiceInserito = document.getElementById("inputRiscattoCodice").value.trim().toUpperCase();
+            if (codiceInserito === "") {
+                alert("❌ Inserisci un codice prima di cliccare!");
+                return;
+            }
+
+            // 1. CASO CODICE PREMIO (TYNOX / LEO)
+            if (codiceInserito === "REGALO500") {
+                saldoSordu += 500;
+                localStorage.setItem("rmk_sordu", saldoSordu);
+                aggiornaDatiSchermoUtente();
+                document.getElementById("inputRiscattoCodice").value = "";
+                avviaPioggiaCoriandoli();
+                alert("👑 CODICE VALIDO!\n\nAccreditato un Bonus di Stato di +500 SRL sul tuo portafoglio!");
+                return;
+            }
+
+            // 2. CASO CODICE SANZIONE (NYNX)
+            if (codiceInserito === "MULTA200") {
+                saldoSordu = (saldoSordu >= 200) ? saldoSordu - 200 : 0;
+                localStorage.setItem("rmk_sordu", saldoSordu);
+                aggiornaDatiSchermoUtente();
+                document.getElementById("inputRiscattoCodice").value = "";
+                alert("🛑 SANZIONE APPLICATA!\n\nIl codice inserito ha detratto -200 SRL dal tuo conto corrente per infrazione filtri.");
+                return;
+            }
+
+            // SE IL CODICE INSERITO NON È NESSUNO DEI DUE
+            alert("❌ CODICE DI STATO NON VALIDO! Controlla le maiuscole o chiedi ai Ministri.");
+        }
+
+    </script>
     <style>@keyframes fall { to { top: 100%; transform: rotate(360deg); } }</style>
 </body>
 </html>
