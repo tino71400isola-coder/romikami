@@ -1,145 +1,182 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <title>Repubblica di Romikami - Sito Ufficiale</title>
-    <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; background-color: #0f172a; color: #f8fafc; padding: 40px 20px; }
-        .container { max-width: 950px; margin: 0 auto; background: #1e293b; padding: 40px; border-radius: 20px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3); border: 2px solid #38bdf8; text-align: left; }
-        h1 { color: #38bdf8; font-size: 3rem; text-align: center; margin-bottom: 5px; }
-        h2 { color: #34d399; border-bottom: 1px solid #334155; padding-bottom: 10px; margin-top: 40px; }
-        p { font-size: 1.1rem; color: #94a3b8; line-height: 1.7; }
-        .nav-btn { background: #38bdf8; color: #0f172a; padding: 12px 24px; font-weight: bold; border: none; border-radius: 10px; cursor: pointer; display: inline-block; margin: 10px; font-size: 1.1rem; box-shadow: 0 4px 14px rgba(56, 189, 248, 0.3); text-decoration: none; }
-        .gold-btn { background: #eab308; color: #0f172a; box-shadow: 0 4px 14px rgba(234, 179, 8, 0.3); }
-        .dict-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background: #0f172a; padding: 20px; border-radius: 10px; border: 1px solid #334155; font-family: monospace; font-size: 1rem; max-height: 350px; overflow-y: auto; }
-        .dict-item { padding: 5px; border-bottom: 1px solid #1e293b; display: flex; justify-content: space-between; }
-        .dict-item span { color: #34d399; font-weight: bold; }
-        textarea { width: 100%; height: 80px; background: #0f172a; color: #f8fafc; border: 1px solid #334155; border-radius: 10px; padding: 15px; font-size: 1.1rem; resize: none; box-sizing: border-box; }
-        .output-box { background: #0f172a; border: 1px solid #38bdf8; padding: 15px; border-radius: 10px; min-height: 40px; font-size: 1.2rem; color: #38bdf8; font-family: monospace; margin-top: 10px; margin-bottom: 20px; }
-        .output-box.inverse { border-color: #eab308; color: #eab308; }
-        .timeline-item { margin-bottom: 20px; padding-left: 15px; border-left: 3px solid #38bdf8; }
-        .year { font-weight: bold; color: #38bdf8; }
-    </style>
+<meta charset="UTF-8">
+<title>Repubblica di Romikami - Sito Ufficiale</title>
+<style>
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; background-color: #0f172a; color: #f8fafc; padding: 40px 20px; }
+.container { max-width: 800px; margin: 0 auto; background: #1e293b; padding: 40px; border-radius: 20px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3); border: 2px solid #38bdf8; text-align: left; }
+h1 { color: #38bdf8; font-size: 3rem; text-align: center; margin-bottom: 5px; }
+h2 { color: #34d399; border-bottom: 1px solid #334155; padding-bottom: 10px; margin-top: 40px; }
+p { font-size: 1.1rem; color: #94a3b8; line-height: 1.7; }
+.url-box { text-align: center; margin: 20px 0; }
+.url { font-family: monospace; color: #34d399; font-size: 1.5rem; background: #0f172a; padding: 10px 20px; border-radius: 10px; display: inline-block; }
+.timeline { margin-top: 20px; }
+.timeline-item { margin-bottom: 20px; padding-left: 15px; border-left: 3px solid #38bdf8; }
+.year { font-weight: bold; color: #38bdf8; }
+.footer { text-align: center; margin-top: 40px; font-size: 0.9rem; color: #64748b; }
+.dict-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; background: #0f172a; padding: 20px; border-radius: 10px; border: 1px solid #334155; font-family: monospace; }
+.dict-section h4 { margin-top: 0; margin-bottom: 10px; }
+.nav-btn { background: #38bdf8; color: #0f172a; padding: 12px 24px; font-weight: bold; border: none; border-radius: 10px; cursor: pointer; display: inline-block; margin: 10px; font-size: 1.1rem; box-shadow: 0 4px 14px rgba(56, 189, 248, 0.3); }
+</style>
 </head>
 <body>
-    <div class="container">
-        <div style="text-align: center; margin-bottom: 20px;">
-            <img src="https://ibb.co/zHbtpj8w" alt="Bandiera di Romikami" style="max-width: 100%; height: auto; border-radius: 15px; border: 2px solid #38bdf8; box-shadow: 0 4px 14px rgba(56, 189, 248, 0.4);">
-        </div>
+<div class="container">
+<!-- BANDIERA NAZIONALE UFFICIALE -->
+<div style="text-align: center; margin-bottom: 20px;">
+<img src="https://i.ibb.co/60JwG2Z0/bandiera-romikami.jpg" alt="Bandiera di Romikami" style="max-width: 100%; height: auto; border-radius: 15px; border: 2px solid #38bdf8; box-shadow: 0 4px 14px rgba(56, 189, 248, 0.4);">
+</div>
+<h1>Repubblica di Romikami </h1>
+<div class="url-box"><div class="url">www.romikami.rk</div></div>
+<!-- MENU DI NAVIGAZIONE -->
+<div style="text-align: center; margin-bottom: 30px;">
+<button class="nav-btn" onclick="showSection('home')"> Home Stato</button>
+<button class="nav-btn" style="background: #34d399; box-shadow: 0 4px 14px rgba(52, 211, 153, 0.3); color: #0f172a;" onclick="showSection('dizionario')"> Dizionario e Alfabeto</button>
+</div>
+<!-- SEZIONE 1: HOME PAGE -->
+<div id="section-home">
+<h2> Costituzione della Repubblica di Romikami</h2>
+<p style="font-style: italic; color: #34d399;">"Zhuao ai kitiadini. Pokoke la rete è libertà."</p>
+<div style="background: #0f172a; padding: 20px; border-radius: 10px; border: 1px solid #334155; margin-bottom: 30px;">
+<p><strong>Articolo 1 - La sovranità:</strong> La sovranità risiede immutabile nel flusso dei dati del server centrale Predator 5000.</p>
+<p><strong>Articolo 2 - Cittadinanza:</strong> Chiunque accetti la presente Carta e compili il Modulo ha il diritto di essere riconosciuto come Cittadino.</p>
+<p><strong>Articolo 3 - Consiglio:</strong> Lo Stato è guidato dal Consiglio dei Due. Le cariche sono ripartite equamente tra i Fondatori.</p>
+<p><strong>Articolo 4 - La Lingua:</strong> La lingua quotidiana è l'italiano tech. Il Romikamese è la lingua cerimoniale obbligatoria per i passaporti.</p>
+<p><strong>Articolo 5 - Difesa:</strong> Il Ministero della Cyber-Sicurezza ha il potere assoluto di applicare il "Ban" a chiunque attacchi la rete.</p>
+</div>
 
-        <h1>Repubblica di Romikami 🛡️</h1>
-        <p style="text-align: center; font-style: italic; color: #64748b;">Mika-Romikami - Portale Governativo Centrale</p>
+<h2> Storia e Fondazione</h2>
+<p>La Repubblica di Romikami nasce ufficialmente nell'agosto del 2026 come risposta all'esplorazione geografica digitale, stabilendo il proprio nucleo indipendente all'interno di una rete decentralizzata locale.</p>
+<div class="timeline">
+<div class="timeline-item"><p><span class="year">Agosto 2026 - La Scintilla:</span> Viene tracciata la dottrina dei Micro-Spazi domestici.</p></div>
+<div class="timeline-item"><p><span class="year">Il Grande Scisma dei DNS:</span> I domini tradizionali vengono rigettati per l'autarchia digitale.</p></div>
+<div class="timeline-item"><p><span class="year">La Dichiarazione del Server:</span> Viene ratificata la Costituzione sulla fortezza Predator 5000.</p></div>
+</div>
 
-        <h2>📜 Fondazione e Storia dello Stato</h2>
-        <p>La Repubblica di Romikami nasce ufficialmente dall'unione e dalla visione del Consiglio di Stato. Fondata sulla stabilità e sulla potenza di calcolo della fortezza hardware <strong>Predator 5000</strong>, la nostra nazione si erge como baluardo di indipendenza, cultura bilingue e sovranità tecnologica nel mondo digitale.</p>
-        
-        <div class="timeline" style="margin-top: 25px;">
-            <div class="timeline-item">
-                <div class="year">Articolo 1 della Costituzione</div>
-                <p style="margin-top: 5px; font-style: italic;">"La Repubblica di Romikami è una nazione indivisibile, fondata sul rispetto della rete, della sua lingua e sulla fratellanza dei suoi cittadini."</p>
-            </div>
-        </div>
+<h2> Consiglio dei Ministri di Romikami</h2>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; margin-bottom: 40px;">
+<div style="background: #0f172a; padding: 15px; border-radius: 10px; border-left: 4px solid #34d399;"><strong style="color: #34d399;">1. Ministero del Codice</strong><br><span style="color: #f8fafc; font-weight: bold;">Ministro: Tu</span></div>
+<div style="background: #0f172a; padding: 15px; border-radius: 10px; border-left: 4px solid #e11d48;"><strong style="color: #e11d48;">2. Ministero della Sicurezza</strong><br><span style="color: #f8fafc; font-weight: bold;">Ministro: Il tuo Amico</span></div>
+<div style="background: #0f172a; padding: 15px; border-radius: 10px; border-left: 4px solid #38bdf8;"><strong style="color: #38bdf8;">3. Ministero della Lingua</strong><br><span style="color: #f8fafc; font-weight: bold;">Ministro: Il tuo Amico</span></div>
+<div style="background: #0f172a; padding: 15px; border-radius: 10px; border-left: 4px solid #eab308;"><strong style="color: #eab308;">4. Ministero degli Esteri</strong><br><span style="color: #f8fafc; font-weight: bold;">Ministro: Tu</span></div>
+</div>
 
-        <h2>🏛️ Consiglio dei Ministri (Quadrumvirato)</h2>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;">
-            <div style="background: #0f172a; padding: 15px; border-radius: 10px; border-left: 4px solid #38bdf8;">
-                <strong style="color: #38bdf8;">1. Codice ed Esteri</strong><br>
-                <span style="color: #f8fafc; font-size: 0.95rem;">FRANCESCO (Mika-Un)</span>
-            </div>
-            <div style="background: #0f172a; padding: 15px; border-radius: 10px; border-left: 4px solid #e11d48;">
-                <strong style="color: #e11d48;">2. Cyber-Sicurezza e Ban</strong><br>
-                <span style="color: #f8fafc; font-size: 0.95rem;">Ministro 2 (Mika-Do)</span>
-            </div>
-            <div style="background: #0f172a; padding: 15px; border-radius: 10px; border-left: 4px solid #34d399;">
-                <strong style="color: #34d399;">3. Lingua e Cultura</strong><br>
-                <span style="color: #f8fafc; font-size: 0.95rem;">Ministro 3 (Mika-Tri)</span>
-            </div>
-            <div style="background: #0f172a; padding: 15px; border-radius: 10px; border-left: 4px solid #eab308;">
-                <strong style="color: #eab308;">4. Difesa e Risorse</strong><br>
-                <span style="color: #f8fafc; font-size: 0.95rem;">Ministro 4 (Mika-Quat)</span>
-            </div>
-        </div>
-        <h2>🗣️ Traduttore di Stato (Italiano ➡️ Romikamese)</h2>
-        <textarea id="inputIta" placeholder="Scrivi in italiano..." oninput="translateItaToRmk()"></textarea>
-        <div class="output-box" id="outputRmk">In attesa del testo...</div>
+<h2> Terminale d'Accesso Governativo</h2>
+<div id="login-box" style="background: #0f172a; padding: 20px; border-radius: 10px; border: 1px dashed #f43f5e; text-align: center; max-width: 400px; margin: 0 auto; margin-bottom: 30px;">
+<input type="password" id="pass-input" placeholder="Password di Stato..." style="padding: 10px; border-radius: 5px; border: 1px solid #334155; background: #1e293b; color: white; width: 80%; text-align: center;"><br><br>
+<button onclick="checkPassword()" style="background: #f43f5e; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold;">Sblocca File Cifrati</button>
+</div>
+<div id="secret-content" style="display: none; background: #115e59; padding: 25px; border-radius: 10px; border: 2px solid #14b8a6; margin-bottom: 30px;">
+<h3 style="color: #14b8a6; margin-top: 0;"> Archivio Segreto</h3>
+<p> <strong>Decreto #1:</strong> Accesso vietato ai non registrati senza visto di sicurezza.</p>
+<p> <strong>Decreto #2:</strong> Il traduttore automatico pubblico è integrato nella scheda del dizionario.</p>
+</div>
+</div>
 
-        <h2>🔄 Traduttore Inverso (Romikamese ➡️ Italiano)</h2>
-        <textarea id="inputRmk" placeholder="Scrivi in romikamese..." oninput="translateRmkToIta()"></textarea>
-        <div class="output-box inverse" id="outputIta">In attesa del testo...</div>
+<!-- SEZIONE 2: PAGINA DEL DIZIONARIO -->
+<div id="section-dizionario" style="display: none;">
+<h2> Lingua e Alfabeto di Romikami (Mika-Romikami)</h2>
+<p>Il Romikamese è il patrimonio culturale del nostro popolo. Studia i glifi e il vocabolario:</p>
 
-        <h2>📖 Dizionario Completo della Nazione</h2>
-        <div class="dict-grid" id="dictionaryVisualGrid"></div>
+<h3 style="color: #38bdf8;"> Cifrario Glifico Nazionale</h3>
+<div style="text-align: center; margin: 20px 0; background: #0f172a; padding: 15px; border-radius: 10px; border: 1px solid #334155;">
+<img src="https://i.ibb.co/60JwG2Z0/bandiera-romikami.jpg" alt="Alfabeto Runico" style="max-width: 100%; border-radius: 5px; border: 1px solid #38bdf8;">
+</div>
 
-        <h2>🪪 Richieste e Documenti di Stato</h2>
-        <div style="text-align: center; margin-top: 20px;">
-            <a href="https://forms.gle/paacHYAbuvhTarwr6" target="_blank" class="nav-btn">Richiedi Cittadinanza (Quiz)</a>
-            <a href="passaporto_vuoto.pdf" download class="nav-btn gold-btn">Scarica Passaporto (Mika-Visualu)</a>
-        </div>
-    </div>
+<h3 style="color: #34d399; margin-top: 30px;"> Vocabolario di Stato Combinatorio</h3>
+<div class="dict-grid">
+<div class="dict-section">
+<h4 style="color: #34d399;"> Saluti e Basi</h4>
+<p><strong>Zhuao:</strong> Ciao | <strong>Pokoke:</strong> Perché | <strong>Zhuaorami:</strong> Arrivederci</p>
+<p><strong>Zi / Ko / Ziko:</strong> Io / Tu / Noi | <strong>Zhu / Koza:</strong> Sì / No</p>
+<p><strong>Su / Sa / Sos / Sas:</strong> Il / La / I / Le | <strong>De / Inu / Kun:</strong> Di / In / Con</p>
+</div>
+<div class="dict-section">
+<h4 style="color: #38bdf8;"> Società e Ruoli</h4>
+<p><strong>Kitiadini:</strong> Cittadino | <strong>Zhuadini:</strong> Amico | <strong>Banadini:</strong> Nemico</p>
+<p><strong>Mika:</strong> Capo / Stato | <strong>Mika-bano:</strong> Ministro | <strong>Mika-visualu:</strong> Passaporto</p>
+<p><strong>Omu / Femina:</strong> Uomo / Donna | <strong>Babbu / Mamma:</strong> Padre / Madre</p>
+</div>
+<div class="dict-section" style="grid-column: span 2; border-top: 1px dashed #334155; padding-top: 15px; margin-top: 5px;">
+<h4 style="color: #eab308;"> Cyber-Termini e Numeri</h4>
+<p><strong>Predatori:</strong> Computer | <strong>Netu:</strong> Internet | <strong>Netu-pagu:</strong> Sito Web | <strong>Visualu:</strong> Schermo</p>
+<p><strong> Cifre Base:</strong> Ze(0) | Un(1) | Do(2) | Tri(3) | Kua(4) | Kin(5) | Se(6) | Sept(7) | Ok(8) | Nov(9)</p>
+<p><strong> Regola Decine:</strong> Lettura cifra per cifra (es. 12 = Un-Do | 15 = Un-Kin | 2026 = Un-Se-Ze-Se)</p>
+</div>
+</div>
+<!-- INTERFACCIA DEL TRADUTTORE -->
+<h3 style="color: #eab308; margin-top: 40px;"> Traduttore Istantaneo Italiano  Romikamese</h3>
+<div style="background: #0f172a; padding: 25px; border-radius: 10px; border: 1px dashed #eab308; text-align: center;">
+<input type="text" id="ita-input" placeholder="Scrivi in italiano... (es. ciao amico)" style="padding: 12px; border-radius: 5px; border: 1px solid #334155; background: #1e293b; color: white; width: 80%; text-align: center; font-size: 1.1rem;"><br><br>
+<button onclick="translateLang()" style="background: #eab308; color: #0f172a; border: none; padding: 12px 25px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 1.1rem;">Traduci in Romikamese</button><br><br>
+<div id="rom-output" style="background: #1e293b; color: #34d399; padding: 15px; border-radius: 5px; font-family: monospace; font-size: 1.3rem; border: 1px solid #334155; font-weight: bold;">...</div>
+</div>
+</div>
 
-    <script>
-        const dictionary = {
-            "ciao": "zhuao", "arrivederci": "zhuaorami", "sì": "zhu", "si": "zhu", "no": "koza",
-            "io": "zi", "tu": "ko", "noi": "ziko", "questo": "kiti", "anche": "anku", "tutto": "totu",
-            "cittadino": "kitiadini", "amico": "zhuadini", "nemico": "banadini", "capo": "mika",
-            "uomo": "omu", "donna": "femina", "padre": "babbu", "madre": "mamma", "fratello": "frati", "sorella": "sorru",
-            "computer": "predatori", "internet": "netu", "sito": "netu-pagu", "schermo": "visualu",
-            "tastiera": "tastu", "cavo": "linia", "elettricità": "voltu", "elettricita": "voltu",
-            "casa": "domu", "porta": "janna", "letto": "lettis", "comodino": "biku-lettis",
-            "armadio": "domu-bestiri", "sedia": "cadrea", "tavolo": "mesa", "luce": "lughi",
-            "mondo": "mundu", "paese": "biddai", "strada": "stradu", "cielo": "kelu",
-            "sole": "sko", "luna": "juna", "fuoco": "fogu", "acqua": "abba",
-            "mare": "mari", "spiaggia": "rena-biddai", "ombrellone": "tentu-sole", "asciugamano": "panno-abba",
-            "giorno": "die", "notte": "noti", "tempo": "tempu", "pioggia": "frore", "vento": "bentis", "neve": "nii",
-            "blu": "burk", "azzurro": "burk", "rosso": "ruju", "verde": "birde", "giallo": "grogu",
-            "oro": "oru", "nero": "nieddu", "bianco": "albu", "grigio": "fumofis", "arancione": "fogu-ruju",
-            "viola": "lughis-noti", "rosa": "frore-albu",
-            "soldi": "sordu", "lavoro": "traballu", "macchina": "makinari", "zaino": "saccu",
-            "vestiti": "bestiri", "scarpe": "kalzatru", "legge": "lege", "guerra": "guerru", "pace": "pakis",
-            "bene": "benu", "male": "malu", "grande": "magnu", "piccolo": "biku", "bello": "bellu",
-            "brutto": "bruttu", "forte": "fortis", "debole": "scuru", "nuovo": "nou", "vecchio": "antigu",
-            "veloce": "flussu", "lento": "ze-flussu", "caldo": "kallenti", "freddo": "frittu",
-            "felicità": "allia", "felicita": "allia", "tristezza": "buggis", "paura": "timore",
-            "essere": "essere", "avere": "tenere", "fare": "fakere", "andare": "andare",
-            "sapere": "sapare", "volere": "bolere", "mangiare": "papare", "dormire": "dormire",
-            "vedere": "mirare", "ascoltare": "askoltare", "comprare": "akattare", "cercare": "kerkare", "rompere": "spaccare"
-        };
+<div class="footer">© 2026 Repubblica di Romikami - Tutti i diritti riservati.</div>
+</div>
 
-        const inverseDictionary = {};
-        Object.keys(dictionary).forEach(key => {
-            const val = dictionary[key];
-            if (!inverseDictionary[val]) { inverseDictionary[val] = key; }
-        });
+<!-- PULSANTE RICHIESTA CITTADINANZA -->
+<div style="text-align: center; margin: 30px 0;">
+<a href="https://forms.gle/qERPfCoiPfKH1PvK8" target="_blank" style="background: #ffffff; color: #0f172a; padding: 15px 30px; font-size: 1.2rem; font-weight: bold; text-decoration: none; border-radius: 10px; box-shadow: 0 4px 14px rgba(255, 255, 255, 0.2); display: inline-block;">
+ Richiedi la Cittadinanza di Romikami
+</a>
+</div>
 
-        const grid = document.getElementById("dictionaryVisualGrid");
-        Object.keys(dictionary).sort().forEach(word => {
-            if(word !== "si" && word !== "elettricita" && word !== "felicita") {
-                const item = document.createElement("div");
-                item.className = "dict-item";
-                item.innerHTML = `${word.charAt(0).toUpperCase() + word.slice(1)} ➡️ <span>${dictionary[word]}</span>`;
-                grid.appendChild(item);
-            }
-        });
+<!-- SCRIPT LOGICA E FUNZIONI JAVASCRIPT -->
+<script>
+function showSection(sectionName) {
+if (sectionName === 'home') {
+document.getElementById('section-home').style.display = 'block';
+document.getElementById('section-dizionario').style.display = 'none';
+} else if (sectionName === 'dizionario') {
+document.getElementById('section-home').style.display = 'none';
+document.getElementById('section-dizionario').style.display = 'block';
+}
+}
 
-        function translateItaToRmk() {
-            const input = document.getElementById("inputIta").value.toLowerCase();
-            if (!input.trim()) { document.getElementById("outputRmk").innerText = "In attesa del testo..."; return; }
-            const words = input.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(/\s+/);
-            const translated = words.map(word => dictionary[word] ? dictionary[word] : word);
-            document.getElementById("outputRmk").innerText = translated.join(" ");
-        }
+function checkPassword() {
+var password = document.getElementById("pass-input").value;
+if (password === 'zhuao2026') {
+document.getElementById("login-box").style.display = "none";
+document.getElementById("secret-content").style.display = "block";
+} else {
+alert("ACCESSO NEGATO: Codice errato.");
+}
+}
 
-        function translateRmkToIta() {
-            const input = document.getElementById("inputRmk").value.toLowerCase();
-            if (!input.trim()) { document.getElementById("outputIta").innerText = "In attesa del testo..."; return; }
-            const words = input.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(/\s+/);
-            const translated = words.map(word => inverseDictionary[word] ? inverseDictionary[word] : word);
-            document.getElementById("outputIta").innerText = translated.join(" ");
-        }
-    </script>
+function translateLang() {
+var input = document.getElementById("ita-input").value.toLowerCase();
+var dizionario = {
+"ciao": "Zhuao", "benvenuto": "Zhuao", "perché": "Pokoke", "perche": "Pokoke",
+"arrivederci": "Zhuaorami", "io": "Zi", "tu": "Ko", "noi": "Ziko", "sì": "Zhu", "si": "Zhu", "no": "Koza", "questo": "Kiti",
+"cittadino": "Kitiadini", "amico": "Zhuadini", "nemico": "Banadini", "spammer": "Banadini", "capo": "Mika", "presidente": "Mika",
+"stato": "Mika", "repubblica": "Mika", "ministro": "Mika-bano", "computer": "Predatori", "predator": "Predatori", "internet": "Netu",
+"rete": "Netu", "sito": "Netu-pagu", "schermo": "Visualu", "monitor": "Visualu", "passaporto": "Mika-visualu", "tastiera": "Tastu",
+"cavo": "Linia", "connessione": "Linia", "elettricità": "Voltu", "energia": "Voltu", "il": "su", "la": "sa", "i": "sos", "le": "sas",
+"di": "de", "in": "inu", "con": "kun", "ma": "maju", "anche": "anku", "tutto": "totu", "tutti": "totu", "uomo": "omu", "donna": "femina",
+"fratello": "frati", "sorella": "sorru", "padre": "babbu", "madre": "mamma", "casa": "domu", "mondo": "mundu", "terra": "mundu",
+"cielo": "kelu", "sole": "sole", "luna": "luna", "fuoco": "fogu", "acqua": "abba", "tempo": "tempu", "ora": "tempu", "notte": "noti",
+"giorno": "die", "bene": "benu", "buono": "benu", "male": "malu", "cattivo": "malu", "grande": "magnu", "piccolo": "biku", "legge": "lege",
+"regola": "lege", "guerra": "guerru", "pace": "pakis", "avere": "tenere", "fare": "fakere", "creare": "fakere", "andare": "andare",
+"sapere": "sapare", "conoscere": "sapare", "volere": "bolere", "mangiare": "papare", "dormire": "dormire", "rosso": "ruju", "verde": "birde",
+"azzurro": "bluu", "felicità": "allia", "gioia": "allia", "tristezza": "buggis", "errore": "buggis", "paura": "timore", "caldo": "kallenti",
+"freddo": "frittu", "paese": "biddai", "città": "biddai", "server": "biddai", "strada": "stradu", "denaro": "sordu", "soldi": "sordu",
+"lavoro": "traballu", "macchina": "makinari", "mare": "mari", "vedere": "mirare", "osservare": "mirare", "ascoltare": "askoltare",
+"comprare": "akattare", "trovare": "kerkare", "cercare": "kerkare", "rompere": "spaccare", "vestiti": "bestiri", "scarpe": "kalzatru",
+"zaino": "saccu", "porta": "janna", "letto": "lettis", "luce": "lughi", "pioggia": "frore", "vento": "bentis", "neve": "nii",
+"0": "Ze", "1": "Un", "2": "Do", "3": "Tri", "4": "Kua", "5": "Kin", "6": "Se", "7": "Sept", "8": "Ok", "9": "Nov"
+};
+var parole = input.replace(/[.,\/#!\$%\^&\*;:{}=\-_`~()]/g,"").split(" ");
+var outputFrase = [];
+for (var i = 0; i < parole.length; i++) {
+var parolaIta = parole[i];
+if (dizionario[parolaIta]) { outputFrase.push(dizionario[parolaIta]); }
+else if (parolaIta.trim() !== "") { outputFrase.push("[" + parolaIta + "]"); }
+}
+document.getElementById("rom-output").innerText = outputFrase.join(" ");
+}
+</script>
 </body>
-</html>
-
-
-
+</html> 
 
