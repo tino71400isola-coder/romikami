@@ -2,31 +2,38 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>Repubblica di Romikami - Sito Ufficiale</title>
+    <title>Repubblica di Romikami - Mega-Upgrade Centrale</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; background-color: #0f172a; color: #f8fafc; padding: 40px 20px; position: relative; }
-        .container { max-width: 950px; margin: 0 auto; background: #1e293b; padding: 40px; border-radius: 20px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3); border: 2px solid #38bdf8; text-align: left; margin-top: 55px; }
+        body { font-family: 'Segoe UI', sans-serif; text-align: center; background-color: #0f172a; color: #f8fafc; padding: 40px 20px; position: relative; transition: background 0.5s; }
+        body.allerta-attiva { background-color: #451a03 !important; animation: pulse-allerta 2s infinite; }
+        @keyframes pulse-allerta { 0% { box-shadow: inset 0 0 100px #7c2d12; } 50% { box-shadow: inset 0 0 150px #b91c1c; } 100% { box-shadow: inset 0 0 100px #7c2d12; } }
+        .container { max-width: 950px; margin: 50px auto 0; background: #1e293b; padding: 40px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.4); border: 2px solid #38bdf8; text-align: left; }
         h1 { color: #38bdf8; font-size: 3rem; text-align: center; margin-bottom: 5px; }
         h2 { color: #34d399; border-bottom: 1px solid #334155; padding-bottom: 10px; margin-top: 40px; }
         p { font-size: 1.1rem; color: #94a3b8; line-height: 1.7; }
         .nav-btn { background: #38bdf8; color: #0f172a; padding: 12px 24px; font-weight: bold; border: none; border-radius: 10px; cursor: pointer; display: inline-block; margin: 10px; font-size: 1.1rem; box-shadow: 0 4px 14px rgba(56, 189, 248, 0.3); text-decoration: none; text-align: center; }
         .gold-btn { background: #eab308; color: #0f172a; box-shadow: 0 4px 14px rgba(234, 179, 8, 0.3); }
         .home-btn { background: #64748b; color: #ffffff; box-shadow: 0 4px 14px rgba(100, 116, 139, 0.3); }
-        .dict-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background: #0f172a; padding: 20px; border-radius: 10px; border: 1px solid #334155; font-family: monospace; font-size: 1rem; max-height: 350px; overflow-y: auto; }
+        .action-btn { background: #10b981; color: #fff; padding: 8px 16px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 0.95rem; }
+        .action-btn:hover { background: #059669; }
+        .alert-btn { background: #ef4444; color: #fff; }
+        .alert-btn:hover { background: #dc2626; }
+        .dict-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background: #0f172a; padding: 20px; border-radius: 10px; border: 1px solid #334155; font-family: monospace; font-size: 1rem; max-height: 250px; overflow-y: auto; }
         .dict-item { padding: 5px; border-bottom: 1px solid #1e293b; display: flex; justify-content: space-between; }
         .dict-item span { color: #34d399; font-weight: bold; }
-        textarea { width: 100%; height: 80px; background: #0f172a; color: #f8fafc; border: 1px solid #334155; border-radius: 10px; padding: 15px; font-size: 1.1rem; resize: none; box-sizing: border-box; }
-        .output-box { background: #0f172a; border: 1px solid #38bdf8; padding: 15px; border-radius: 10px; min-height: 40px; font-size: 1.2rem; color: #38bdf8; font-family: monospace; margin-top: 10px; margin-bottom: 20px; }
+        textarea { width: 100%; height: 70px; background: #0f172a; color: #f8fafc; border: 1px solid #334155; border-radius: 10px; padding: 12px; font-size: 1.1rem; resize: none; box-sizing: border-box; }
+        .output-box { background: #0f172a; border: 1px solid #38bdf8; padding: 12px; border-radius: 10px; min-height: 35px; font-size: 1.1rem; color: #38bdf8; font-family: monospace; margin-top: 5px; margin-bottom: 15px; }
         .output-box.inverse { border-color: #eab308; color: #eab308; }
-        .timeline-item { margin-bottom: 20px; padding-left: 15px; border-left: 3px solid #38bdf8; }
-        .year { font-weight: bold; color: #38bdf8; }
         
+        /* MENU INTERATTIVO SUPERIORE */
         .header-controls { position: absolute; top: 15px; right: 25px; display: flex; gap: 12px; align-items: center; z-index: 1000; }
         .hamburger-icon { font-size: 1.8rem; color: #38bdf8; cursor: pointer; background: #1e293b; border: 2px solid #38bdf8; padding: 4px 14px; border-radius: 8px; transition: 0.3s; user-select: none; }
-        .hamburger-icon:hover { background: #0f172a; }
         .dropdown-menu { display: none; position: absolute; top: 55px; right: 0; background: #1e293b; border: 2px solid #38bdf8; border-radius: 12px; padding: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); width: 220px; z-index: 1001; }
         .dropdown-menu a { display: block; width: 100%; text-decoration: none; color: #f8fafc; background: #0f172a; border: 1px solid #334155; padding: 10px; margin-bottom: 8px; border-radius: 8px; font-weight: bold; text-align: center; font-size: 0.95rem; box-sizing: border-box; }
-        .dropdown-menu a:hover { background: #1e1b4b; border-color: #34d399; }
+        
+        /* COMPONENTI DEL MEGA-UPGRADE */
+        .panel-box { background: #0f172a; padding: 20px; border-radius: 12px; border: 1px solid #334155; margin-top: 15px; }
+        .xp-badge { background: #38bdf8; color: #0f172a; padding: 3px 8px; border-radius: 6px; font-weight: bold; font-size: 0.9rem; }
     </style>
 </head>
 <body>
@@ -35,11 +42,11 @@
         <a href="#" class="nav-btn home-btn" style="margin: 0; padding: 8px 16px; font-size: 0.95rem;">🏠 Home</a>
         <div class="hamburger-icon" onclick="toggleMenu()">☰</div>
         <div class="dropdown-menu" id="dropdownMenu">
+            <a href="#sezione-xp">🏆 Sistema Livelli</a>
+            <a href="#sezione-gioco">🎲 Test Fedeltà</a>
+            <a href="#sezione-banca">   Banca Sordu</a>
             <a href="#sezione-traduttori">🗣️ Traduttori</a>
-            <a href="#sezione-dizionario">📖 Dizionario</a>
-            <a href="https://forms.gle/uteWuZobf25VbCL38" target="_blank">🪪 Cittadinanza</a>
-            <a href="passaporto_vuoto.pdf" download>👑 Passaporto</a>
-            <a href="#sezione-ministri">🔑 Area Ministri</a>
+            <a href="#sezione-ministri">🔑 Area Capi</a>
         </div>
     </div>
 
@@ -48,178 +55,117 @@
             <img src="https://i.ibb.co/60JwG2Z0/bandiera-romikami.jpg" alt="Bandiera di Romikami" style="max-width: 100%; height: auto; border-radius: 15px; border: 2px solid #38bdf8; box-shadow: 0 4px 14px rgba(56, 189, 248, 0.4);">
         </div>
 
+        <div id="statoAllertaBanner" style="display:none; background:#ef4444; color:#fff; text-align:center; padding:10px; font-weight:bold; border-radius:10px; margin-bottom:20px; font-family:monospace; font-size:1.2rem; border:2px solid #fff;">🚨 MODALITÀ ALLERTA DI STATO ATTIVATA DAL MINISTRO DELLA DIFESA 🚨</div>
+
         <h1>Repubblica di Romikami 🛡️</h1>
-        <p style="text-align: center; font-style: italic; color: #64748b;">Mika-Romikami - Portale Governativo Centrale</p>
+        <p style="text-align: center; font-style: italic; color: #64748b;">Mika-Romikami - Portale Governativo Centrale v2.0 Mega-Up</p>
 
         <h2>📜 Fondazione e Storia dello Stato</h2>
         <p>La Repubblica di Romikami nasce ufficialmente dall'unione e dalla visione del Consiglio di Stato. Fondata sulla stabilità e sulla potenza di calcolo della fortezza hardware <strong>Predator 5000</strong>, la nostra nazione si erge come baluardo di indipendenza, cultura bilingue e sovranità tecnologica nel mondo digitale.</p>
-        
-        <div class="timeline" style="margin-top: 25px;">
-            <div class="timeline-item">
-                <div class="year">Articolo 1 della Costituzione</div>
-                <p style="margin-top: 5px; font-style: italic;">"La Repubblica di Romikami è una nazione indivisibile, fondata sul rispetto della rete, della sua lingua e sulla fratellanza dei suoi cittadini."</p>
-            </div>
-        </div>
 
+        <!-- 4. LA PAGINA INTERATTIVA DEI MINISTRI (BACHECA LIVE) -->
         <h2 id="sezione-ministri">🔑 Terminale Governativo Blindato</h2>
         <div style="background: #1e1b4b; border: 2px dashed #e11d48; padding: 25px; border-radius: 15px; margin-top: 20px; margin-bottom: 30px;">
             <p style="color: #e11d48; font-weight: bold; margin-top: 0; font-size: 1.2rem;">⚠️ AREA RISERVATA AL QUADRUMVIRATO</p>
-            <p style="font-size: 1rem; color: #94a3b8; margin-bottom: 15px;">Inserisci il codice d'accesso per sbloccare l'organigramma e i compiti dei quattro Capi di Stato:</p>
+            <p style="font-size: 1rem; color: #94a3b8; margin-bottom: 15px;">Inserisci il codice d'accesso per sbloccare l'organigramma e i controlli dei quattro Capi di Stato:</p>
             <input type="password" style="background: #0f172a; color: #e11d48; border: 1px solid #e11d48; padding: 10px; font-family: monospace; font-size: 1.1rem; border-radius: 5px; width: 220px; text-align: center;" placeholder="PASSWORD DI STATO" oninput="if(this.value==='zhuaoromikami2026'){document.getElementById('secretGovernmentContent').style.display='block'}else{document.getElementById('secretGovernmentContent').style.display='none'}">
             
             <div id="secretGovernmentContent" style="display: none; margin-top: 25px; border-top: 1px dashed #e11d48; padding-top: 20px;">
-                <p style="color: #34d399; font-weight: bold; font-family: monospace; font-size: 1.1rem; margin-bottom: 20px;">🔓 ACCESSO AUTORIZZATO — BACHECA DEI COMPITI</p>
+                <p style="color: #34d399; font-weight: bold; font-family: monospace; font-size: 1.1rem; margin-bottom: 20px;">🔓 ACCESSO AUTORIZZATO — PANNELLO COMANDI QUADRUMVIRATO LIVE</p>
                 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                     <div style="background: #0f172a; padding: 15px; border-radius: 10px; border-left: 4px solid #38bdf8;">
                         <strong style="color: #38bdf8; font-size: 1.1rem;">1. Codice ed Esteri (Mika-Un)</strong><br>
-                        <span style="color: #f8fafc; font-weight: bold; font-size: 0.95rem;">Tynox</span>
-                        <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 8px; line-height: 1.4; margin-bottom: 0;">Gestione del server GitHub, aggiornamento del codice del portale web, diplomazia ed emissione dei passaporti di Stato.</p>
+                        <span style="color: #fff; font-weight: bold; font-size: 0.95rem;">Tynox</span>
+                        <div style="margin-top:10px;"><button class="action-btn" onclick="assegnaPremioSordu()">Assegna Bonus 500 Sordu</button></div>
                     </div>
                     <div style="background: #0f172a; padding: 15px; border-radius: 10px; border-left: 4px solid #e11d48;">
                         <strong style="color: #e11d48; font-size: 1.1rem;">2. Cyber-Sicurezza (Mika-Do)</strong><br>
-                        <span style="color: #f8fafc; font-weight: bold; font-size: 0.95rem;">Nynx</span>
-                        <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 8px; line-height: 1.4; margin-bottom: 0;">Protezione della stabilità dei server, moderazione delle chat e potere esecutivo di Ban dei Banadini.</p>
+                        <span style="color: #fff; font-weight: bold; font-size: 0.95rem;">Nynx</span>
+                        <div style="margin-top:10px;"><button class="action-btn alert-btn" onclick="azzeraTuttiXP()">Azzera Gradi Sospetti</button></div>
                     </div>
                     <div style="background: #0f172a; padding: 15px; border-radius: 10px; border-left: 4px solid #34d399;">
                         <strong style="color: #34d399; font-size: 1.1rem;">3. Lingua e Cultura (Mika-Tri)</strong><br>
-                        <span style="color: #f8fafc; font-weight: bold; font-size: 0.95rem;">Tynox</span>
-                        <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 8px; line-height: 1.4; margin-bottom: 0;">Creazione dei termini, insegnamento del Romikamese e controllo dei quiz di cittadinanza.</p>
+                        <span style="color: #fff; font-weight: bold; font-size: 0.95rem;">Tynox</span>
+                        <div style="margin-top:10px;"><p style="font-size:0.8rem; color:#94a3b8; margin:0;">Stato Dizionario: <span style="color:#34d399; font-weight:bold;">AL COMPLETO</span></p></div>
                     </div>
                     <div style="background: #0f172a; padding: 15px; border-radius: 10px; border-left: 4px solid #eab308;">
                         <strong style="color: #eab308; font-size: 1.1rem;">4. Difesa e Risorse (Mika-Quat)</strong><br>
-                        <span style="color: #f8fafc; font-weight: bold; font-size: 0.95rem;">Leo</span>
-                        <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 8px; line-height: 1.4; margin-bottom: 0;">Controllo della logistica, presidio dei territori fisici, pianificazione e difesa dello Stato.</p>
+                        <span style="color: #fff; font-weight: bold; font-size: 0.95rem;">Leo</span>
+                        <div style="margin-top:10px;">
+                            <button class="action-btn alert-btn" id="btnAllertaDifesa" onclick="toggleAllertaStato()">ATTIVA STATO ALLERTA</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- TRADUTTORE LIVE: ITA -> RMK -->
+        <!-- TRADUTTORI DI STATO LIVE -->
         <h2 id="sezione-traduttori">🗣️ Traduttore di Stato (Italiano ➡️ Romikamese)</h2>
         <textarea id="inputIta" placeholder="Scrivi in italiano... Es: il capo vuole il passaporto blu" oninput="translateItaToRmk()"></textarea>
         <div class="output-box" id="outputRmk">In attesa del testo...</div>
 
-        <!-- TRADUTTORE LIVE: RMK -> ITA -->
         <h2>🔄 Traduttore Inverso (Romikamese ➡️ Italiano)</h2>
         <textarea id="inputRmk" placeholder="Scrivi in romikamese... Es: mika bolere lettis nou kun juna" oninput="translateRmkToIta()"></textarea>
         <div class="output-box inverse" id="outputIta">In attesa del testo...</div>
 
         <!-- DIZIONARIO VISIVO -->
         <h2 id="sezione-dizionario">📖 Dizionario Completo della Nazione</h2>
-        <p>Elenco dei vocaboli ufficiali approvati (Scorri la lista):</p>
         <div class="dict-grid" id="dictionaryVisualGrid"></div>
 
-        <!-- DOCUMENTI E LINKS -->
+        <!-- LINKS ISTITUZIONALI -->
         <h2>🪪 Richieste e Documenti di Stato</h2>
         <div style="text-align: center; margin-top: 20px;">
-            <a href="https://forms.gle/uteWuZobf25VbCL38" target="_blank" class="nav-btn">Richiedi Cittadinanza (Quiz)</a>
+            <a href="https://tino71400isola-coder.github.io/romikami/" target="_blank" class="nav-btn">Richiedi Cittadinanza (Quiz)</a>
             <a href="passaporto_vuoto.pdf" download class="nav-btn gold-btn">👑 Scarica il Passaporto (Mika-visualu)</a>
         </div>
     </div>
 
-    <script>
-        // Funzione per la tendina dei tre trattini
-        function toggleMenu() {
-            const menu = document.getElementById("dropdownMenu");
-            if (menu.style.display === "block") {
-                menu.style.display = "none";
-            } else {
-                menu.style.display = "block";
-            }
-        }
+    <!-- EFFETTI DI PIOGGIA CELEBRATIVA -->
+    <div id="rainContainer" style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:99999; display:none;"></div>
 
-        document.querySelectorAll('.dropdown-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                document.getElementById("dropdownMenu").style.display = "none";
-            });
-        });
+<script>
+function toggleMenu(){const m=document.getElementById("dropdownMenu");m.style.display=(m.style.display==="block")?"none":"block";}
+document.querySelectorAll('.dropdown-menu a').forEach(l=>{l.addEventListener('click',()=>document.getElementById("dropdownMenu").style.display="none");});
+let xp=parseInt(localStorage.getItem("g_xp"))||0,sordu=parseInt(localStorage.getItem("g_srd"))||0,allerta=localStorage.getItem("g_alt")==="true";
+const dict={
+"zero":"ze","uno":"un","due":"do","tre":"tri","quattro":"quat","cinque":"kink","sei":"se","sette":"setis","otto":"oto","nove":"nufi",
+"ciao":"zhuao","arrivederci":"zhuaorami","sì":"zhu","si":"zhu","no":"koza","io":"zi","tu":"ko","noi":"ziko","questo":"kiti","anche":"anku","tutto":"totu",
+"cittadino":"kitiadini","amico":"zhuadini","nemico":"banadini","capo":"mika","uomo":"omu","donna":"femina","padre":"babbu","madre":"mamma","fratello":"frati","sorella":"sorru",
+"computer":"predatori","internet":"netu","sito":"netu-pagu","schermo":"visualu","tastiera":"tastu","cavo":"linia","elettricità":"voltu","elettricita":"voltu",
+"casa":"domu","porta":"janna","letto":"lettis","comodino":"biku-lettis","armadio":"domu-bestiri","sedia":"cadrea","tavolo":"mesa","luce":"lughi",
+"mondo":"mundu","paese":"biddai","strada":"stradu","cielo":"kelu","sole":"sko","luna":"juna","fuoco":"fogu","acqua":"abba",
+"mare":"mari","spiaggia":"rena-biddai","ombrellone":"tentu-sole","asciugamano":"panno-abba","giorno":"die","notte":"noti","tempo":"tempu","pioggia":"frore","vento":"bentis","neve":"nii",
+"blu":"burk","azzurro":"burk","rosso":"ruju","verde":"birde","giallo":"grogu","oro":"oru","nero":"nieddu","bianco":"albu","grigio":"fumofis","arancione":"fogu-ruju","viola":"lughis-noti","rosa":"frore-albu",
+"soldi":"sordu","lavoro":"traballu","macchina":"makinari","zaino":"saccu","vestiti":"bestiri","scarpe":"kalzatru","legge":"lege","guerra":"guerru","pace":"pakis",
+"bene":"benu","male":"malu","grande":"magnu","piccolo":"biku","bello":"bellu","brutto":"bruttu","forte":"fortis","debole":"scuru","nuovo":"nou","vecchio":"antigu",
+"veloce":"flussu","lento":"ze-flussu","caldo":"kallenti","freddo":"frittu","felicità":"allia","felicita":"allia","tristezza":"buggis","paura":"timore",
+"essere":"essere","avere":"tenere","fare":"fakere","andare":"andare","sapere":"sapare","volere":"bolere","mangiare":"papare","dormire":"dormire","vedere":"mirare","ascoltare":"askoltare","comprare":"akattare","cercare":"kerkare","rompere":"spaccare",
+"giocare":"jukare","vincere":"binkere","perdere":"perdere","sparare":"spara-voltu","alleato":"team-zhuadini","grado":"gradu","livello":"gradu","bandito":"kickatu",
+"segreto":"segretu","blindato":"segretu","password":"clabi-voltu","chiave":"clabi-voltu","riunione":"cussorgia","consiglio":"cussorgia","falso":"ze-mika","pane":"pani","carne":"petza","pizza":"pitzas","bere":"buffare","bibita":"lattis-abba",
+"scemo":"baddu-omu","sciocho":"baddu-omu","sciocco":"baddu-omu","traditore":"ze-zhuadini","spia":"ze-zhuadini","nabbo":"ze-predatori","fifone":"timore-saccu","rompipalle":"buggu-bentis","fastidioso":"buggu-bentis"
+};
+const invDict={};Object.keys(dict).forEach(k=>{invDict[dict[k]]=k;});ui();altUi();
+function ui(){document.getElementById("lblXp").innerText=xp+" XP";document.getElementById("lblSordu").innerText=sordu+" SRL";
+let r="Kitiadini-Nabbo 🥚";if(xp>=50)r="Soldato-Mika 🛡️";if(xp>=150)r="Guardiano della Rete 🌐";if(xp>=300)r="Cavaliere del Predator 👑";
+document.getElementById("lblGrado").innerText=r;}
+function addXp(v){xp+=v;localStorage.setItem("g_xp",xp);ui();}
+function cambioLive(){const v=parseFloat(document.getElementById("boxEuro").value)||0;document.getElementById("boxSordu").innerText="= "+Math.round(v*100)+" SRL";}
+function bonusSordu(){sordu+=500;localStorage.setItem("g_srd",sordu);ui();alert("Bonus 500 Sordu assegnato da FRANCESCO!");}
+function resetXp(){xp=0;sordu=0;localStorage.setItem("g_xp",0);localStorage.setItem("g_srd",0);ui();alert("Database resettato.");}
+function allertaToggle(){allerta=!allerta;localStorage.setItem("g_alt",allerta);altUi();}
+function altUi(){const banner=document.getElementById("bannerAllerta");if(allerta){document.body.classList.add("allerta-attiva");if(banner)banner.style.display="block";}else{document.body.classList.remove("allerta-attiva");if(banner)banner.style.display="none";}}
+let tmr,tl,okAns;const wl=["mika","predatori","burk","sko","juna","domu","pakis","sordu"];const tr={"mika":"capo","predatori":"computer","burk":"blu","sko":"sole","juna":"luna","domu":"casa","pakis":"pace","sordu":"soldi"};
+function startQuiz(){document.getElementById("btnGoQuiz").style.display="none";document.getElementById("boxQuiz").style.display="block";
+const w=wl[Math.floor(Math.random()*wl.length)];okAns=tr[w];document.getElementById("quizWord").innerText=w.toUpperCase();
+let opts=[okAns];while(opts.length<3){let o=tr[wl[Math.floor(Math.random()*wl.length)]];if(!opts.includes(o))opts.push(o);}opts.sort(()=>Math.random()-0.5);
+const c=document.getElementById("quizOpt");c.innerHTML="";opts.forEach(o=>{const b=document.createElement("button");b.className="nav-btn gold-btn";b.style="margin:5px;width:80%;";b.innerText=o.toUpperCase();b.onclick=()=>checkAns(o);c.appendChild(b);});
+tl=10;document.getElementById("quizTimer").innerText="Tempo: "+tl+"s";clearInterval(tmr);tmr=setInterval(()=>{tl--;document.getElementById("quizTimer").innerText="Tempo: "+tl+"s";if(tl<=0){clearInterval(tmr);endQuiz(false,"Tempo Scaduto!");}},1000);}
+function checkAns(o){clearInterval(tmr);if(o===okAns)endQuiz(true,"Fedele allo Stato!");else endQuiz(false,"Infiltrato!");}
+function endQuiz(v,m){document.getElementById("boxQuiz").style.display="none";document.getElementById("btnGoQuiz").style.display="inline-block";
+if(v){xp+=20;sordu+=100;localStorage.setItem("g_xp",xp);localStorage.setItem("g_srd",sordu);ui();rainEffect();alert(m+" +20 XP e +100 Sordu!");}else{alert(m+" Hai perso.");}}
+function rainEffect(){const r=document.getElementById("rain");r.style.display="block";r.innerHTML="";for(let i=0;i<30;i++){const d=document.createElement("div");d.style="position:absolute;width:12px;height:12px;border-radius:50%;background:"+(Math.random()>0.5?"#38bdf8":"#eab308")+";left:"+Math.random()*100+"%;top:-20px;animation:f 1.5s linear forwards;";r.appendChild(d);}setTimeout(()=>r.style.display="none",2000);}
+const g=document.getElementById("dictionaryVisualGrid");Object.keys(dict).sort().forEach(w=>{if(w!=="si"&&w!=="elettricita"&&w!=="felicita"){const i=document.createElement("div");i.className="dict-item";i.innerHTML=`${w.charAt(0).toUpperCase()+w.slice(1)} ➡️ <span>${dict[w]}</span>`;g.appendChild(i);}});
+function toRmk(){const i=document.getElementById("inputIta").value.toLowerCase();if(!i.trim()){document.getElementById("outputRmk").innerText="In attesa del testo...";return;}const words=i.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(/\s+/);document.getElementById("outputRmk").innerText=words.map(w=>dict[w]?dict[w]:w).join(" ");addXp(1);}
+function toIta(){const r=document.getElementById("inputRmk").value.toLowerCase();if(!r.trim()){document.getElementById("outputIta").innerText="In attesa del testo...";return;}const words=r.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(/\s+/);document.getElementById("outputIta").innerText=words.map(w=>invDict[w]?invDict[w]:w).join(" ");addXp(1);}
+</script><style>@keyframes f{to{top:100%;transform:rotate(360deg);}}</style></body></html>
 
-        const dictionary = {
-            // I Numeri di Stato
-            "zero": "ze", "uno": "un", "due": "do", "tre": "tri", "quattro": "quat",
-            "cinque": "kink", "sei": "se", "sette": "setis", "otto": "oto", "nove": "nufi",
-
-            // Relazioni e Persone
-            "ciao": "zhuao", "arrivederci": "zhuaorami", "sì": "zhu", "si": "zhu", "no": "koza",
-            "io": "zi", "tu": "ko", "noi": "ziko", "questo": "kiti", "anche": "anku", "tutto": "totu",
-            "cittadino": "kitiadini", "amico": "zhuadini", "nemico": "banadini", "capo": "mika",
-            "uomo": "omu", "donna": "femina", "padre": "babbu", "madre": "mamma", "fratello": "frati", "sorella": "sorru",
-
-            // Tecnologia e Casa
-            "computer": "predatori", "internet": "netu", "sito": "netu-pagu", "schermo": "visualu",
-            "tastiera": "tastu", "cavo": "linia", "elettricità": "voltu", "elettricita": "voltu",
-            "casa": "domu", "porta": "janna", "letto": "lettis", "comodino": "biku-lettis",
-            "armadio": "domu-bestiri", "sedia": "cadrea", "tavolo": "mesa", "luce": "lughi",
-
-            // Natura, Mare e Tempo
-            "mondo": "mundu", "paese": "biddai", "strada": "stradu", "cielo": "kelu",
-            "sole": "sko", "luna": "juna", "fuoco": "fogu", "acqua": "abba",
-            "mare": "mari", "spiaggia": "rena-biddai", "ombrellone": "tentu-sole", "asciugamano": "panno-abba",
-            "giorno": "die", "notte": "noti", "tempo": "tempu", "pioggia": "frore", "vento": "bentis", "neve": "nii",
-
-            // I Colori Ufficiali
-            "blu": "burk", "azzurro": "burk", "rosso": "ruju", "verde": "birde", "giallo": "grogu",
-            "oro": "oru", "nero": "nieddu", "bianco": "albu", "grigio": "fumofis", "arancione": "fogu-ruju",
-            "viola": "lughis-noti", "rosa": "frore-albu",
-
-            // Vita Quotidiana e Società
-            "soldi": "sordu", "lavoro": "traballu", "macchina": "makinari", "zaino": "saccu",
-            "vestiti": "bestiri", "scarpe": "kalzatru", "legge": "lege", "guerra": "guerru", "pace": "pakis",
-
-            // Qualità (Aggettivi)
-            "bene": "benu", "male": "malu", "grande": "magnu", "piccolo": "biku", "bello": "bellu",
-            "brutto": "bruttu", "forte": "fortis", "debole": "scuru", "nuovo": "nou", "vecchio": "antigu",
-            "veloce": "flussu", "lento": "ze-flussu", "caldo": "kallenti", "freddo": "frittu",
-            "felicità": "allia", "felicita": "allia", "tristezza": "buggis", "paura": "timore",
-
-            // Azioni Fondamentali (Verbi)
-            "essere": "essere", "avere": "tenere", "fare": "fakere", "andare": "andare",
-            "sapere": "sapare", "volere": "bolere", "mangiare": "papare", "dormire": "dormire",
-            "vedere": "mirare", "ascoltare": "askoltare", "comprare": "akattare", "cercare": "kerkare", "rompere": "spaccare",
-
-            // Gaming Tech
-            "giocare": "jukare", "vincere": "binkere", "perdere": "perdere", "sparare": "spara-voltu", 
-            "alleato": "team-zhuadini", "grado": "gradu", "livello": "gradu", "bandito": "kickatu", 
-            "segreto": "segretu", "blindato": "segretu", "password": "clabi-voltu", "chiave": "clabi-voltu", 
-            "riunione": "cussorgia", "consiglio": "cussorgia", "falso": "ze-mika", "pane": "pani", 
-            "carne": "petza", "pizza": "pitzas", "bere": "buffare", "bibita": "lattis-abba",
-
-            // Insulti Anti-Infiltrati
-            "scemo": "baddu-omu", "sciocho": "baddu-omu", "sciocco": "baddu-omu", "traditore": "ze-zhuadini", 
-            "spia": "ze-zhuadini", "nabbo": "ze-predatori", "fifone": "timore-saccu", "rompipalle": "buggu-bentis", "fastidioso": "buggu-bentis"
-        };
-
-        const inverseDictionary = {};
-        Object.keys(dictionary).forEach(key => {
-            const val = dictionary[key];
-            if (!inverseDictionary[val]) { inverseDictionary[val] = key; }
-        });
-
-        const grid = document.getElementById("dictionaryVisualGrid");
-        Object.keys(dictionary).sort().forEach(word => {
-            if(word !== "si" && word !== "elettricita" && word !== "felicita") {
-                const item = document.createElement("div");
-                item.className = "dict-item";
-                item.innerHTML = `${word.charAt(0).toUpperCase() + word.slice(1)} ➡️ <span>${dictionary[word]}</span>`;
-                grid.appendChild(item);
-            }
-        });
-
-        function translateItaToRmk() {
-            const input = document.getElementById("inputIta").value.toLowerCase();
-            if (!input.trim()) { document.getElementById("outputRmk").innerText = "In attesa del testo..."; return; }
-            const words = input.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(/\s+/);
-            const translated = words.map(word => dictionary[word] ? dictionary[word] : word);
-            document.getElementById("outputRmk").innerText = translated.join(" ");
-        }
-
-        function translateRmkToIta() {
-            const input = document.getElementById("inputRmk").value.toLowerCase();
-            if (!input.trim()) { document.getElementById("outputIta").innerText = "In attesa del testo..."; return; }
-            const words = input.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(/\s+/);
-            const translated = words.map(word => inverseDictionary[word] ? inverseDictionary[word] : word);
-            document.getElementById("outputIta").innerText = translated.join(" ");
-        }
-    </script>
-</body>
-</html>
