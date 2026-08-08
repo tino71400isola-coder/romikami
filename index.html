@@ -68,63 +68,58 @@
             </div>
         </div>
 
-        <!-- TERMINALE BLINDATO GOVERNATIVO CON NOMINATIVI REALISTICI -->
+               <!-- TERMINALE GOVERNATIVO BLINDATO CON MINI-SHOP SANZIONI INTEGRATO -->
         <h2 id="sezione-ministri">🔑 Terminale Governativo Blindato</h2>
         <div style="background: #1e1b4b; border: 2px dashed #e11d48; padding: 25px; border-radius: 15px; margin-top: 20px; margin-bottom: 30px;">
             <p style="color: #e11d48; font-weight: bold; margin-top: 0; font-size: 1.2rem;">⚠️ AREA RISERVATA AL QUADRUMVIRATO</p>
             <p style="font-size: 1rem; color: #94a3b8; margin-bottom: 15px;">Inserisci il codice d'accesso per sbloccare i controlli dei quattro Capi di Stato:</p>
             <input type="password" style="background: #0f172a; color: #e11d48; border: 1px solid #e11d48; padding: 10px; font-family: monospace; font-size: 1.1rem; border-radius: 5px; width: 220px; text-align: center;" placeholder="PASSWORD DI STATO" oninput="if(this.value==='zhuaoromikami2026'){document.getElementById('secretGovernmentContent').style.display='block'}else{document.getElementById('secretGovernmentContent').style.display='none'}">
             
+            <!-- CONTENUTO DEL QUADRUMVIRATO SBLOCCABILE -->
             <div id="secretGovernmentContent" style="display: none; margin-top: 25px; border-top: 1px dashed #e11d48; padding-top: 20px;">
-                <p style="color: #34d399; font-weight: bold; font-family: monospace; font-size: 1.1rem; margin-bottom: 20px;">🔓 ACCESSO AUTORIZZATO — GESTIONE FINANZIARIA E DI SICUREZZA</p>
+                <p style="color: #34d399; font-weight: bold; font-family: monospace; font-size: 1.1rem; margin-bottom: 20px;">🔓 ACCESSO AUTORIZZATO — PANNELLO COMANDI LIVE</p>
                 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <!-- 1. TYNOX CODICE -->
                     <div style="background: #0f172a; padding: 15px; border-radius: 10px; border-left: 4px solid #38bdf8;">
                         <strong style="color: #38bdf8; font-size: 1.1rem;">1. Codice ed Esteri (Mika-Un)</strong><br>
                         <span style="color: #fff; font-weight: bold; font-size: 0.95rem;">Ministro: TYNOX</span>
                         <div style="margin-top:10px;"><button class="action-btn" onclick="assegnaPremioSordu()">Assegna Bonus +500 SRL</button></div>
                     </div>
+                    
+                    <!-- 2. NYNX SICUREZZA -->
                     <div style="background: #0f172a; padding: 15px; border-radius: 10px; border-left: 4px solid #e11d48;">
                         <strong style="color: #e11d48; font-size: 1.1rem;">2. Cyber-Sicurezza e Ban (Mika-Do)</strong><br>
                         <span style="color: #fff; font-weight: bold; font-size: 0.95rem;">Ministro: NYNX</span>
-                                         <div style="background: #0f172a; padding: 15px; border-radius: 10px; border-left: 4px solid #e11d48;">
-                        <strong style="color: #e11d48; font-size: 1.1rem;">2. Cyber-Sicurezza (Mika-Do)</strong><br>
-                        <span style="color: #fff; font-weight: bold; font-size: 0.95rem;">Ministro: NYNX</span>
                         <div style="margin-top:10px;">
-                            <input type="text" id="inputNomeMultato" style="background:#1e293b; color:#fff; border:1px solid #334155; padding:4px; border-radius:4px; width:120px; font-size:0.8rem;" placeholder="NOME CITTADINO">
+                            <input type="text" id="inputNomeMultato" style="background:#1e293b; color:#fff; border:1px solid #334155; padding:6px; border-radius:4px; width:120px; font-size:0.8rem;" placeholder="NOME CITTADINO">
                             <button class="action-btn alert-btn" style="padding:5px 10px; font-size:0.8rem; margin-top:5px;" onclick="generaCodiceMulta()">GENERA CODICE MULTA</button>
                         </div>
                     </div>
+                    
+                    <!-- 3. TYNOX LINGUA -->
                     <div style="background: #0f172a; padding: 15px; border-radius: 10px; border-left: 4px solid #34d399;">
                         <strong style="color: #34d399; font-size: 1.1rem;">3. Lingua e Cultura (Mika-Tri)</strong><br>
                         <span style="color: #fff; font-weight: bold; font-size: 0.95rem;">Ministro: TYNOX</span>
                         <div style="margin-top:10px;"><button class="action-btn" onclick="azzeraTuttiXP()">Azzera Database Livelli</button></div>
                     </div>
+                    
+                    <!-- 4. LEO DIFESA -->
                     <div style="background: #0f172a; padding: 15px; border-radius: 10px; border-left: 4px solid #eab308;">
                         <strong style="color: #eab308; font-size: 1.1rem;">4. Difesa e Risorse (Mika-Quat)</strong><br>
                         <span style="color: #fff; font-weight: bold; font-size: 0.95rem;">Ministro: LEO</span>
-                        <div style="margin-top:10px;"><button class="action-btn alert-btn" id="btnAllertaDifesa" onclick="toggleAllertaStato()">ALLERTA LIVE</button></div>
+                        <div style="margin-top:10px;"><button class="action-btn alert-btn" id="btnAllertaDifesa" onclick="toggleAllertaStato()">ATTIVA STATO ALLERTA</button></div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- 1. COMPRARE RUOLI E PERMESSI (NEGOZIO DI STATO) -->
-        <h2>🛒 Ufficio Riscatto Ruoli e Permessi di Stato</h2>
-        <div class="panel-box" style="border-color: #38bdf8;">
-            <p style="margin-top: 0;">Spendi i tuoi Sordu (SRL) guadagnati per comprare i ranghi ufficiali da sfoggiare sui server di gioco o l'immunità dai ban:</p>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                <div style="background:#1e293b; padding:15px; border-radius:8px; border:1px solid #334155; text-align:center;">
-                    <strong style="color:#fff; display:block; font-size:1.1rem;">Rango: SOLDATO SCELTO ⚔️</strong>
-                    <span style="color:#eab308; font-weight:bold; display:block; margin:5px 0;">Prezzo: 500 SRL</span>
-                    <button class="action-btn" onclick="compraRuoloStato('Soldato Scelto ⚔️', 500)">COMPRA RUOLO</button>
-                </div>
-                <div style="background:#1e293b; padding:15px; border-radius:8px; border:1px solid #334155; text-align:center;">
-                    <strong style="color:#fff; display:block; font-size:1.1rem;">IMMUNITÀ DA 1 BAN / KICK 🛡️</strong>
-                    <span style="color:#eab308; font-weight:bold; display:block; margin:5px 0;">Prezzo: 3000 SRL</span>
-                    <button class="action-btn" onclick="compraRuoloStato('Immunità da Ban 🛡️', 3000)">COMPRA IMMUNITÀ</button>
-                </div>
-            </div>
-            <div id="labelRuoliPosseduti" style="margin-top:15px; padding:10px; background:#0f172a; border-radius:6px; font-family:monospace; color:#34d399; font-size:0.95rem; text-align:center;">Inventario Permessi Acquistati: Nessuno</div>
+
+   <!-- CASSETTA NOTIFICHE E CODICI GOVERNATIVI -->
+        <h2>📥 Ricevitoria Codici di Stato</h2>
+        <div class="panel-box" style="border-color: #ef4444;">
+            <p style="margin-top: 0; color: #94a3b8;">Hai ricevuto un codice sanzione da Nynx o un bonus da Tynox? Incollalo qui sotto per aggiornare il tuo conto di Romikami:</p>
+            <input type="text" id="inputRiscattoCodice" style="background:#0f172a; color:#fff; border:1px solid #ef4444; padding:8px; border-radius:6px; width:250px; font-family:monospace;" placeholder="INCOLLA CODICE QUI">
+            <button class="action-btn" onclick="riscattaCodiceUfficiale()" style="margin-left:10px;">RISCATTA CODICE</button>
         </div>
 
         <!-- QUADRI LIVELLI E BANCA -->
@@ -157,14 +152,7 @@
                 <span id="outputSorduConvert" style="color:#eab308; font-weight:bold; margin-left:15px; font-family:monospace;">= 0 SRL</span>
             </div>
         </div>
-        <!-- CASSETTA NOTIFICHE E CODICI GOVERNATIVI -->
-        <h2>📥 Ricevitoria Codici di Stato</h2>
-        <div class="panel-box" style="border-color: #ef4444;">
-            <p style="margin-top: 0; color: #94a3b8;">Hai ricevuto un codice sanzione da Nynx o un bonus da Tynox? Incollalo qui sotto per aggiornare il tuo conto di Romikami:</p>
-            <input type="text" id="inputRiscattoCodice" style="background:#0f172a; color:#fff; border:1px solid #ef4444; padding:8px; border-radius:6px; width:250px; font-family:monospace;" placeholder="INCOLLA CODICE QUI">
-            <button class="action-btn" onclick="riscattaCodiceUfficiale()" style="margin-left:10px;">RISCATTA CODICE</button>
-        </div>
-
+     
         <h2 id="sezione-gioco">🎲 Test di Fedeltà Interattivo (Mika-Game)</h2>
         <div class="panel-box" style="border-color: #10b981;">
             <div style="background:#1e293b; padding:15px; border-radius:8px; border:1px solid #334155; text-align:center;">
