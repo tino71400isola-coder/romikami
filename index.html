@@ -282,25 +282,40 @@
             }
         }
 
-               // MOTORE MIKA-DAILY POTENZIATO CON RENDITA PER I DUCHI
+                       // MOTORE MIKA-DAILY POTENZIATO: CALCOLO LIVELLO ED ECONOMIA PER RANGHI
         function riscuotiDailyBonus() {
-            // Recupera l'inventario dell'utente
             let inv = JSON.parse(localStorage.getItem("rmk_inventario")) || [];
-            let ammontareBonus = 100; // Valore base per tutti i 1500 cittadini
-            let messaggioAlert = "🎁 Bonus di Cittadinanza Accreditato: +100 SRL sul tuo portafoglio!";
+            
+            // 1. Configurazione valori di base (Cittadino normale senza titoli)
+            let ammontareBonus = 100;
+            let ammontareXP = 10;
+            let messaggioAlert = "🎁 RISCOSSIONE COMPLETATA!\n\nRicevi i fondi base di cittadinanza:\n+100 SRL (Sordu)\n+10 XP (Esperienza)";
 
-            // Controlla se l'utente ha acquistato il rango massimo
-            if (inv.includes("Duca del Predator 👑")) {
-                ammontareBonus = 110; // Sblocca la rendita passiva maggiorata!
-                messaggioAlert = "👑 RENDITA NOBILIARE ATTIVA: Ricevi +110 SRL grazie al tuo rango di Duca del Predator!";
+            // 2. Controllo se l'utente è un CAVALIERE
+            if (inv.includes("Cavaliere ⚔️")) {
+                ammontareBonus = 100; // Mantiene i Sordu base
+                ammontareXP = 50;     // Riceve un grande boost di XP!
+                messaggioAlert = "⚔️ PRIVILEGIO CAVALIERE ATTIVO:\n\nIl tuo addestramento quotidiano ti premia:\n+100 SRL (Sordu)\n+50 XP (Esperienza)";
             }
 
+            // 3. Controllo se l'utente è un DUCA DEL PREDATOR (Rango Massimo)
+            if (inv.includes("Duca del Predator 👑")) {
+                ammontareBonus = 110; // Rendita monetaria maggiorata
+                ammontareXP = 150;    // Carica di XP leggendaria!
+                messaggioAlert = "👑 RENDITA SUPREMA DA DUCA:\n\nLa tua fedeltà al Predator 5000 sblocca il massimo dei premi:\n+110 SRL (Sordu)\n+150 XP (Esperienza)";
+            }
+
+            // Accredito punti e salvataggio nel database locale
             saldoSordu += ammontareBonus;
+            puntiXP += ammontareXP;
+            
             const dataOggi = new Date().toDateString();
             
             localStorage.setItem("rmk_sordu", saldoSordu);
+            localStorage.setItem("rmk_xp", puntiXP);
             localStorage.setItem("rmk_ultimo_daily", dataOggi);
             
+            // Aggiorna la grafica, il calendario e avvia la festa
             aggiornaDatiSchermoUtente(); 
             controllaStatoDailyLive(); 
             avviaPioggiaCoriandoli();
