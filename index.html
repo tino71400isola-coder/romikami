@@ -74,7 +74,7 @@
             <p id="labelDailyStatus" style="font-size: 0.95rem; color: #34d399; margin-top: 10px; font-family: monospace; font-weight: bold;"></p>
         </div>
 
-                <!-- 2. MEGA-SHOP V3.0 POTENZIATO CON 8 ELEMENTI -->
+                     <!-- 2. MEGA-SHOP V3.0 POTENZIATO CON 8 ELEMENTI -->
         <h2 id="sezione-shop">🛒 Il Mega-Shop di Romikami (Mika-Shop)</h2>
         <div class="panel-box" style="border-color: #38bdf8;">
             <p style="margin-top: 0;">Spendi i tuoi Sordu (SRL) per sbloccare chip di potenziamento, titoli nobiliari o licenze speciali:</p>
@@ -103,28 +103,24 @@
                     <span style="color:#eab308; font-weight:bold; display:block; margin-bottom:8px;">1500 SRL</span>
                     <button class="action-btn" onclick="compraElementoShop('Licenza Parola 📝', 1500, 'licenza', 0)">COMPRA LICENZA</button>
                 </div>
-                <!-- NOVITÀ 1: TEMA MATRIX -->
                 <div style="background:#1e293b; padding:15px; border-radius:8px; border:1px solid #334155; text-align:center;">
                     <strong style="color:#fff; display:block; font-size:1.05rem;">TEMA PREDATOR MATRIX 🎨</strong>
                     <span style="color:#94a3b8; display:block; font-size:0.85rem; margin:3px 0;">Sblocca il bottone per attivare il tema Matrix</span>
                     <span style="color:#eab308; font-weight:bold; display:block; margin-bottom:8px;">1200 SRL</span>
                     <button class="action-btn" onclick="compraElementoShop('Tema Matrix 🎨', 1200, 'matrix', 0)">SBLOCCA TEMA</button>
                 </div>
-                <!-- NOVITÀ 2: ALTOPARLANTE -->
                 <div style="background:#1e293b; padding:15px; border-radius:8px; border:1px solid #334155; text-align:center;">
                     <strong style="color:#fff; display:block; font-size:1.05rem;">ALTOPARLANTE DI STATO 📢</strong>
                     <span style="color:#94a3b8; display:block; font-size:0.85rem; margin:3px 0;">Permesso annuncio sul banner per 24 ore</span>
                     <span style="color:#eab308; font-weight:bold; display:block; margin-bottom:8px;">800 SRL</span>
                     <button class="action-btn" onclick="compraElementoShop('Altoparlante 📢', 800, 'notifica', 0)">COMPRA ANNONCIO</button>
                 </div>
-                <!-- NOVITÀ 3: MODIFICA ID -->
                 <div style="background:#1e293b; padding:15px; border-radius:8px; border:1px solid #334155; text-align:center;">
                     <strong style="color:#fff; display:block; font-size:1.05rem;">MODIFICA ID PASSAPORTO 🛡️</strong>
                     <span style="color:#94a3b8; display:block; font-size:0.85rem; margin:3px 0;">Sblocca la scritta ID personalizzata sulla tessera</span>
                     <span style="color:#eab308; font-weight:bold; display:block; margin-bottom:8px;">2000 SRL</span>
                     <button class="action-btn" onclick="compraElementoShop('Modifica ID 🛡️', 2000, 'custom_id', 0)">COMPRA MODIFICA</button>
                 </div>
-                <!-- NOVITÀ 4: LOTTERIA -->
                 <div style="background:#1e293b; padding:15px; border-radius:8px; border:1px solid #334155; text-align:center;">
                     <strong style="color:#fff; display:block; font-size:1.05rem;">LOTTERIA SORDU-CHANCE 🃏</strong>
                     <span style="color:#94a3b8; display:block; font-size:0.85rem; margin:3px 0;">Tenta la fortuna per vincere 1000 SRL istantanei!</span>
@@ -132,16 +128,60 @@
                     <button class="action-btn" onclick="compraElementoShop('Lotteria 🃏', 300, 'lotteria', 0)">GIOCA BIGLIETTO</button>
                 </div>
             </div>
-            <!-- SEZIONE ATTIVAZIONE DINAMICA TEMA MATRIX E CUSTOM ID SE ACQUISTATI -->
-            <div id="controlliExtraShop" style="margin-top:15px; display:none; background:#0f172a; padding:10px; border-radius:8px; text-align:center;">
+            
+            <!-- PANNELLO CONTROLLI EXTRA - RIPARATO E ALLINEATO -->
+            <div id="controlliExtraShop" style="margin-top:15px; display:none; background:#0f172a; padding:15px; border-radius:8px; text-align:center; border:1px dashed #38bdf8;">
                 <button class="action-btn gold-btn" id="btnAttivaMatrix" style="display:none; width:auto; margin-bottom:5px;" onclick="attivaTemaMatrixLive()">ATTIVA TEMA MATRIX 🎨</button>
                 <div id="divCustomId" style="display:none; margin-top:5px;">
                     <input type="text" id="textCustomIdInput" style="background:#1e293b; color:#fff; border:1px solid #334155; padding:6px; border-radius:4px; width:150px; font-size:0.85rem;" placeholder="NUOVO ID ES: PRO-PLAYER">
-                    <button class="action-btn" style="width:auto; padding:6px 12px;" onclick="salvaCustomIdLive()">SALVA CODICE ID</button>
+                    <button class="action-btn" style="width:auto; padding:6px 12px; display:inline-block;" onclick="salvaCustomIdLive()">SALVA CODICE ID</button>
                 </div>
             </div>
             <div id="labelRuoliPosseduti" style="margin-top:15px; padding:10px; background:#0f172a; border-radius:6px; font-family:monospace; color:#34d399; font-size:0.95rem; text-align:center;">Inventario Elementi Sbloccati: Nessuno</div>
         </div>
+
+        <!-- STAMPATRICE AUTOMATICA PASAPORTI -->
+        <h2 id="sezione-passaporto">🪪 Stampatrice Automatica di Passaporti</h2>
+        <div class="panel-box" style="border-color: #eab308;">
+            <p style="margin-top: 0;">Digita il tuo nome per generare la tessera ufficiale sincronizzata con il database locale:</p>
+            <input type="text" id="inputNomePassaporto" style="background:#0f172a; color:#fff; border:1px solid #334155; padding:8px; border-radius:6px; width:200px;" placeholder="INSERISCI NOME">
+            <button class="action-btn" style="width:auto; display:inline-block; margin-left:10px;" onclick="generaPassaportoLive()">STAMPA PASSAPORTO</button>
+            
+            <div class="passport-card" id="cardPassaportoVisivo">
+                <div style="border-bottom:1px solid #eab308; padding-bottom:10px; margin-bottom:10px; text-align:center;">
+                    <strong style="color:#eab308; font-size:1.2rem;">👑 REPUBBLICA DI ROMIKAMI 👑</strong><br>
+                    <span style="font-size:0.8rem; color:#94a3b8;">DOCUMENTO DI IDENTITÀ FEDELE</span>
+                </div>
+                <p>NOME REALE: <span id="passNome" style="color:#fff; font-weight:bold;">---</span></p>
+                <p>GRADO MILITARE: <span id="passGrado" style="color:#38bdf8; font-weight:bold;">---</span></p>
+                <p>SOLDI ATTUALI: <span id="passSaldo" style="color:#34d399; font-weight:bold;">---</span></p>
+                <p>CHIP DI MEMORIA ID: <span id="passID" style="color:#64748b;">---</span></p>
+                <div style="text-align:right; font-size:0.75rem; color:#eab308; margin-top:10px; font-style:italic;">Approvato da Tynox (Mika-Un)</div>
+            </div>
+        </div>
+
+        <!-- TRADUTTORI DI STATO -->
+        <h2 id="sezione-traduttori">🗣️ Traduttore di Stato (Italiano ➡️ Romikamese)</h2>
+        <textarea id="inputIta" placeholder="Scrivi in italiano..." oninput="translateItaToRmk()"></textarea>
+        <div class="output-box" id="outputRmk">In attesa del testo...</div>
+
+        <h2>🔄 Traduttore Inverso (Romikamese ➡️ Italiano)</h2>
+        <textarea id="inputRmk" placeholder="Scrivi in romikamese..." oninput="translateRmkToIta()"></textarea>
+        <div class="output-box inverse" id="outputIta">In attesa del testo...</div>
+
+        <h2>📖 Dizionario Completo della Nazione</h2>
+        <div class="dict-grid" id="dictionaryVisualGrid"></div>
+
+        <h2>🪪 Richieste e Documenti di Romikami</h2>
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="https://forms.gle" target="_blank" class="nav-btn">Richiedi Cittadinanza (Quiz)</a>
+            <a href="passaporto_vuoto.pdf" download class="nav-btn gold-btn">👑 Scarica il Passaporto</a>
+        </div>
+    </div>
+
+    <!-- EFFETTI DI PIOGGIA CELEBRATIVA -->
+    <div id="rainContainer" style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:99999; display:none;"></div>
+
 
         <!-- STAMPATRICE AUTOMATICA PASAPORTI -->
         <h2 id="sezione-passaporto">🪪 Stampatrice Automatica di Passaporti</h2>
