@@ -74,7 +74,7 @@
             <p id="labelDailyStatus" style="font-size: 0.95rem; color: #34d399; margin-top: 10px; font-family: monospace; font-weight: bold;"></p>
         </div>
 
-        <!-- 2. MEGA-SHOP V3.0 (EMPORIO DI STATO) -->
+                <!-- 2. MEGA-SHOP V3.0 POTENZIATO CON 8 ELEMENTI -->
         <h2 id="sezione-shop">🛒 Il Mega-Shop di Romikami (Mika-Shop)</h2>
         <div class="panel-box" style="border-color: #38bdf8;">
             <p style="margin-top: 0;">Spendi i tuoi Sordu (SRL) per sbloccare chip di potenziamento, titoli nobiliari o licenze speciali:</p>
@@ -87,21 +87,57 @@
                 </div>
                 <div style="background:#1e293b; padding:15px; border-radius:8px; border:1px solid #334155; text-align:center;">
                     <strong style="color:#fff; display:block; font-size:1.05rem;">CAVALIERE DI ROMIKAMI ⚔️</strong>
-                    <span style="color:#94a3b8; display:block; font-size:0.85rem; margin:3px 0;">Titolo nobiliare ufficiale di Stato</span>
+                    <span style="color:#94a3b8; display:block; font-size:0.85rem; margin:3px 0;">Titolo nobiliare (+50 XP al giorno)</span>
                     <span style="color:#eab308; font-weight:bold; display:block; margin-bottom:8px;">1000 SRL</span>
                     <button class="action-btn" onclick="compraElementoShop('Cavaliere ⚔️', 1000, 'titolo', 0)">RISCATTA TITOLO</button>
                 </div>
                 <div style="background:#1e293b; padding:15px; border-radius:8px; border:1px solid #334155; text-align:center;">
                     <strong style="color:#fff; display:block; font-size:1.05rem;">DUCA DEL PREDATOR 👑</strong>
-                    <span style="color:#94a3b8; display:block; font-size:0.85rem; margin:3px 0;">Rango VIP massimo per i cittadini</span>
+                    <span style="color:#94a3b8; display:block; font-size:0.85rem; margin:3px 0;">VIP Massimo (+150 XP e +110 SRL al giorno)</span>
                     <span style="color:#eab308; font-weight:bold; display:block; margin-bottom:8px;">2500 SRL</span>
                     <button class="action-btn" onclick="compraElementoShop('Duca del Predator 👑', 2500, 'titolo', 0)">RISCATTA RANGO</button>
                 </div>
                 <div style="background:#1e293b; padding:15px; border-radius:8px; border:1px solid #334155; text-align:center;">
                     <strong style="color:#fff; display:block; font-size:1.05rem;">LICENZA NEOLOGISMO 📝</strong>
-                    <span style="color:#94a3b8; display:block; font-size:0.85rem; margin:3px 0;">Permesso di aggiungere una parola nel dizionario</span>
+                    <span style="color:#94a3b8; display:block; font-size:0.85rem; margin:3px 0;">Apre in automatico il Modulo Google Parola</span>
                     <span style="color:#eab308; font-weight:bold; display:block; margin-bottom:8px;">1500 SRL</span>
                     <button class="action-btn" onclick="compraElementoShop('Licenza Parola 📝', 1500, 'licenza', 0)">COMPRA LICENZA</button>
+                </div>
+                <!-- NOVITÀ 1: TEMA MATRIX -->
+                <div style="background:#1e293b; padding:15px; border-radius:8px; border:1px solid #334155; text-align:center;">
+                    <strong style="color:#fff; display:block; font-size:1.05rem;">TEMA PREDATOR MATRIX 🎨</strong>
+                    <span style="color:#94a3b8; display:block; font-size:0.85rem; margin:3px 0;">Sblocca il bottone per attivare il tema Matrix</span>
+                    <span style="color:#eab308; font-weight:bold; display:block; margin-bottom:8px;">1200 SRL</span>
+                    <button class="action-btn" onclick="compraElementoShop('Tema Matrix 🎨', 1200, 'matrix', 0)">SBLOCCA TEMA</button>
+                </div>
+                <!-- NOVITÀ 2: ALTOPARLANTE -->
+                <div style="background:#1e293b; padding:15px; border-radius:8px; border:1px solid #334155; text-align:center;">
+                    <strong style="color:#fff; display:block; font-size:1.05rem;">ALTOPARLANTE DI STATO 📢</strong>
+                    <span style="color:#94a3b8; display:block; font-size:0.85rem; margin:3px 0;">Permesso annuncio sul banner per 24 ore</span>
+                    <span style="color:#eab308; font-weight:bold; display:block; margin-bottom:8px;">800 SRL</span>
+                    <button class="action-btn" onclick="compraElementoShop('Altoparlante 📢', 800, 'notifica', 0)">COMPRA ANNONCIO</button>
+                </div>
+                <!-- NOVITÀ 3: MODIFICA ID -->
+                <div style="background:#1e293b; padding:15px; border-radius:8px; border:1px solid #334155; text-align:center;">
+                    <strong style="color:#fff; display:block; font-size:1.05rem;">MODIFICA ID PASSAPORTO 🛡️</strong>
+                    <span style="color:#94a3b8; display:block; font-size:0.85rem; margin:3px 0;">Sblocca la scritta ID personalizzata sulla tessera</span>
+                    <span style="color:#eab308; font-weight:bold; display:block; margin-bottom:8px;">2000 SRL</span>
+                    <button class="action-btn" onclick="compraElementoShop('Modifica ID 🛡️', 2000, 'custom_id', 0)">COMPRA MODIFICA</button>
+                </div>
+                <!-- NOVITÀ 4: LOTTERIA -->
+                <div style="background:#1e293b; padding:15px; border-radius:8px; border:1px solid #334155; text-align:center;">
+                    <strong style="color:#fff; display:block; font-size:1.05rem;">LOTTERIA SORDU-CHANCE 🃏</strong>
+                    <span style="color:#94a3b8; display:block; font-size:0.85rem; margin:3px 0;">Tenta la fortuna per vincere 1000 SRL istantanei!</span>
+                    <span style="color:#eab308; font-weight:bold; display:block; margin-bottom:8px;">300 SRL</span>
+                    <button class="action-btn" onclick="compraElementoShop('Lotteria 🃏', 300, 'lotteria', 0)">GIOCA BIGLIETTO</button>
+                </div>
+            </div>
+            <!-- SEZIONE ATTIVAZIONE DINAMICA TEMA MATRIX E CUSTOM ID SE ACQUISTATI -->
+            <div id="controlliExtraShop" style="margin-top:15px; display:none; background:#0f172a; padding:10px; border-radius:8px; text-align:center;">
+                <button class="action-btn gold-btn" id="btnAttivaMatrix" style="display:none; width:auto; margin-bottom:5px;" onclick="attivaTemaMatrixLive()">ATTIVA TEMA MATRIX 🎨</button>
+                <div id="divCustomId" style="display:none; margin-top:5px;">
+                    <input type="text" id="textCustomIdInput" style="background:#1e293b; color:#fff; border:1px solid #334155; padding:6px; border-radius:4px; width:150px; font-size:0.85rem;" placeholder="NUOVO ID ES: PRO-PLAYER">
+                    <button class="action-btn" style="width:auto; padding:6px 12px;" onclick="salvaCustomIdLive()">SALVA CODICE ID</button>
                 </div>
             </div>
             <div id="labelRuoliPosseduti" style="margin-top:15px; padding:10px; background:#0f172a; border-radius:6px; font-family:monospace; color:#34d399; font-size:0.95rem; text-align:center;">Inventario Elementi Sbloccati: Nessuno</div>
