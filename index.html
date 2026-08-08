@@ -574,25 +574,19 @@ function translateRmkToIta(){const input=document.getElementById("inputRmk").val
             setTimeout(() => c.style.display = "none", 2500);
         }
 
-        const grid = document.getElementById("dictionaryVisualGrid");
-        Object.keys(dictionary).sort().forEach(w => {
-            if(w !== "si") {
-                const item = document.createElement("div"); item.className = "dict-item";
-                item.innerHTML = `${w.charAt(0).toUpperCase() + w.slice(1)} ➡️ <span>${dictionary[w]}</span>`; grid.appendChild(item);
-            }
-        });
-        function translateItaToRmk() {
-            const input = document.getElementById("inputIta").value.toLowerCase();
-            if (!input.trim()) { document.getElementById("outputRmk").innerText = "In attesa del testo..."; return; }
-            const words = input.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(/\s+/);
-            document.getElementById("outputRmk").innerText = words.map(word => dictionary[word] ? dictionary[word] : word).join(" ");
-        }
-        function translateRmkToIta() {
-            const input = document.getElementById("inputRmk").value.toLowerCase();
-            if (!input.trim()) { document.getElementById("outputIta").innerText = "In attesa del testo..."; return; }
-            const words = input.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(/\s+/);
-            document.getElementById("outputIta").innerText = words.map(word => inverseDictionary[word] ? inverseDictionary[word] : word).join(" ");
-        }
-    </script>
+        const grid=document.getElementById("dictionaryVisualGrid");
+Object.keys(dictionary).sort().forEach(w=>{
+    if(w!=="si"&&w!=="elettricita"&&w!=="felicita"){
+        const item=document.createElement("div");
+        item.className="dict-item";
+        item.innerHTML=`${w.charAt(0).toUpperCase()+w.slice(1)} ➡️ <span>${dictionary[w]}</span>`;
+        grid.appendChild(item);
+    }
+});
+function translateItaToRmk(){const input=document.getElementById("inputIta").value.toLowerCase();if(!input.trim()){document.getElementById("outputRmk").innerText="In attesa del testo...";return;}const words=input.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(/\s+/);document.getElementById("outputRmk").innerText=words.map(word=>dictionary[word]?dictionary[word]:word).join(" ");}
+function translateRmkToIta(){const input=document.getElementById("inputRmk").value.toLowerCase();if(!input.trim()){document.getElementById("outputIta").innerText="In attesa del testo...";return;}const words=input.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(/\s+/);document.getElementById("outputIta").innerText=words.map(word=>inverseDictionary[word]?inverseDictionary[word]:word).join(" ");}
+</script>
+<style>@keyframes fall{to{top:100%;transform:rotate(360deg);}}</style>
 </body>
 </html>
+
