@@ -179,19 +179,16 @@
             </div>
         </div>
 
-        <h2 id="sezione-banca">   Banca Centrale di Romikami (Sordu-Tech)</h2>
-        <div class="panel-box" style="border-color: #eab308;">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; background: #1e293b; padding: 15px; border-radius: 8px; border: 1px solid #334155;">
-                <div>
-                    <span style="font-size: 1.1rem; color: #94a3b8;">Conto Corrente:</span><br>
-                    <strong id="labelSaldoSordu" style="font-size: 1.8rem; color: #eab308; font-family: monospace;">500 SRL</strong>
-                </div>
-                <div style="border-left: 1px solid #334155; padding-left: 15px;">
-                    <span style="font-size: 0.95rem; color: #94a3b8;">Cambio di Stato:</span><br>
-                    <strong style="color: #34d399; font-size: 1.1rem; font-family: monospace;">1 EUR = 100 SRL</strong>
-                </div>
+             <!-- CASSETTA NOTIFICHE E CODICI GOVERNATIVI (METODO 2) -->
+        <h2>📥 Ricevitoria Codici di Stato (Mika-Code)</h2>
+        <div class="panel-box" style="border-color: #e11d48;">
+            <p style="margin-top: 0; color: #94a3b8;">Hai ricevuto un codice sanzione da Nynx o un bonus da Tynox? Incollalo qui sotto per aggiornare il tuo saldo:</p>
+            <div style="display: flex; gap: 10px;">
+                <input type="text" id="inputRiscattoCodice" style="background:#0f172a; color:#fff; border:1px solid #ef4444; padding:10px; border-radius:8px; font-family:monospace; flex-grow: 1;" placeholder="INCOLLA IL CODICE GOVERNATIVO QUI">
+                <button class="action-btn" onclick="riscattaCodiceUfficialeLive()" style="width:auto; white-space:nowrap; background:#e11d48;">RISCATTA CODICE</button>
             </div>
         </div>
+     </div>
 
         <!-- TERMINALE BLINDATO GOVERNATIVO v3.0 -->
         <h2 id="sezione-ministri">🔑 Terminale Governativo Blindato</h2>
