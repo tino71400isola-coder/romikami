@@ -99,52 +99,7 @@
                     </div>
                 </div>
 
-                <!-- PANNELLO DI GESTIONE LISTA NERA ETERNA (MIKA-KICK) -->
-                <div style="background: #0f172a; padding: 20px; border-radius: 12px; border: 1px solid #ef4444; margin-top: 25px;">
-                    <strong style="color: #ef4444; font-size: 1.1rem; font-family: monospace;">🛑 PANNELLO DI GESTIONE LISTA NERA (MIKA-KICK)</strong>
-                    <p style="font-size: 0.9rem; color: #94a3b8; margin-top: 5px; margin-bottom: 12px;">Inserisci il nome del nemico per bandirlo in tempo reale dal portale:</p>
-                    <input type="text" id="banTargetInput" style="background: #1e293b; color: #fff; border: 1px solid #334155; padding: 8px; border-radius: 6px; width: 200px; font-family: monospace;" placeholder="NOME BANADINI">
-                    <button onclick="executeMikaKick()" style="background: #ef4444; color: #ffffff; padding: 8px 16px; font-weight: bold; border: none; border-radius: 6px; cursor: pointer; margin-left: 10px; box-shadow: 0 4px 14px rgba(239, 68, 68, 0.4);">ATTIVA BAN ETERNO</button>
-                    <div id="banStatusLabel" style="color: #34d399; font-size: 0.9rem; font-family: monospace; margin-top: 10px; display: none;"></div>
-                </div>
-
-                <script>
-                    let bannedNames = JSON.parse(localStorage.getItem("romikami_blacklist")) || [];
-                    if (localStorage.getItem("romikami_banned_status") === "true") { activateBanScreen(); }
-
-                    function executeMikaKick() {
-                        const target = document.getElementById("banTargetInput").value.trim().toLowerCase();
-                        const statusLabel = document.getElementById("banStatusLabel");
-                        if (target === "") return;
-                        if (!bannedNames.includes(target)) {
-                            bannedNames.push(target);
-                            localStorage.setItem("romikami_blacklist", JSON.stringify(bannedNames));
-                            statusLabel.style.display = "block";
-                            statusLabel.style.color = "#34d399";
-                            statusLabel.innerText = "✔ BAN ETERNO ATTIVATO: " + target.toUpperCase() + " inserito nel database.";
-                            document.getElementById("banTargetInput").value = "";
-                        }
-                    }
-
-                    setInterval(() => {
-                        const inIta = document.getElementById("inputIta") ? document.getElementById("inputIta").value.toLowerCase() : "";
-                        const inRmk = document.getElementById("inputRmk") ? document.getElementById("inputRmk").value.toLowerCase() : "";
-                        if (bannedNames.some(name => inIta.includes(name) || inRmk.includes(name))) {
-                            localStorage.setItem("romikami_banned_status", "true");
-                            activateBanScreen();
-                        }
-                    }, 500);
-
-                    function activateBanScreen() {
-                        if (document.getElementById("permaBanOverlay")) return;
-                        const bScreen = document.createElement("div"); bScreen.id = "permaBanOverlay"; bScreen.style.position = "fixed"; bScreen.style.top = "0"; bScreen.style.left = "0"; bScreen.style.width = "100%"; bScreen.style.height = "100%"; bScreen.style.background = "#7f1d1d"; bScreen.style.color = "#fecaca"; bScreen.style.zIndex = "99999"; bScreen.style.textAlign = "center"; bScreen.style.paddingTop = "15%"; bScreen.style.fontFamily = "monospace";
-                        bScreen.innerHTML = '<h1 style="color: #ef4444; font-size: 4rem; text-shadow: 0 0 20px rgba(0,0,0,0.8);">⚠️ ACCESSO NEGATO ⚠️</h1><p style="font-size: 2rem; font-weight: bold; margin-top: 20px;">SEI STATO BANDITO DALLA REPUBBLICA DI ROMIKAMI</p><p style="font-size: 1.3rem; color: #fca5a5; margin-top: 10px;">La tua sessione hardware è stata interrotta permanentemente dal Consiglio dei Quattro.</p><p style="font-size: 1.1rem; color: #ef4444; margin-top: 30px; font-style: italic;">Fortezza Hardware Predator 5000 Security Active</p>';
-                        document.body.appendChild(bScreen);
-                    }
-                </script>
-            </div>
-        </div>
-
+              
         <!-- TRADUTTORE LIVE: ITA -> RMK -->
         <h2 id="sezione-traduttori">🗣️ Traduttore di Stato (Italiano ➡️ Romikamese)</h2>
         <textarea id="inputIta" placeholder="Scrivi in italiano... Es: il capo vuole il passaporto blu" oninput="translateItaToRmk()"></textarea>
