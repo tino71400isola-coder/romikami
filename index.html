@@ -61,37 +61,33 @@ p { font-size: 1.1rem; color: #94a3b8; line-height: 1.7; }
 <div style="background: #0f172a; padding: 15px; border-radius: 10px; border-left: 4px solid #eab308;"><strong style="color: #eab308;">4. Ministero degli Esteri</strong><br><span style="color: #f8fafc; font-weight: bold;">Ministro: Tu</span></div>
 </div>
 
-        <!-- TERMINALE GOVERNATIVO BLINDATO (SOLO MINISTRI) -->
+             <!-- TERMINALE GOVERNATIVO BLINDATO CON SCRIPT INTEGRATO -->
         <h2>🔑 Terminale Governativo Blindato</h2>
         <div style="background: #1e1b4b; border: 2px dashed #e11d48; padding: 25px; border-radius: 15px; margin-top: 20px; margin-bottom: 30px;">
             <p style="color: #e11d48; font-weight: bold; margin-top: 0; font-size: 1.2rem;">⚠️ AREA RISERVATA AL QUADRUMVIRATO</p>
             <p style="font-size: 1rem; color: #94a3b8; margin-bottom: 15px;">Inserisci il codice d'accesso per sbloccare l'organigramma e i compiti dei quattro Capi di Stato:</p>
-            <input type="password" id="secretKeyField" style="background: #0f172a; color: #e11d48; border: 1px solid #e11d48; padding: 10px; font-family: monospace; font-size: 1.1rem; border-radius: 5px; width: 220px; text-align: center;" placeholder="PASSWORD DI STATO" oninput="checkSecretKey()">
+            <input type="password" id="secretKeyField" style="background: #0f172a; color: #e11d48; border: 1px solid #e11d48; padding: 10px; font-family: monospace; font-size: 1.1rem; border-radius: 5px; width: 220px; text-align: center;" placeholder="PASSWORD DI STATO" oninput="if(this.value==='romikami2026'){document.getElementById('secretGovernmentContent').style.display='block'}else{document.getElementById('secretGovernmentContent').style.display='none'}">
             
             <!-- CONTENUTO SEGRETO DA SBLOCCARE -->
             <div id="secretGovernmentContent" style="display: none; margin-top: 25px; border-top: 1px dashed #e11d48; padding-top: 20px;">
                 <p style="color: #34d399; font-weight: bold; font-family: monospace; font-size: 1.1rem; margin-bottom: 20px;">🔓 ACCESSO AUTORIZZATO — BACHECA DEI QUATTRO CAPI AD ATTIVAZIONE SOFTWARE</p>
                 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                    <!-- MINISTRO 1 -->
                     <div style="background: #0f172a; padding: 15px; border-radius: 10px; border-left: 4px solid #38bdf8;">
                         <strong style="color: #38bdf8; font-size: 1.1rem;">1. Codice ed Esteri (Mika-Un)</strong><br>
                         <span style="color: #f8fafc; font-weight: bold; font-size: 0.95rem;">Ministro: FRANCESCO</span>
                         <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 8px; line-height: 1.4; margin-bottom: 0;"><strong>Compiti:</strong> Gestione del server GitHub, aggiornamento del codice del portale web, diplomazia ed emissione dei passaporti di Stato.</p>
                     </div>
-                    <!-- MINISTRO 2 -->
                     <div style="background: #0f172a; padding: 15px; border-radius: 10px; border-left: 4px solid #e11d48;">
                         <strong style="color: #e11d48; font-size: 1.1rem;">2. Cyber-Sicurezza e Ban (Mika-Do)</strong><br>
                         <span style="color: #f8fafc; font-weight: bold; font-size: 0.95rem;">Ministro: Nome Amico 1</span>
                         <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 8px; line-height: 1.4; margin-bottom: 0;"><strong>Compiti:</strong> Protezione della stabilità dei server di gioco, moderazione delle chat e potere esecutivo di Ban permanente dei Banadini.</p>
                     </div>
-                    <!-- MINISTRO 3 -->
                     <div style="background: #0f172a; padding: 15px; border-radius: 10px; border-left: 4px solid #34d399;">
                         <strong style="color: #34d399; font-size: 1.1rem;">3. Lingua e Cultura (Mika-Tri)</strong><br>
                         <span style="color: #f8fafc; font-weight: bold; font-size: 0.95rem;">Ministro: Nome Amico 2</span>
                         <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 8px; line-height: 1.4; margin-bottom: 0;"><strong>Compiti:</strong> Creazione e approvazione dei nuovi termini, insegnamento del Romikamese e controllo dei quiz di cittadinanza.</p>
                     </div>
-                    <!-- MINISTRO 4 -->
                     <div style="background: #0f172a; padding: 15px; border-radius: 10px; border-left: 4px solid #eab308;">
                         <strong style="color: #eab308; font-size: 1.1rem;">4. Difesa e Risorse (Mika-Quat)</strong><br>
                         <span style="color: #f8fafc; font-weight: bold; font-size: 0.95rem;">Ministro: Nome Amico 3</span>
@@ -100,6 +96,7 @@ p { font-size: 1.1rem; color: #94a3b8; line-height: 1.7; }
                 </div>
             </div>
         </div>
+
 
 <!-- SEZIONE 2: PAGINA DEL DIZIONARIO -->
 <div id="section-dizionario" style="display: none;">
@@ -143,11 +140,7 @@ p { font-size: 1.1rem; color: #94a3b8; line-height: 1.7; }
 
 <div class="footer">© 2026 Repubblica di Romikami - Tutti i diritti riservati.</div>
 </div>
-        <!-- TRADUTTORE LIVE: RMK -> ITA -->
-        <h2>🔄 Traduttore Inverso (Romikamese ➡️ Italiano)</h2>
-        <textarea id="inputRmk" placeholder="Scrivi in romikamese... Es: mika bolere lettis nou kun juna" oninput="translateRmkToIta()"></textarea>
-        <div class="output-box" id="outputIta" style="border-color: #eab308; color: #eab308;">In attesa del testo...</div>
-      
+       
 <!-- PULSANTE RICHIESTA CITTADINANZA -->
 <div style="text-align: center; margin: 30px 0;">
 <a href="https://forms.gle/qERPfCoiPfKH1PvK8" target="_blank" style="background: #ffffff; color: #0f172a; padding: 15px 30px; font-size: 1.2rem; font-weight: bold; text-decoration: none; border-radius: 10px; box-shadow: 0 4px 14px rgba(255, 255, 255, 0.2); display: inline-block;">
@@ -156,26 +149,7 @@ p { font-size: 1.1rem; color: #94a3b8; line-height: 1.7; }
 </div>
 <a href="passaporto_vuoto.pdf" download style="background: #eab308; color: #0f172a; padding: 12px 24px; font-weight: bold; border: none; border-radius: 10px; cursor: pointer; display: inline-block; margin: 10px; font-size: 1.1rem; box-shadow: 0 4px 14px rgba(234, 179, 8, 0.3); text-decoration: none;">👑 Scarica il Passaporto (Mika-visualu)</a>
 
-<!-- SCRIPT LOGICA E FUNZIONI JAVASCRIPT -->
-<script>
-function showSection(sectionName) {
-if (sectionName === 'home') {
-document.getElementById('section-home').style.display = 'block';
-document.getElementById('section-dizionario').style.display = 'none';
-} else if (sectionName === 'dizionario') {
-document.getElementById('section-home').style.display = 'none';
-document.getElementById('section-dizionario').style.display = 'block';
-}
-}
 
-function checkPassword() {
-var password = document.getElementById("pass-input").value;
-if (password === 'zhuao2026') {
-document.getElementById("login-box").style.display = "none";
-document.getElementById("secret-content").style.display = "block";
-} else {
-alert("ACCESSO NEGATO: Codice errato.");
-}
 }
 
 function translateLang() {
@@ -206,23 +180,7 @@ var dizionario = {
             "sapere": "sapare", "volere": "bolere", "mangiare": "papare", "dormire": "dormire",
             "vedere": "mirare", "ascoltare": "askoltare", "comprare": "akattare", "cercare": "kerkare", "rompere": "spaccare"
 };
-        function translateRmkToIta() {
-            const input = document.getElementById("inputRmk").value.toLowerCase();
-            if (!input.trim()) { document.getElementById("outputIta").innerText = "In attesa del testo..."; return; }
-            const words = input.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(/\s+/);
-            const translated = words.map(word => inverseDictionary[word] ? inverseDictionary[word] : word);
-            document.getElementById("outputIta").innerText = translated.join(" ");
-        }
-
-        // INCOLLA IL CODICE DEL CONTROLLO PASSWORD QUI SOTTO:
-        function checkSecretKey() {
-            const secretInput = document.getElementById("secretKeyField").value;
-            const secretBox = document.getElementById("secretGovernmentContent");
-            if (secretInput === "romikami2026") {
-                secretBox.style.display = "block";
-            } else {
-                secretBox.style.display = "none";
-            }
+      
         }
     </script>
 </body>
