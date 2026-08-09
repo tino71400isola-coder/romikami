@@ -193,16 +193,6 @@
             </div>
         </div>
         
-        <!-- CASSETTA NOTIFICHE E CODICI GOVERNATIVI (METODO 2) -->
-        <h2>📥 Ricevitoria Codici di Stato (Mika-Code)</h2>
-        <div class="panel-box" style="border-color: #e11d48;">
-            <p style="margin-top: 0; color: #94a3b8;">Hai ricevuto un codice sanzione da Nynx o un bonus da Tynox? Incollalo qui sotto per aggiornare il tuo saldo:</p>
-            <div style="display: flex; gap: 10px;">
-                <input type="text" id="inputRiscattoCodice" style="background:#0f172a; color:#fff; border:1px solid #ef4444; padding:10px; border-radius:8px; font-family:monospace; flex-grow: 1;" placeholder="INCOLLA IL CODICE GOVERNATIVO QUI">
-               <button class="action-btn" onclick="riscattaCodiceUfficialeLive()" style="width:auto; white-space:nowrap; background:#ef4444; border:none; padding:10px 20px; border-radius:6px; font-weight:bold; color:#fff; cursor:pointer;">RISCATTA CODICE</button>
-            </div>
-        </div>
-
 
         <!-- TERMINALE BLINDATO GOVERNATIVO v3.0 -->
         <h2 id="sezione-ministri">🔑 Terminale Governativo Blindato</h2>
@@ -238,6 +228,16 @@
         </div>
 
 
+               <!-- CASSETTA NOTIFICHE E CODICI GOVERNATIVI (VERSIONE FIX) -->
+        <h2>📥 Ricevitoria Codici di Stato (Mika-Code)</h2>
+        <div class="panel-box" style="border-color: #ef4444;">
+            <p style="margin-top: 0; color: #94a3b8;">Hai ricevuto un codice sanzione da Nynx o un bonus da Tynox? Incollalo qui sotto per aggiornare il tuo saldo:</p>
+            <div style="display: flex; gap: 10px;">
+                <input type="text" id="inputRiscattoCodice" style="background:#0f172a; color:#fff; border:1px solid #ef4444; padding:10px; border-radius:8px; font-family:monospace; flex-grow: 1;" placeholder="INCOLLA IL CODICE GOVERNATIVO QUI">
+                <button class="action-btn" onclick="riscattaCodiceUfficialeLive()" style="width:auto; white-space:nowrap; background:#ef4444; border:none; padding:10px 20px; border-radius:6px; font-weight:bold; color:#fff; cursor:pointer;">RISCATTA CODICE</button>
+            </div>
+        </div>
+
         <!-- TRADUTTORI DI STATO -->
         <h2 id="sezione-traduttori">🗣️ Traduttore di Stato (Italiano ➡️ Romikamese)</h2>
         <textarea id="inputIta" placeholder="Scrivi in italiano... Es: il capo vuole il passaporto blu" oninput="translateItaToRmk()"></textarea>
@@ -262,7 +262,6 @@
 
     <!-- EFFETTI DI PIOGGIA CELEBRATIVA -->
     <div id="rainContainer" style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:99999; display:none;"></div>
-
     <script>
         // Gestione Menu Tendina ☰
         function toggleMenu() {
@@ -273,13 +272,12 @@
             l.addEventListener('click', () => document.getElementById("dropdownMenu").style.display = "none");
         });
 
-        // Database persistente (Partiamo da 50 XP e 500 Sordu di base per i cittadini scelti)
+        // Database persistente
         let puntiXP = parseInt(localStorage.getItem("rmk_xp")) || 50;
         let saldoSordu = parseInt(localStorage.getItem("rmk_sordu")) || 500;
         let allertaStato = localStorage.getItem("rmk_allerta") === "true";
         let idPersonalizzato = localStorage.getItem("rmk_custom_id") || "";
 
-        // Dizionario Enciclopedico Completo v3.0
         const dictionary = {
             "zero": "ze", "uno": "un", "due": "do", "tre": "tri", "quattro": "quat", "cinque": "kink", "sei": "se", "sette": "setis", "otto": "oto", "nove": "nufi",
             "ciao": "zhuao", "arrivederci": "zhuaorami", "sì": "zhu", "si": "zhu", "no": "koza", "io": "zi", "tu": "ko", "noi": "ziko", "questo": "kiti", "anche": "anku", "tutto": "totu",
@@ -305,7 +303,6 @@
         applicaStatoAllertaGrafica();
         controllaStatoDailyLive();
         ripristinaControlliAcquistiPrecedenti();
-
         function aggiornaDatiSchermoUtente() {
             document.getElementById("badgePuntiXP").innerText = puntiXP + " XP";
             document.getElementById("labelSaldoSordu").innerText = saldoSordu + " SRL";
@@ -326,9 +323,7 @@
                     b.disabled = false; b.style.background = "#eab308"; b.style.cursor = "pointer";
                     b.innerText = "ATTIVA TEMA MATRIX 🎨"; b.style.display = "inline-block";
                 }
-                if (inv.includes("Modifica ID 🛡️")) {
-                    document.getElementById("divCustomId").style.display = "block";
-                }
+                if (inv.includes("Modifica ID 🛡️")) { document.getElementById("divCustomId").style.display = "block"; }
             }
         }
 
@@ -350,100 +345,57 @@
             let inv = JSON.parse(localStorage.getItem("rmk_inventario")) || [];
             let b = 100; let x = 10;
             let m = "🎁 RISCOSSIONE COMPLETATA!\n\n+100 SRL (Sordu)\n+10 XP (Esperienza)";
-
             if (inv.includes("Cavaliere ⚔️")) { x = 50; m = "⚔️ PRIVILEGIO CAVALIERE:\n\n+100 SRL\n+50 XP"; }
             if (inv.includes("Duca del Predator 👑")) { b = 110; x = 150; m = "👑 RENDITA SUPREMA DA DUCA:\n\n+110 SRL\n+150 XP"; }
-
             saldoSordu += b; puntiXP += x;
             localStorage.setItem("rmk_sordu", saldoSordu); localStorage.setItem("rmk_xp", puntiXP);
             localStorage.setItem("rmk_ultimo_daily", new Date().toDateString());
-            aggiornaDatiSchermoUtente(); controllaStatoDailyLive(); avviaPioggiaCoriandoli();
-            alert(m);
+            aggiornaDatiSchermoUtente(); controllaStatoDailyLive(); avviaPioggiaCoriandoli(); alert(m);
         }
 
         function compraElementoShop(nome, prezzo, tipo, valore) {
             if (saldoSordu >= prezzo) {
                 saldoSordu -= prezzo; localStorage.setItem("rmk_sordu", saldoSordu);
                 if (tipo === "xp") { puntiXP += valore; localStorage.setItem("rmk_xp", puntiXP); }
-                
-                let inv = JSON.parse(localStorage.getItem("rmk_inventario")) || [];
-                inv.push(nome); localStorage.setItem("rmk_inventario", JSON.stringify(inv));
-                
+                let inv = JSON.parse(localStorage.getItem("rmk_inventario")) || []; inv.push(nome);
+                localStorage.setItem("rmk_inventario", JSON.stringify(inv));
                 aggiornaDatiSchermoUtente(); ripristinaControlliAcquistiPrecedenti();
-
-                if (tipo === "licenza") {
-                    alert("📝 LICENZA ATTIVA! Verrai reindirizzato al modulo.");
-                    window.open("https://forms.gle/EDaXYqvN3i9wZX6Q8", "_blank");
-                    return;
-                }
+                if (tipo === "licenza") { alert("📝 LICENZA ATTIVA! Verrai reindirizzato al modulo."); window.open("https://forms.gle", "_blank"); return; }
                 if (tipo === "lotteria") {
                     let n = Math.floor(Math.random() * 10);
-                    if (n === 7) {
-                        saldoSordu += 1000; localStorage.setItem("rmk_sordu", saldoSordu);
-                        aggiornaDatiSchermoUtente(); avviaPioggiaCoriandoli();
-                        alert("🎰 LOTTERIA: Uscito il numero 7! Vinci +1000 SRL!");
-                    } else { alert("❌ Non vincente! Uscito il numero " + n); }
-                    return;
+                    if (n === 7) { saldoSordu += 1000; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); avviaPioggiaCoriandoli(); alert("🎰 LOTTERIA: Uscito il numero 7! Vinci +1000 SRL!"); }
+                    else { alert("❌ Non vincente! Uscito il numero " + n); } return;
                 }
                 alert("🛒 ACQUISTO EFFETTUATO: " + nome.toUpperCase());
             } else { alert("❌ Sordu insufficienti!"); }
         }
+        // MOTORE DI RISCATTO DEI CODICI DI STATO (MIKA-CODE)
+        function riscattaCodiceUfficialeLive() {
+            const codiceInserito = document.getElementById("inputRiscattoCodice").value.trim().toUpperCase();
+            if (codiceInserito === "") { alert("❌ Inserisci un codice prima di cliccare!"); return; }
 
-        function attivaTemaMatrixLive() {
-            document.body.style.background = "#052e16"; document.body.style.color = "#22c55e";
-            alert("🎨 TEMA PREDATOR MATRIX ATTIVATO!");
-        }
-
-        function salvaCustomIdLive() {
-            const t = document.getElementById("textCustomIdInput").value.trim().toUpperCase();
-            if (t === "") { alert("Inserisci un codice!"); return; }
-            idPersonalizzato = "RMK-" + t; localStorage.setItem("rmk_custom_id", idPersonalizzato);
-            alert("🛡️ ID REGISTRATO: " + idPersonalizzato);
-        }
-
-        function generaPassaportoLive() {
-            const n = document.getElementById("inputNomePassaporto").value.trim().toUpperCase();
-            if (n === "") { alert("Inserisci il tuo nome!"); return; }
-            let inv = JSON.parse(localStorage.getItem("rmk_inventario")) || [];
-            let t = inv.length > 0 ? inv.join(", ") : "Nessuno";
-            document.getElementById("cardPassaportoVisivo").style.display = "block";
-            document.getElementById("passNome").innerText = n;
-            document.getElementById("passGrado").innerText = document.getElementById("labelGradoCittadino").innerText + " (" + t + ")";
-            document.getElementById("passSaldo").innerText = saldoSordu + " SRL";
-            document.getElementById("passID").innerText = idPersonalizzato ? idPersonalizzato : "RMK-" + Math.floor(100000 + Math.random() * 900000);
-        }
-
-        function controllaPasswordChat() {
-            if (document.getElementById("inputPassChat").value === "zhuaoromikami2026") {
-                document.getElementById("boxChatMilitare").style.display = "block";
-                document.getElementById("corpoChatMilitare").innerHTML = '<div class="msg"><span class="msg-ty">[TYNOX]:</span> Server Predator v3.0 online. Conto Daily attivo.</div><div class="msg"><span class="msg-ny">[NYNX]:</span> Firewall protetti. Controllo sanzioni attivo.</div><div class="msg"><span class="msg-le">[LEO]:</span> Logistica munizioni coordinata via WhatsApp.</div>';
-            } else { document.getElementById("boxChatMilitare").style.display = "none"; }
-        }
-
-        function assegnaPremioSordu() {
-            saldoSordu += 500; puntiXP += 500;
-            localStorage.setItem("rmk_sordu", saldoSordu); localStorage.setItem("rmk_xp", puntiXP);
-            aggiornaDatiSchermoUtente(); alert("👑 +500 SRL e rango Capo Supremo sbloccati per TYNOX!");
-        }
-        function applicaMultaDiStato() {
-            saldoSordu = (saldoSordu >= 200) ? saldoSordu - 200 : 0;
-            localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente();
-            alert("🛑 NYNX ha applicato una sanzione di -200 SRL.");
-        }
-        function azzeraTuttiXP() {
-            puntiXP = 50; saldoSordu = 500; localStorage.setItem("rmk_xp", puntiXP); localStorage.setItem("rmk_sordu", saldoSordu);
-            localStorage.removeItem("rmk_inventario"); document.getElementById("labelRuoliPosseduti").innerText = "Inventario Elementi Sbloccati: Nessuno";
-            aggiornaDatiSchermoUtente(); alert("Database livelli azzerato.");
-        }
-        function toggleAllertaStato() { allertaStato = !allertaStato; localStorage.setItem("rmk_allerta", allertaStato); applicaStatoAllertaGrafica(); }
-        function applicaStatoAllertaGrafica() {
-            const b = document.getElementById("btnAllertaDifesa"); const banner = document.getElementById("statoAllertaBanner");
-            if(allertaStato) {
-                document.body.classList.add("allerta-attiva"); if(b) b.innerText = "DISATTIVA ALLERTA"; if(banner) banner.style.display = "block";
-            } else {
-                document.body.classList.remove("allerta-attiva"); if(b) b.innerText = "ATTIVA ALLERTA"; if(banner) banner.style.display = "none";
+            if (codiceInserito === "REGALO500") {
+                saldoSordu += 500; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente();
+                document.getElementById("inputRiscattoCodice").value = ""; avviaPioggiaCoriandoli();
+                alert("👑 CODICE VALIDO!\n\nAccreditato un Bonus di Stato di +500 SRL!"); return;
             }
+            if (codiceInserito === "MULTA200") {
+                saldoSordu = (saldoSordu >= 200) ? saldoSordu - 200 : 0; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente();
+                document.getElementById("inputRiscattoCodice").value = "";
+                alert("🛑 SANZIONE APPLICATA!\n\nDetratti -200 SRL dal tuo conto corrente per infrazione filtri."); return;
+            }
+            alert("❌ CODICE DI STATO NON VALIDO!");
         }
+
+        function attivaTemaMatrixLive() { document.body.style.background = "#052e16"; document.body.style.color = "#22c55e"; alert("🎨 TEMA PREDATOR MATRIX ATTIVATO!"); }
+        function salvaCustomIdLive() { const t = document.getElementById("textCustomIdInput").value.trim().toUpperCase(); if (t === "") { alert("Inserisci un codice!"); return; } idPersonalizzato = "RMK-" + t; localStorage.setItem("rmk_custom_id", idPersonalizzato); alert("🛡️ ID REGISTRATO: " + idPersonalizzato); }
+        function generaPassaportoLive() { const n = document.getElementById("inputNomePassaporto").value.trim().toUpperCase(); if (n === "") { alert("Inserisci il tuo nome!"); return; } let inv = JSON.parse(localStorage.getItem("rmk_inventario")) || []; let t = inv.length > 0 ? inv.join(", ") : "Nessuno"; document.getElementById("cardPassaportoVisivo").style.display = "block"; document.getElementById("passNome").innerText = n; document.getElementById("passGrado").innerText = document.getElementById("labelGradoCittadino").innerText + " (" + t + ")"; document.getElementById("passSaldo").innerText = saldoSordu + " SRL"; document.getElementById("passID").innerText = idPersonalizzato ? idPersonalizzato : "RMK-" + Math.floor(100000 + Math.random() * 900000); }
+        function controllaPasswordChat() { if (document.getElementById("inputPassChat").value === "zhuaoromikami2026") { document.getElementById("boxChatMilitare").style.display = "block"; document.getElementById("corpoChatMilitare").innerHTML = '<div class="msg"><span class="msg-ty">[TYNOX]:</span> Server Predator v3.0 online. Conto Daily attivo.</div><div class="msg"><span class="msg-ny">[NYNX]:</span> Firewall protetti. Controllo sanzioni attivo.</div><div class="msg"><span class="msg-le">[LEO]:</span> Logistica munizioni coordinata via WhatsApp.</div>'; } else { document.getElementById("boxChatMilitare").style.display = "none"; } }
+        function assegnaPremioSordu() { saldoSordu += 500; puntiXP += 500; localStorage.setItem("rmk_sordu", saldoSordu); localStorage.setItem("rmk_xp", puntiXP); aggiornaDatiSchermoUtente(); alert("👑 +500 SRL e rango Capo Supremo sbloccati per TYNOX!"); }
+        function applicaMultaDiStato() { saldoSordu = (saldoSordu >= 200) ? saldoSordu - 200 : 0; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); alert("🛑 NYNX ha applicato una sanzione di -200 SRL."); }
+        function azzeraTuttiXP() { puntiXP = 50; saldoSordu = 500; localStorage.setItem("rmk_xp", puntiXP); localStorage.setItem("rmk_sordu", saldoSordu); localStorage.removeItem("rmk_inventario"); document.getElementById("labelRuoliPosseduti").innerText = "Inventario Elementi Sbloccati: Nessuno"; aggiornaDatiSchermoUtente(); alert("Database livelli azzerato."); }
+        function toggleAllertaStato() { allertaStato = !allertaStato; localStorage.setItem("rmk_allerta", allertaStato); applicaStatoAllertaGrafica(); }
+        function applicaStatoAllertaGrafica() { const b = document.getElementById("btnAllertaDifesa"); const banner = document.getElementById("statoAllertaBanner"); if(allertaStato) { document.body.classList.add("allerta-attiva"); if(b) b.innerText = "DISATTIVA ALLERTA"; if(banner) banner.style.display = "block"; } else { document.body.classList.remove("allerta-attiva"); if(b) b.innerText = "ATTIVA ALLERTA"; if(banner) banner.style.display = "none"; } }
 
         function avviaPioggiaCoriandoli() {
             const c = document.getElementById("rainContainer"); c.style.display = "block"; c.innerHTML = "";
@@ -457,58 +409,13 @@
 
         const grid = document.getElementById("dictionaryVisualGrid");
         Object.keys(dictionary).sort().forEach(w => {
-            if(w !== "si" && w !== "elettricita" && w !== "felicita") {
+            if(w !== "si") {
                 const item = document.createElement("div"); item.className = "dict-item";
                 item.innerHTML = `${w.charAt(0).toUpperCase() + w.slice(1)} ➡️ <span>${dictionary[w]}</span>`; grid.appendChild(item);
             }
         });
-        function translateItaToRmk() {
-            const input = document.getElementById("inputIta").value.toLowerCase();
-            if (!input.trim()) { document.getElementById("outputRmk").innerText = "In attesa del testo..."; return; }
-            const words = input.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(/\s+/);
-            document.getElementById("outputRmk").innerText = words.map(word => dictionary[word] ? dictionary[word] : word).join(" ");
-        }
-        function translateRmkToIta() {
-            const input = document.getElementById("inputRmk").value.toLowerCase();
-            if (!input.trim()) { document.getElementById("outputIta").innerText = "In attesa del testo..."; return; }
-            const words = input.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(/\s+/);
-            document.getElementById("outputIta").innerText = words.map(word => inverseDictionary[word] ? inverseDictionary[word] : word).join(" ");
-        }
-    </script>
-            // UNIFICAZIONE MOTORE DEI CODICI DI STATO (MIKA-CODE)
-        function riscattaCodiceUfficialeLive() {
-                    // MOTORE COMPLETO E AGGANCIATO PER I CODICI DI STATO
-        function riscattaCodiceUfficialeLive() {
-            const codiceInserito = document.getElementById("inputRiscattoCodice").value.trim().toUpperCase();
-            if (codiceInserito === "") {
-                alert("❌ Inserisci un codice prima di cliccare!");
-                return;
-            }
-
-            // 1. CASO CODICE PREMIO (TYNOX / LEO)
-            if (codiceInserito === "REGALO500") {
-                saldoSordu += 500;
-                localStorage.setItem("rmk_sordu", saldoSordu);
-                aggiornaDatiSchermoUtente();
-                document.getElementById("inputRiscattoCodice").value = "";
-                avviaPioggiaCoriandoli();
-                alert("👑 CODICE VALIDO!\n\nAccreditato un Bonus di Stato di +500 SRL sul tuo portafoglio!");
-                return;
-            }
-
-            // 2. CASO CODICE SANZIONE (NYNX)
-            if (codiceInserito === "MULTA200") {
-                saldoSordu = (saldoSordu >= 200) ? saldoSordu - 200 : 0;
-                localStorage.setItem("rmk_sordu", saldoSordu);
-                aggiornaDatiSchermoUtente();
-                document.getElementById("inputRiscattoCodice").value = "";
-                alert("🛑 SANZIONE APPLICATA!\n\nIl codice inserito ha detratto -200 SRL dal tuo conto corrente per infrazione filtri.");
-                return;
-            }
-
-            // SE IL CODICE INSERITO NON È NESSUNO DEI DUE
-            alert("❌ CODICE DI STATO NON VALIDO! Controlla le maiuscole o chiedi ai Ministri.");
-        }
+        function translateItaToRmk() { const input = document.getElementById("inputIta").value.toLowerCase(); if (!input.trim()) { document.getElementById("outputRmk").innerText = "In attesa del testo..."; return; } const words = input.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(/\s+/); document.getElementById("outputRmk").innerText = words.map(word => dictionary[word] ? dictionary[word] : word).join(" "); }
+        function translateRmkToIta() { const input = document.getElementById("inputRmk").value.toLowerCase(); if (!input.trim()) { document.getElementById("outputIta").innerText = "In attesa del testo..."; return; } const words = input.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(/\s+/); document.getElementById("outputIta").innerText = words.map(word => inverseDictionary[word] ? inverseDictionary[word] : word).join(" "); }
     </script>
     <style>@keyframes fall { to { top: 100%; transform: rotate(360deg); } }</style>
 </body>
