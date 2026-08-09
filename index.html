@@ -35,8 +35,13 @@
         .msg { margin-bottom: 8px; line-height: 1.4; }
         .msg-ty { color: #38bdf8; font-weight: bold; } .msg-ny { color: #ef4444; font-weight: bold; } .msg-le { color: #eab308; font-weight: bold; }
     </style>
+    
+    <!-- LIBRERIE UFFICIALI FIREBASE CARICATE ALL'AVVIO -->
+    <script src="https://gstatic.com"></script>
+    <script src="https://gstatic.com"></script>
 </head>
 <body>
+
     <div class="header-controls">
         <a href="#" class="nav-btn home-btn" style="margin: 0; padding: 8px 16px; font-size: 0.95rem;">🏠 Home</a>
         <div class="hamburger-icon" onclick="toggleMenu()">☰</div>
@@ -276,22 +281,18 @@
 
     <!-- EFFETTI DI PIOGGIA CELEBRATIVA -->
     <div id="rainContainer" style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:99999; display:none;"></div>
-        <script>
-        // CONFIGURAZIONE DATABASE FIREBASE UFFICIALE
+           <script>
+        // CONFIGURAZIONE DATABASE FIREBASE REALE
         const firebaseConfig = {
             apiKey: "AIzaSyB3-XVl2BibguQ1ooL5Qa6RM_HcW6RESfQ",
             authDomain: "://firebaseapp.com",
-            databaseURL: "https://firebaseio.com",
+            databaseURL: "https://romikami-database-default-rtdb.firebaseio.com",
             projectId: "romikami-database",
             storageBucket: "romikami-database.firebasestorage.app",
             messagingSenderId: "368702503742",
             appId: "1:368702503742:web:aa2a5f6e9a3389ed5f8a6f",
             measurementId: "G-SL1X286N59"
         };
-
-        // CARICAMENTO SCRIPT ESTERNI GOOGLE
-        const scriptFbApp = document.createElement('script'); scriptFbApp.src = "https://gstatic.com"; document.head.appendChild(scriptFbApp);
-        const scriptFbDb = document.createElement('script'); scriptFbDb.src = "https://gstatic.com"; document.head.appendChild(scriptFbDb);
 
         let databaseOnline;
         let nomeUtenteStato = localStorage.getItem("rmk_username") || "";
@@ -300,7 +301,7 @@
         let allertaStato = localStorage.getItem("rmk_allerta") === "true";
         let idPersonalizzato = localStorage.getItem("rmk_custom_id") || "";
 
-        const dictionary = {
+                       const dictionary = {
             "zero": "ze", "uno": "un", "due": "do", "tre": "tri", "quattro": "quat", "cinque": "kink", "sei": "se", "sette": "setis", "otto": "oto", "nove": "nufi",
             "ciao": "zhuao", "arrivederci": "zhuaorami", "sì": "zhu", "si": "zhu", "no": "koza", "io": "zi", "tu": "ko", "noi": "ziko", "questo": "kiti", "anche": "anku", "tutto": "totu",
             "cittadino": "kitiadini", "amico": "zhuadini", "nemico": "banadini", "capo": "mika", "uomo": "omu", "donna": "femina", "padre": "babbu", "madre": "mamma", "fratello": "frati", "sorella": "sorru",
@@ -309,7 +310,7 @@
             "mondo": "mundu", "paese": "biddai", "strada": "stradu", "cielo": "kelu", "sole": "sko", "luna": "juna", "fuoco": "fogu", "acqua": "abba",
             "mare": "mari", "spiaggia": "rena-biddai", "ombrellone": "tentu-sole", "asciugamano": "panno-abba", "giorno": "die", "notte": "noti", "tempo": "tempu", "pioggia": "frore", "vento": "bentis", "neve": "nii",
             "blu": "burk", "azzurro": "burk", "rosso": "ruju", "verde": "birde", "giallo": "grogu", "oro": "oru", "nero": "nieddu", "bianco": "albu", "grigio": "fumofis", "arancione": "fogu-ruju", "viola": "lughis-noti", "rosa": "frore-albu",
-            "soldi": "sordu", "lavoro": "traballu", "macchina": "makinari", "zaino": "saccu", "vestiti": "bestiri", "scarpe": "kalzatru", "legge": "lege", "guerra": "guerru", "peace": "pakis",
+            "soldi": "sordu", "lavoro": "traballu", "macchina": "makinari", "zaino": "saccu", "vestiti": "bestiri", "scarpe": "kalzatru", "legge": "lege", "guerra": "guerru", "pace": "pakis",
             "bene": "benu", "male": "malu", "grande": "magnu", "piccolo": "biku", "bello": "bellu", "brutto": "bruttu", "forte": "fortis", "debole": "scuru", "nuovo": "nou", "vecchio": "antigu",
             "veloce": "flussu", "lento": "ze-flussu", "caldo": "kallenti", "freddo": "frittu", "felicità": "allia", "felicita": "allia", "tristezza": "buggis", "paura": "timore",
             "essere": "essere", "avere": "tenere", "fare": "fakere", "andare": "andare", "sapere": "sapare", "volere": "bolere", "mangiare": "papare", "dormire": "dormire", "vedere": "mirare", "ascoltare": "askoltare", "comprare": "akattare", "cercare": "kerkare", "rompere": "spaccare",
@@ -318,37 +319,34 @@
             "scemo": "baddu-omu", "sciocho": "baddu-omu", "sciocco": "baddu-omu", "traditore": "ze-zhuadini", "spia": "ze-zhuadini", "nabbo": "ze-predatori", "fifone": "timore-saccu", "rompipalle": "buggu-bentis", "fastidioso": "buggu-bentis"
         };
 
-        const inverseDictionary = {};
-        Object.keys(dictionary).forEach(k => { inverseDictionary[dictionary[k]] = k; });
+        const inverseDictionary = {}; Object.keys(dictionary).forEach(k => { inverseDictionary[dictionary[k]] = k; });
 
-        scriptFbDb.onload = function() {
+        // AVVIO IMMEDIATO DELLA RETE
+        window.addEventListener('load', function() {
             firebase.initializeApp(firebaseConfig);
             databaseOnline = firebase.database();
-            if (nomeUtenteStato === "") { document.getElementById("schermataLoginRomikami").style.display = "flex"; } 
-            else { ascoltaMessaggiChatLive(); }
-        };
-
+            if (nomeUtenteStato === "") { 
+                document.getElementById("schermataLoginRomikami").style.display = "flex"; 
+            } else { 
+                ascoltaMessaggiChatLive(); 
+            }
+        });
         function eseguiLoginIniziale() {
             const user = document.getElementById("inputUsernameLogin").value.trim().toUpperCase();
             if (user === "") { alert("❌ Scegli un nome valido!"); return; }
             localStorage.setItem("rmk_username", user); nomeUtenteStato = user;
             document.getElementById("schermataLoginRomikami").style.display = "none";
-            ascoltaMessaggiChatLive(); alert("🚀 BENVENTUTO, " + user);
+            ascoltaMessaggiChatLive(); alert("🚀 BENVENUTO, " + user);
         }
+
         function ascoltaMessaggiChatLive() {
             if (!databaseOnline) return;
             databaseOnline.ref("chat_globale").limitToLast(50).on("value", function(snapshot) {
-                const box = document.getElementById("corpoChatPubblicaOnline");
-                box.innerHTML = "";
+                const box = document.getElementById("corpoChatPubblicaOnline"); box.innerHTML = "";
                 const dati = snapshot.val();
-                if (!dati) {
-                    box.innerHTML = '<div style="color:#64748b; text-align:center; margin-top:100px;">Nessun messaggio. Scrivi qualcosa!</div>';
-                    return;
-                }
+                if (!dati) { box.innerHTML = '<div style="color:#64748b; text-align:center; margin-top:100px;">Nessun messaggio. Scrivi qualcosa!</div>'; return; }
                 Object.keys(dati).forEach(function(key) {
-                    const msg = dati[key];
-                    const divMsg = document.createElement("div");
-                    divMsg.style.marginBottom = "8px";
+                    const msg = dati[key]; const divMsg = document.createElement("div"); divMsg.style.marginBottom = "8px";
                     let stileNome = "color:#34d399; font-weight:bold;";
                     if (msg.user === "TYNOX") stileNome = "color:#38bdf8; font-weight:bold; text-shadow:0 0 5px #38bdf8;";
                     if (msg.user === "NYNX") stileNome = "color:#ef4444; font-weight:bold; text-shadow:0 0 5px #ef4444;";
@@ -365,70 +363,46 @@
             const testoMsg = input.value.trim();
             if (testoMsg === "") return;
             if (!databaseOnline) { alert("❌ Server in caricamento..."); return; }
-            databaseOnline.ref("chat_globale").push({
-                user: nomeUtenteStato || "CITTADINO",
-                testo: testoMsg,
-                timestamp: Date.now()
-            });
+            databaseOnline.ref("chat_globale").push({ user: nomeUtenteStato || "CITTADINO", testo: testoMsg, timestamp: Date.now() });
             input.value = "";
         }
-
         aggiornaDatiSchermoUtente(); applicaStatoAllertaGrafica(); controllaStatoDailyLive(); ripristinaControlliAcquistiPrecedenti();
 
         function aggiornaDatiSchermoUtente() {
-            document.getElementById("badgePuntiXP").innerText = puntiXP + " XP";
-            document.getElementById("labelSaldoSordu").innerText = saldoSordu + " SRL";
-            let g = "Cittadino Scelto 🏅";
-            if(puntiXP >= 150) g = "Guardiano della Rete 🌐";
-            if(puntiXP >= 300) g = "Cavaliere del Predator 👑";
-            if(puntiXP >= 500) g = "Mika-Quadrumviro / Capo Supremo 👑🛡️";
+            document.getElementById("badgePuntiXP").innerText = puntiXP + " XP"; document.getElementById("labelSaldoSordu").innerText = saldoSordu + " SRL";
+            let g = "Cittadino Scelto 🏅"; if(puntiXP >= 150) g = "Guardiano della Rete 🌐"; if(puntiXP >= 300) g = "Cavaliere del Predator 👑"; if(puntiXP >= 500) g = "Mika-Quadrumviro / Capo Supremo 👑🛡️";
             document.getElementById("labelGradoCittadino").innerText = g;
         }
+
         function ripristinaControlliAcquistiPrecedenti() {
             let inv = JSON.parse(localStorage.getItem("rmk_inventario")) || [];
             if(inv.length > 0) {
                 document.getElementById("labelRuoliPosseduti").innerText = "Inventario Elementi Sbloccati: " + inv.join(", ");
                 document.getElementById("controlliExtraShop").style.display = "block";
-                if (inv.includes("Tema Matrix 🎨")) {
-                    let b = document.getElementById("btnAttivaMatrix");
-                    b.disabled = false; b.style.background = "#eab308"; b.style.cursor = "pointer";
-                    b.innerText = "ATTIVA TEMA MATRIX 🎨"; b.style.display = "inline-block";
-                }
+                if (inv.includes("Tema Matrix 🎨")) { let b = document.getElementById("btnAttivaMatrix"); b.disabled = false; b.style.background = "#eab308"; b.style.cursor = "pointer"; b.innerText = "ATTIVA TEMA MATRIX 🎨"; b.style.display = "inline-block"; }
                 if (inv.includes("Modifica ID 🛡️")) { document.getElementById("divCustomId").style.display = "block"; }
             }
         }
 
         function controllaStatoDailyLive() {
-            const u = localStorage.getItem("rmk_ultimo_daily");
-            const d = new Date().toDateString();
-            const btn = document.getElementById("btnDailyBonus");
-            const lbl = document.getElementById("labelDailyStatus");
-            if (u === d) {
-                btn.disabled = true; btn.style.background = "#64748b"; btn.style.cursor = "not-allowed";
-                lbl.innerText = "✔ BONUS RISCOSSO OGGI! Torna domani per altri Sordu.";
-            } else {
-                btn.disabled = false; btn.style.background = "#34d399"; btn.style.cursor = "pointer";
-                lbl.innerText = "🎁 Bonus disponibile!";
-            }
+            const u = localStorage.getItem("rmk_ultimo_daily"), d = new Date().toDateString(), btn = document.getElementById("btnDailyBonus"), lbl = document.getElementById("labelDailyStatus");
+            if (u === d) { btn.disabled = true; btn.style.background = "#64748b"; btn.style.cursor = "not-allowed"; lbl.innerText = "✔ BONUS RISCOSSO OGGI! Torna domani."; }
+            else { btn.disabled = false; btn.style.background = "#34d399"; btn.style.cursor = "pointer"; lbl.innerText = "🎁 Bonus disponibile!"; }
         }
 
-        function riscuotiDailyBonus() {
-            let inv = JSON.parse(localStorage.getItem("rmk_inventario")) || [];
-            let b = 100; let x = 10;
-            let m = "🎁 RISCOSSIONE COMPLETATA!\n\n+100 SRL e +10 XP";
+                       function riscouotiDailyBonus() {
+            let inv = JSON.parse(localStorage.getItem("rmk_inventario")) || [], b = 100, x = 10, m = "🎁 RISCOSSIONE COMPLETATA!\n\n+100 SRL e +10 XP";
             if (inv.includes("Cavaliere ⚔️")) { x = 50; m = "⚔️ PRIVILEGIO CAVALIERE:\n\n+100 SRL e +50 XP"; }
             if (inv.includes("Duca del Predator 👑")) { b = 110; x = 150; m = "👑 RENDITA SUPREMA DA DUCA:\n\n+110 SRL e +150 XP"; }
-            saldoSordu += b; puntiXP += x;
-            localStorage.setItem("rmk_sordu", saldoSordu); localStorage.setItem("rmk_xp", puntiXP);
-            localStorage.setItem("rmk_ultimo_daily", new Date().toDateString());
+            saldoSordu += b; puntiXP += x; localStorage.setItem("rmk_sordu", saldoSordu); localStorage.setItem("rmk_xp", puntiXP); localStorage.setItem("rmk_ultimo_daily", new Date().toDateString());
             aggiornaDatiSchermoUtente(); controllaStatoDailyLive(); avviaPioggiaCoriandoli(); alert(m);
         }
+
         function compraElementoShop(nome, prezzo, tipo, valore) {
             if (saldoSordu >= prezzo) {
                 saldoSordu -= prezzo; localStorage.setItem("rmk_sordu", saldoSordu);
                 if (tipo === "xp") { puntiXP += valore; localStorage.setItem("rmk_xp", puntiXP); }
-                let inv = JSON.parse(localStorage.getItem("rmk_inventario")) || []; inv.push(nome);
-                localStorage.setItem("rmk_inventario", JSON.stringify(inv));
+                let inv = JSON.parse(localStorage.getItem("rmk_inventario")) || []; inv.push(nome); localStorage.setItem("rmk_inventario", JSON.stringify(inv));
                 aggiornaDatiSchermoUtente(); ripristinaControlliAcquistiPrecedenti();
                 if (tipo === "licenza") { alert("📝 LICENZA ATTIVA! Reindirizzamento..."); window.open("https://forms.gle", "_blank"); return; }
                 if (tipo === "lotteria") {
@@ -441,21 +415,11 @@
         }
 
         function riscattaCodiceUfficialeLive() {
-            const codiceInserito = document.getElementById("inputRiscattoCodice").value.trim().toUpperCase();
-            if (codiceInserito === "") { alert("❌ Inserisci un codice prima di cliccare!"); return; }
-            if (codiceInserito === "REGALO500") {
-                saldoSordu += 500; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente();
-                document.getElementById("inputRiscattoCodice").value = ""; avviaPioggiaCoriandoli();
-                alert("👑 CODICE VALIDO!\n\nAccreditato un Bonus di Stato di +500 SRL!"); return;
-            }
-            if (codiceInserito === "MULTA200") {
-                saldoSordu = (saldoSordu >= 200) ? saldoSordu - 200 : 0; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente();
-                document.getElementById("inputRiscattoCodice").value = "";
-                alert("🛑 SANZIONE APPLICATA!\n\nDetratti -200 SRL per infrazione filtri."); return;
-            }
+            const codiceInserito = document.getElementById("inputRiscattoCodice").value.trim().toUpperCase(); if (codiceInserito === "") { alert("❌ Inserisci un codice prima di cliccare!"); return; }
+            if (codiceInserito === "REGALO500") { saldoSordu += 500; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); document.getElementById("inputRiscattoCodice").value = ""; avviaPioggiaCoriandoli(); alert("👑 CODICE VALIDO!\n\nAccreditato un Bonus di Stato di +500 SRL!"); return; }
+            if (codiceInserito === "MULTA200") { saldoSordu = (saldoSordu >= 200) ? saldoSordu - 200 : 0; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); document.getElementById("inputRiscattoCodice").value = ""; alert("🛑 SANZIONE APPLICATA!\n\nDetratti -200 SRL per infrazione filtri."); return; }
             alert("❌ CODICE DI STATO NON VALIDO!");
         }
-
         function attivaTemaMatrixLive() { document.body.style.background = "#052e16"; document.body.style.color = "#22c55e"; alert("🎨 TEMA PREDATOR MATRIX ATTIVATO!"); }
         function salvaCustomIdLive() { const t = document.getElementById("textCustomIdInput").value.trim().toUpperCase(); if (t === "") { alert("Inserisci un codice!"); return; } idPersonalizzato = "RMK-" + t; localStorage.setItem("rmk_custom_id", idPersonalizzato); alert("🛡️ ID REGISTRATO: " + idPersonalizzato); }
         function generaPassaportoLive() { const n = document.getElementById("inputNomePassaporto").value.trim().toUpperCase(); if (n === "") { alert("Inserisci il tuo nome!"); return; } let inv = JSON.parse(localStorage.getItem("rmk_inventario")) || []; let t = inv.length > 0 ? inv.join(", ") : "Nessuno"; document.getElementById("cardPassaportoVisivo").style.display = "block"; document.getElementById("passNome").innerText = n; document.getElementById("passGrado").innerText = document.getElementById("labelGradoCittadino").innerText + " (" + t + ")"; document.getElementById("passSaldo").innerText = saldoSordu + " SRL"; document.getElementById("passID").innerText = idPersonalizzato ? idPersonalizzato : "RMK-" + Math.floor(100000 + Math.random() * 900000); }
@@ -469,9 +433,7 @@
         function avviaPioggiaCoriandoli() {
             const c = document.getElementById("rainContainer"); c.style.display = "block"; c.innerHTML = "";
             for(let i=0; i<30; i++) {
-                const drop = document.createElement("div");
-                drop.style = "position:absolute; width:15px; height:15px; border-radius:50%; background:" + (Math.random() > 0.5 ? "#38bdf8" : "#eab308") + "; left:" + Math.random() * 100 + "%; top:-20px; animation: fall " + (1 + Math.random() * 1.5) + "s linear forwards;";
-                c.appendChild(drop);
+                const drop = document.createElement("div"); drop.style = "position:absolute; width:15px; height:15px; border-radius:50%; background:" + (Math.random() > 0.5 ? "#38bdf8" : "#eab308") + "; left:" + Math.random() * 100 + "%; top:-20px; animation: fall " + (1 + Math.random() * 1.5) + "s linear forwards;"; c.appendChild(drop);
             }
             setTimeout(() => c.style.display = "none", 2500);
         }
@@ -479,8 +441,7 @@
         const grid = document.getElementById("dictionaryVisualGrid");
         Object.keys(dictionary).sort().forEach(w => {
             if(w !== "si" && w !== "elettricita" && w !== "felicita") {
-                const item = document.createElement("div"); item.className = "dict-item";
-                item.innerHTML = `${w.charAt(0).toUpperCase() + w.slice(1)} ➡️ <span>${dictionary[w]}</span>`; grid.appendChild(item);
+                const item = document.createElement("div"); item.className = "dict-item"; item.innerHTML = `${w.charAt(0).toUpperCase() + w.slice(1)} ➡️ <span>${dictionary[w]}</span>`; grid.appendChild(item);
             }
         });
         function translateItaToRmk() { const input = document.getElementById("inputIta").value.toLowerCase(); if (!input.trim()) { document.getElementById("outputRmk").innerText = "In attesa del testo..."; return; } const words = input.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(/\s+/); document.getElementById("outputRmk").innerText = words.map(word => dictionary[word] ? dictionary[word] : word).join(" "); }
@@ -489,3 +450,5 @@
     <style>@keyframes fall { to { top: 100%; transform: rotate(360deg); } }</style>
 </body>
 </html>
+
+      
