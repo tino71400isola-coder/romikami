@@ -321,16 +321,23 @@
 
         const inverseDictionary = {}; Object.keys(dictionary).forEach(k => { inverseDictionary[dictionary[k]] = k; });
 
-        // AVVIO IMMEDIATO DELLA RETE
-        window.addEventListener('load', function() {
-            firebase.initializeApp(firebaseConfig);
-            databaseOnline = firebase.database();
-            if (nomeUtenteStato === "") { 
-                document.getElementById("schermataLoginRomikami").style.display = "flex"; 
-            } else { 
-                ascoltaMessaggiChatLive(); 
+                // MOTORE DI AGGANCIO RETE E SICUREZZA MULTI-SERVER
+        function inizializzaReteImmediata() {
+            if (typeof firebase !== 'undefined') {
+                firebase.initializeApp(firebaseConfig);
+                databaseOnline = firebase.database();
+                if (nomeUtenteStato === "") { 
+                    document.getElementById("schermataLoginRomikami").style.display = "flex"; 
+                } else { 
+                    ascoltaMessaggiChatLive(); 
+                }
+            } else {
+                // Se le librerie esterne non sono ancora pronte, riprova tra mezzo secondo
+                setTimeout(inizializzaReteImmediata, 500);
             }
-        });
+        }
+        inizializzaReteImmediata();
+
         function eseguiLoginIniziale() {
             const user = document.getElementById("inputUsernameLogin").value.trim().toUpperCase();
             if (user === "") { alert("❌ Scegli un nome valido!"); return; }
