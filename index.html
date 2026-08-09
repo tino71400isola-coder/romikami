@@ -36,9 +36,9 @@
         .msg-ty { color: #38bdf8; font-weight: bold; } .msg-ny { color: #ef4444; font-weight: bold; } .msg-le { color: #eab308; font-weight: bold; }
     </style>
     
-    <!-- LIBRERIE UFFICIALI FIREBASE CARICATE ALL'AVVIO -->
-    <script src="https://gstatic.com"></script>
-    <script src="https://gstatic.com"></script>
+       <!-- SBLOCCO RETE IMPERIALE: LIBRERIE FIREBASE VIA CLOUDFLARE CDN -->
+    <script src="https://cloudflare.com"></script>
+    <script src="https://cloudflare.com"></script>
 </head>
 <body>
 
@@ -321,8 +321,8 @@
 
         const inverseDictionary = {}; Object.keys(dictionary).forEach(k => { inverseDictionary[dictionary[k]] = k; });
 
-                // MOTORE DI AGGANCIO RETE E SICUREZZA MULTI-SERVER
-        function inizializzaReteImmediata() {
+                      // AVVIO DI RETE SINCRONIZZATO E BLINDATO
+        window.onload = function() {
             if (typeof firebase !== 'undefined') {
                 firebase.initializeApp(firebaseConfig);
                 databaseOnline = firebase.database();
@@ -332,11 +332,10 @@
                     ascoltaMessaggiChatLive(); 
                 }
             } else {
-                // Se le librerie esterne non sono ancora pronte, riprova tra mezzo secondo
-                setTimeout(inizializzaReteImmediata, 500);
+                console.error("Errore critico: Firebase non caricato dal CDN di Cloudflare.");
+                alert("🚨 Rete di Stato rallentata! Premi CTRL + F5 per forzare l'aggancio dei server.");
             }
-        }
-        inizializzaReteImmediata();
+        };
 
         function eseguiLoginIniziale() {
             const user = document.getElementById("inputUsernameLogin").value.trim().toUpperCase();
