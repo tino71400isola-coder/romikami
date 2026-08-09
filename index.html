@@ -321,8 +321,8 @@
 
         const inverseDictionary = {}; Object.keys(dictionary).forEach(k => { inverseDictionary[dictionary[k]] = k; });
 
-                      // AVVIO DI RETE SINCRONIZZATO E BLINDATO
-        window.onload = function() {
+             // FORZATURA RETE IMPERIALE: ACCENSIONE CONTINUA AUTOMATICA
+        function forzaAccensioneFirebaseLive() {
             if (typeof firebase !== 'undefined') {
                 firebase.initializeApp(firebaseConfig);
                 databaseOnline = firebase.database();
@@ -331,11 +331,13 @@
                 } else { 
                     ascoltaMessaggiChatLive(); 
                 }
+                console.log("🚀 Server Firebase agganciato con successo!");
             } else {
-                console.error("Errore critico: Firebase non caricato dal CDN di Cloudflare.");
-                alert("🚨 Rete di Stato rallentata! Premi CTRL + F5 per forzare l'aggancio dei server.");
+                setTimeout(forzaAccensioneFirebaseLive, 300);
             }
-        };
+        }
+        forzaAccensioneFirebaseLive();
+
 
         function eseguiLoginIniziale() {
             const user = document.getElementById("inputUsernameLogin").value.trim().toUpperCase();
