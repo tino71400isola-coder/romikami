@@ -276,17 +276,12 @@
 
     <!-- EFFETTI DI PIOGGIA CELEBRATIVA -->
     <div id="rainContainer" style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:99999; display:none;"></div>
-    <script>
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-          // INIZIALIZZAZIONE SISTEMA DATABASE FIREBASE (CHIAVI DA FOTO)
-              // INIZIALIZZAZIONE SISTEMA DATABASE FIREBASE (CONFIGURAZIONE REALE CORRETTA)
+        <script>
+        // CONFIGURAZIONE DATABASE FIREBASE UFFICIALE
         const firebaseConfig = {
             apiKey: "AIzaSyB3-XVl2BibguQ1ooL5Qa6RM_HcW6RESfQ",
-            authDomain: "romikami-database.firebaseapp.com",
-            databaseURL: "https://romikami-database-default-rtdb.firebaseio.com",
+            authDomain: "://firebaseapp.com",
+            databaseURL: "https://firebaseio.com",
             projectId: "romikami-database",
             storageBucket: "romikami-database.firebasestorage.app",
             messagingSenderId: "368702503742",
@@ -294,100 +289,12 @@ const analytics = getAnalytics(app);
             measurementId: "G-SL1X286N59"
         };
 
-        // CARICAMENTO LIBRERIE FIREBASE VIA RETE (VERSIONE 8 STABILE)
+        // CARICAMENTO SCRIPT ESTERNI GOOGLE
         const scriptFbApp = document.createElement('script'); scriptFbApp.src = "https://gstatic.com"; document.head.appendChild(scriptFbApp);
         const scriptFbDb = document.createElement('script'); scriptFbDb.src = "https://gstatic.com"; document.head.appendChild(scriptFbDb);
 
         let databaseOnline;
         let nomeUtenteStato = localStorage.getItem("rmk_username") || "";
-
-        // ATTIVAZIONE SERVER APPENA LE LIBRERIE SONO PRONTE
-        scriptFbDb.onload = function() {
-            firebase.initializeApp(firebaseConfig);
-            databaseOnline = firebase.database();
-            
-            // Controlla se l'utente deve registrarsi per la prima volta
-            if (nomeUtenteStato === "") {
-                document.getElementById("schermataLoginRomikami").style.display = "flex";
-            } else {
-                ascoltaMessaggiChatLive();
-            }
-        };
-
-        function eseguiLoginIniziale() {
-            const user = document.getElementById("inputUsernameLogin").value.trim().toUpperCase();
-            if (user === "") { alert("❌ Scegli un nome utente valido per lo Stato!"); return; }
-            localStorage.setItem("rmk_username", user);
-            nomeUtenteStato = user;
-            document.getElementById("schermataLoginRomikami").style.display = "none";
-            ascoltaMessaggiChatLive();
-            alert("🚀 IDENTIFICAZIONE COMPLETATA! Benvenuto nel portale di Romikami, " + user);
-        }
-
-        // ASCOLTATORE MESSAGGI LIVE IN TEMPO REALE DA FIREBASE
-        function ascoltaMessaggiChatLive() {
-            if (!databaseOnline) return;
-            const refChat = databaseOnline.ref("chat_globale");
-            
-            // Ascolta ogni nuovo messaggio inserito nel database di Google
-            refChat.limitToLast(50).on("value", function(snapshot) {
-                const box = document.getElementById("corpoChatPubblicaOnline");
-                box.innerHTML = "";
-                
-                const dati = snapshot.val();
-                if (!dati) {
-                    box.innerHTML = '<div style="color:#64748b; text-align:center; margin-top:100px;">Nessun messaggio inviato. Scrivi il primo messaggio!</div>';
-                    return;
-                }
-                
-                // Disegna ogni messaggio inviato dai 1500 cittadini
-                Object.keys(dati).forEach(function(key) {
-                    const msg = dati[key];
-                    const divMsg = document.createElement("div");
-                    divMsg.style.marginBottom = "8px";
-                    
-                    // Se a scrivere è Tynox, Nynx o Leo, colora il nome in modo speciale
-                    let stileNome = "color:#34d399; font-weight:bold;";
-                    if (msg.user === "TYNOX") stileNome = "color:#38bdf8; font-weight:bold; text-shadow:0 0 5px #38bdf8;";
-                    if (msg.user === "NYNX") stileNome = "color:#ef4444; font-weight:bold; text-shadow:0 0 5px #ef4444;";
-                    if (msg.user === "LEO") stileNome = "color:#eab308; font-weight:bold; text-shadow:0 0 5px #eab308;";
-                    
-                    divMsg.innerHTML = '<span style="' + stileNome + '">[' + msg.user + ']:</span> <span style="color:#fff;">' + msg.testo + '</span>';
-                    box.appendChild(divMsg);
-                });
-                
-                // Autoscroll verso il basso per leggere l'ultimo messaggio
-                box.scrollTop = box.scrollHeight;
-            });
-        }
-
-        // FUNZIONE PER INVIARE I MESSAGGI ONLINE AL DATABASE
-        function inviaMessaggioChatOnline() {
-            const input = document.getElementById("inputMessaggioChatPubblica");
-            const testoMsg = input.value.trim();
-            if (testoMsg === "") return;
-            if (!databaseOnline) { alert("❌ Server in fase di caricamento, attendi..."); return; }
-            
-            // Inserisce il messaggio nel server Firebase
-            databaseOnline.ref("chat_globale").push({
-                user: nomeUtenteStato || "CITTADINO",
-                testo: testoMsg,
-                timestamp: Date.now()
-            });
-            
-            input.value = ""; // Svuota la casella di testo
-        }
-
-        // Gestione Menu Tendina ☰
-        function toggleMenu() {
-            const m = document.getElementById("dropdownMenu");
-            m.style.display = (m.style.display === "block") ? "none" : "block";
-        }
-        document.querySelectorAll('.dropdown-menu a').forEach(l => {
-            l.addEventListener('click', () => document.getElementById("dropdownMenu").style.display = "none");
-        });
-
-        // Database persistente
         let puntiXP = parseInt(localStorage.getItem("rmk_xp")) || 50;
         let saldoSordu = parseInt(localStorage.getItem("rmk_sordu")) || 500;
         let allertaStato = localStorage.getItem("rmk_allerta") === "true";
@@ -402,7 +309,7 @@ const analytics = getAnalytics(app);
             "mondo": "mundu", "paese": "biddai", "strada": "stradu", "cielo": "kelu", "sole": "sko", "luna": "juna", "fuoco": "fogu", "acqua": "abba",
             "mare": "mari", "spiaggia": "rena-biddai", "ombrellone": "tentu-sole", "asciugamano": "panno-abba", "giorno": "die", "notte": "noti", "tempo": "tempu", "pioggia": "frore", "vento": "bentis", "neve": "nii",
             "blu": "burk", "azzurro": "burk", "rosso": "ruju", "verde": "birde", "giallo": "grogu", "oro": "oru", "nero": "nieddu", "bianco": "albu", "grigio": "fumofis", "arancione": "fogu-ruju", "viola": "lughis-noti", "rosa": "frore-albu",
-            "soldi": "sordu", "lavoro": "traballu", "macchina": "makinari", "zaino": "saccu", "vestiti": "bestiri", "scarpe": "kalzatru", "legge": "lege", "guerra": "guerru", "pace": "pakis",
+            "soldi": "sordu", "lavoro": "traballu", "macchina": "makinari", "zaino": "saccu", "vestiti": "bestiri", "scarpe": "kalzatru", "legge": "lege", "guerra": "guerru", "peace": "pakis",
             "bene": "benu", "male": "malu", "grande": "magnu", "piccolo": "biku", "bello": "bellu", "brutto": "bruttu", "forte": "fortis", "debole": "scuru", "nuovo": "nou", "vecchio": "antigu",
             "veloce": "flussu", "lento": "ze-flussu", "caldo": "kallenti", "freddo": "frittu", "felicità": "allia", "felicita": "allia", "tristezza": "buggis", "paura": "timore",
             "essere": "essere", "avere": "tenere", "fare": "fakere", "andare": "andare", "sapere": "sapare", "volere": "bolere", "mangiare": "papare", "dormire": "dormire", "vedere": "mirare", "ascoltare": "askoltare", "comprare": "akattare", "cercare": "kerkare", "rompere": "spaccare",
@@ -414,10 +321,60 @@ const analytics = getAnalytics(app);
         const inverseDictionary = {};
         Object.keys(dictionary).forEach(k => { inverseDictionary[dictionary[k]] = k; });
 
-        aggiornaDatiSchermoUtente();
-        applicaStatoAllertaGrafica();
-        controllaStatoDailyLive();
-        ripristinaControlliAcquistiPrecedenti();
+        scriptFbDb.onload = function() {
+            firebase.initializeApp(firebaseConfig);
+            databaseOnline = firebase.database();
+            if (nomeUtenteStato === "") { document.getElementById("schermataLoginRomikami").style.display = "flex"; } 
+            else { ascoltaMessaggiChatLive(); }
+        };
+
+        function eseguiLoginIniziale() {
+            const user = document.getElementById("inputUsernameLogin").value.trim().toUpperCase();
+            if (user === "") { alert("❌ Scegli un nome valido!"); return; }
+            localStorage.setItem("rmk_username", user); nomeUtenteStato = user;
+            document.getElementById("schermataLoginRomikami").style.display = "none";
+            ascoltaMessaggiChatLive(); alert("🚀 BENVENTUTO, " + user);
+        }
+        function ascoltaMessaggiChatLive() {
+            if (!databaseOnline) return;
+            databaseOnline.ref("chat_globale").limitToLast(50).on("value", function(snapshot) {
+                const box = document.getElementById("corpoChatPubblicaOnline");
+                box.innerHTML = "";
+                const dati = snapshot.val();
+                if (!dati) {
+                    box.innerHTML = '<div style="color:#64748b; text-align:center; margin-top:100px;">Nessun messaggio. Scrivi qualcosa!</div>';
+                    return;
+                }
+                Object.keys(dati).forEach(function(key) {
+                    const msg = dati[key];
+                    const divMsg = document.createElement("div");
+                    divMsg.style.marginBottom = "8px";
+                    let stileNome = "color:#34d399; font-weight:bold;";
+                    if (msg.user === "TYNOX") stileNome = "color:#38bdf8; font-weight:bold; text-shadow:0 0 5px #38bdf8;";
+                    if (msg.user === "NYNX") stileNome = "color:#ef4444; font-weight:bold; text-shadow:0 0 5px #ef4444;";
+                    if (msg.user === "LEO") stileNome = "color:#eab308; font-weight:bold; text-shadow:0 0 5px #eab308;";
+                    divMsg.innerHTML = '<span style="' + stileNome + '">[' + msg.user + ']:</span> <span style="color:#fff;">' + msg.testo + '</span>';
+                    box.appendChild(divMsg);
+                });
+                box.scrollTop = box.scrollHeight;
+            });
+        }
+
+        function inviaMessaggioChatOnline() {
+            const input = document.getElementById("inputMessaggioChatPubblica");
+            const testoMsg = input.value.trim();
+            if (testoMsg === "") return;
+            if (!databaseOnline) { alert("❌ Server in caricamento..."); return; }
+            databaseOnline.ref("chat_globale").push({
+                user: nomeUtenteStato || "CITTADINO",
+                testo: testoMsg,
+                timestamp: Date.now()
+            });
+            input.value = "";
+        }
+
+        aggiornaDatiSchermoUtente(); applicaStatoAllertaGrafica(); controllaStatoDailyLive(); ripristinaControlliAcquistiPrecedenti();
+
         function aggiornaDatiSchermoUtente() {
             document.getElementById("badgePuntiXP").innerText = puntiXP + " XP";
             document.getElementById("labelSaldoSordu").innerText = saldoSordu + " SRL";
@@ -427,7 +384,6 @@ const analytics = getAnalytics(app);
             if(puntiXP >= 500) g = "Mika-Quadrumviro / Capo Supremo 👑🛡️";
             document.getElementById("labelGradoCittadino").innerText = g;
         }
-
         function ripristinaControlliAcquistiPrecedenti() {
             let inv = JSON.parse(localStorage.getItem("rmk_inventario")) || [];
             if(inv.length > 0) {
@@ -452,22 +408,21 @@ const analytics = getAnalytics(app);
                 lbl.innerText = "✔ BONUS RISCOSSO OGGI! Torna domani per altri Sordu.";
             } else {
                 btn.disabled = false; btn.style.background = "#34d399"; btn.style.cursor = "pointer";
-                lbl.innerText = "🎁 Bonus disponibile per la riscossione!";
+                lbl.innerText = "🎁 Bonus disponibile!";
             }
         }
 
         function riscuotiDailyBonus() {
             let inv = JSON.parse(localStorage.getItem("rmk_inventario")) || [];
             let b = 100; let x = 10;
-            let m = "🎁 RISCOSSIONE COMPLETATA!\n\n+100 SRL (Sordu)\n+10 XP (Esperienza)";
-            if (inv.includes("Cavaliere ⚔️")) { x = 50; m = "⚔️ PRIVILEGIO CAVALIERE:\n\n+100 SRL\n+50 XP"; }
-            if (inv.includes("Duca del Predator 👑")) { b = 110; x = 150; m = "👑 RENDITA SUPREMA DA DUCA:\n\n+110 SRL\n+150 XP"; }
+            let m = "🎁 RISCOSSIONE COMPLETATA!\n\n+100 SRL e +10 XP";
+            if (inv.includes("Cavaliere ⚔️")) { x = 50; m = "⚔️ PRIVILEGIO CAVALIERE:\n\n+100 SRL e +50 XP"; }
+            if (inv.includes("Duca del Predator 👑")) { b = 110; x = 150; m = "👑 RENDITA SUPREMA DA DUCA:\n\n+110 SRL e +150 XP"; }
             saldoSordu += b; puntiXP += x;
             localStorage.setItem("rmk_sordu", saldoSordu); localStorage.setItem("rmk_xp", puntiXP);
             localStorage.setItem("rmk_ultimo_daily", new Date().toDateString());
             aggiornaDatiSchermoUtente(); controllaStatoDailyLive(); avviaPioggiaCoriandoli(); alert(m);
         }
-
         function compraElementoShop(nome, prezzo, tipo, valore) {
             if (saldoSordu >= prezzo) {
                 saldoSordu -= prezzo; localStorage.setItem("rmk_sordu", saldoSordu);
@@ -475,7 +430,7 @@ const analytics = getAnalytics(app);
                 let inv = JSON.parse(localStorage.getItem("rmk_inventario")) || []; inv.push(nome);
                 localStorage.setItem("rmk_inventario", JSON.stringify(inv));
                 aggiornaDatiSchermoUtente(); ripristinaControlliAcquistiPrecedenti();
-                if (tipo === "licenza") { alert("📝 LICENZA ATTIVA! Verrai reindirizzato al modulo."); window.open("https://forms.gle", "_blank"); return; }
+                if (tipo === "licenza") { alert("📝 LICENZA ATTIVA! Reindirizzamento..."); window.open("https://forms.gle", "_blank"); return; }
                 if (tipo === "lotteria") {
                     let n = Math.floor(Math.random() * 10);
                     if (n === 7) { saldoSordu += 1000; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); avviaPioggiaCoriandoli(); alert("🎰 LOTTERIA: Uscito il numero 7! Vinci +1000 SRL!"); }
@@ -484,11 +439,10 @@ const analytics = getAnalytics(app);
                 alert("🛒 ACQUISTO EFFETTUATO: " + nome.toUpperCase());
             } else { alert("❌ Sordu insufficienti!"); }
         }
-        // MOTORE DI RISCATTO DEI CODICI DI STATO (MIKA-CODE)
+
         function riscattaCodiceUfficialeLive() {
             const codiceInserito = document.getElementById("inputRiscattoCodice").value.trim().toUpperCase();
             if (codiceInserito === "") { alert("❌ Inserisci un codice prima di cliccare!"); return; }
-
             if (codiceInserito === "REGALO500") {
                 saldoSordu += 500; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente();
                 document.getElementById("inputRiscattoCodice").value = ""; avviaPioggiaCoriandoli();
@@ -497,7 +451,7 @@ const analytics = getAnalytics(app);
             if (codiceInserito === "MULTA200") {
                 saldoSordu = (saldoSordu >= 200) ? saldoSordu - 200 : 0; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente();
                 document.getElementById("inputRiscattoCodice").value = "";
-                alert("🛑 SANZIONE APPLICATA!\n\nDetratti -200 SRL dal tuo conto corrente per infrazione filtri."); return;
+                alert("🛑 SANZIONE APPLICATA!\n\nDetratti -200 SRL per infrazione filtri."); return;
             }
             alert("❌ CODICE DI STATO NON VALIDO!");
         }
@@ -524,7 +478,7 @@ const analytics = getAnalytics(app);
 
         const grid = document.getElementById("dictionaryVisualGrid");
         Object.keys(dictionary).sort().forEach(w => {
-            if(w !== "si") {
+            if(w !== "si" && w !== "elettricita" && w !== "felicita") {
                 const item = document.createElement("div"); item.className = "dict-item";
                 item.innerHTML = `${w.charAt(0).toUpperCase() + w.slice(1)} ➡️ <span>${dictionary[w]}</span>`; grid.appendChild(item);
             }
