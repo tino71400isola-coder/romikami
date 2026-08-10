@@ -198,35 +198,33 @@
         let idPersonalizzato = localStorage.getItem("rmk_custom_id") || "";
 
                           const dictionary = {
-            // 📖 ARTICOLI, PREPOSIZIONI E CONGIUNZIONI (Grammatica Ufficiale)
-            "il": "su", "lo": "su", "la": "su", "i": "sos", "gli": "sos", "le": "sos",
-            "un": "un", "uno": "un", "una": "un",
-            "di": "de", "a": "a", "da": "da", "in": "in", "con": "kun", "su": "su-supra", "per": "pro", "tra": "in-mesu", "fra": "in-mesu",
+                    // 📖 ARTICOLI, PREPOSIZIONI E CONGIUNZIONI
+            "il": "su", "lo": "su", "la": "su", "i": "sos", "gli": "sos", "le": "sos", "un": "un", "uno": "un", "una": "un",
+            "di": "de", "a": "a", "da": "da", "in": "in", "con": "kun", "su-supra": "su-supra", "per": "pro", "tra": "in-mesu", "fra": "in-mesu",
             "e": "kun", "ma": "koza-kun", "perché": "pro-kiti", "se": "se-zhu",
 
-            // 📅 MESI E FESTIVITÀ
+            // 📅 MESI, FESTIVITÀ, SPORT E RUOLI (PARTE NUOVA!)
             "gennaio": "ze-die", "febbraio": "un-die", "marzo": "do-die", "aprile": "tri-die", "maggio": "quat-die", "giugno": "kink-die",
             "luglio": "se-die", "agosto": "setis-die", "settembre": "oto-die", "ottobre": "nufi-die", "novembre": "mika-die", "dicembre": "totu-die",
             "natale": "regalo-noti", "capodanno": "nou-die", "pasqua": "allia-die", "festa": "mika-festa",
+            "calcio": "palla-tech", "tennis": "tastu-palla", "basket": "saccu-palla", "partita": "guerru-jukare", "match": "guerru-jukare", "squadra": "team-zhuadini", "allenamento": "traballu-jukare",
+            "nuoto": "mari-andare", "ciclismo": "do-rotas-flussu", "palestra": "fortis-omu-traballu", "palla": "tech-palla", "pallone": "tech-palla", "gol": "binkere-tastu", "canestro": "binkere-tastu", "arbitro": "lege-omu", "giocatore": "cacciatore-tech", "atleta": "cacciatore-tech", "vincitore": "mika-binkere", "campione": "mika-binkere", "coppa": "oru-mesa", "trofeo": "oru-mesa", "moto": "do-rotas-flussu",
 
             // 🗣️ SALUTI, COMANDI E AVVERBI
             "ciao": "zhuao", "arrivederci": "zhuaorami", "sì": "zhu", "si": "zhu", "no": "koza", "grazie": "merki", "prego": "mika-benu",
             "oh": "Zhuao!", "ehi": "Omu!", "cavolo": "Baddu!", "fermo": "ferma-te",
             "oggi": "die", "domani": "die-nou", "ieri": "antigu-die", "molto": "magnu", "poco": "biku",
 
-            // 💻 PRONOMI E CREATORI DI CONTENUTI (Tynøx_714)
+            // 💻 PRONOMI E YOUTUBE (Tynøx_714)
             "io": "zi", "tu": "ko", "lui": "eddu", "lei": "edda", "noi": "ziko", "voi": "koko", "loro": "eddus", "questo": "kiti", "quello": "katu", "anche": "anku", "tutto": "totu",
             "youtube": "mika-tube", "video": "visualu-edit", "edit": "taglia-tech", "editor": "mika-artisti", "mapping": "mappa-tech", "mapper": "mika-mappatori", "mappa": "carta-biddai", "iscritto": "zhu-follower", "follower": "zhu-follower", "canale": "canale-mika", "commento": "parola-netu", "like": "sordu-benu",
 
-            // ⚙️ HARDWARE, LAVORI ED ENERGIE
-            "capo": "mika", "computer": "predatori", "hardware": "predatori-tech", "internet": "netu", "sito": "netu-pagu", "schermo": "visualu", "tastiera": "tastu", "mouse": "cliccu", "cavo": "linia", "database": "mika-memoria", "gioco": "jukare", "player": "cacciatore",
-            "youtuber": "mika-tube-omu", "programmatore": "predatori-omu", "poliziotto": "scudo-omu", "guardia": "scudo-omu", "soldato": "guerru-omu", "dottore": "benu-omu",
-            "elettricità": "voltu", "elettricita": "voltu", "energia": "voltu", "nucleare": "magnu-voltu",
-
-            // 🍕 CIBI E BEVANDE
+            // 🍕 CIBI, BEVANDE, FRUTTA E VERDURA ESPANSA
             "pane": "pani", "carne": "petza", "pizza": "pitzas", "pasta": "mika-granu", "dolce": "grogu-papare", "torta": "grogu-papare",
             "acqua": "abba", "bibita": "lattis-abba", "latte": "lattis", "coca-cola": "ruju-buffare",
-            // 🏠 OGGETTI DELLA CASA
+            "mela": "grogu-frore", "banana": "grogu-linia", "arancia": "fogu-papare", "limone": "kallenti-grogu", "pomodoro": "ruju-papare", "insalata": "birde-panno", "lattuga": "birde-panno", "patata": "domu-rena", "carota": "fogu-legnu", "fragola": "biku-ruju", "pera": "albu-frore-papare", "uva": "mari-grogu", "pesca": "allia-frore", "anguria": "magnu-abba-birde", "melone": "grogu-mundu", "ciliegia": "ruju-oto", "ananas": "tech-fogu-frore", "cipolla": "buggu-janna", "aglio": "fortis-albu", "zucchina": "birde-linia", "melanzana": "lughis-noti-papare", "zucca": "fogu-ruju-magnu", "fungo": "domu-nii",
+
+                      // 🏠 OGGETTI DELLA CASA
             "casa": "domu", "porta": "janna", "letto": "lettis", "comodino": "biku-lettis", "armadio": "domu-bestiri", "sedia": "cadrea", "tavolo": "mesa", "luce": "lughi",
             "frigorifero": "frittu-domu", "televisione": "predatori-visualu", "finestra": "biku-janna", "divano": "allia-cadrea",
 
@@ -266,7 +264,7 @@
             // 🤬 INSULTI GOVERNATIVI E SLANG
             "scemo": "baddu-omu", "sciocho": "baddu-omu", "sciocco": "baddu-omu", "nabbo": "ze-predatori", "fifone": "timore-saccu", "rompipalle": "buggu-bentis", "fastidioso": "buggu-bentis"
         };
-         
+
            const inverseDictionary = {}; Object.keys(dictionary).forEach(k => { inverseDictionary[dictionary[k]] = k; })
                  
            aggiornaDatiSchermoUtente(); applicaStatoAllertaGrafica(); controllaStatoDailyLive(); ripristinaControlliAcquistiPrecedenti();
