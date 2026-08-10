@@ -197,26 +197,79 @@
         let allertaStato = localStorage.getItem("rmk_allerta") === "true";
         let idPersonalizzato = localStorage.getItem("rmk_custom_id") || "";
 
-                   const dictionary = {
-            "zero": "ze", "uno": "un", "due": "do", "tre": "tri", "quattro": "quat", "cinque": "kink", "sei": "se", "sette": "setis", "otto": "oto", "nove": "nufi",
-            "ciao": "zhuao", "arrivederci": "zhuaorami", "sì": "zhu", "si": "zhu", "no": "koza", "io": "zi", "tu": "ko", "noi": "ziko", "questo": "kiti", "anche": "anku", "tutto": "totu",
-            "cittadino": "kitiadini", "amico": "zhuadini", "nemico": "banadini", "capo": "mika", "uomo": "omu", "donna": "femina", "padre": "babbu", "madre": "mamma", "fratello": "frati", "sorella": "sorru",
-            "computer": "predatori", "internet": "netu", "sito": "netu-pagu", "schermo": "visualu", "tastiera": "tastu", "cavo": "linia", "elettricità": "voltu", "elettricita": "voltu",
-            "casa": "domu", "porta": "janna", "letto": "lettis", "comodino": "biku-lettis", "armadio": "domu-bestiri", "sedia": "cadrea", "tavolo": "mesa", "luce": "lughi",
-            "mondo": "mundu", "paese": "biddai", "strada": "stradu", "cielo": "kelu", "sole": "sko", "luna": "juna", "fuoco": "fogu", "acqua": "abba",
-            "mare": "mari", "spiaggia": "rena-biddai", "ombrellone": "tentu-sole", "asciugamano": "panno-abba", "giorno": "die", "notte": "noti", "tempo": "tempu", "pioggia": "frore", "vento": "bentis", "neve": "nii",
-            "blu": "burk", "azzurro": "burk", "rosso": "ruju", "verde": "birde", "giallo": "grogu", "oro": "oru", "nero": "nieddu", "bianco": "albu", "grigio": "fumofis", "arancione": "fogu-ruju", "viola": "lughis-noti", "rosa": "frore-albu",
-            "soldi": "sordu", "lavoro": "traballu", "macchina": "makinari", "zaino": "saccu", "vestiti": "bestiri", "scarpe": "kalzatru", "legge": "lege", "guerra": "guerru", "peace": "pakis", "pace": "pakis",
-            "bene": "benu", "male": "malu", "grande": "magnu", "piccolo": "biku", "bello": "bellu", "brutto": "bruttu", "forte": "fortis", "debole": "scuru", "nuovo": "nou", "vecchio": "antigu",
-            "veloce": "flussu", "lento": "ze-flussu", "caldo": "kallenti", "freddo": "frittu", "felicità": "allia", "felicita": "allia", "tristezza": "buggis", "paura": "timore",
-            "essere": "essere", "avere": "tenere", "fare": "fakere", "andare": "andare", "sapere": "sapare", "volere": "bolere", "mangiare": "papare", "dormire": "dormire", "vedere": "mirare", "ascoltare": "askoltare", "comprare": "akattare", "cercare": "kerkare", "rompere": "spaccare",
-            "giocare": "jukare", "vincere": "binkere", "perdere": "perdere", "sparare": "spara-voltu", "alleato": "team-zhuadini", "grado": "gradu", "livello": "gradu", "bandito": "kickatu",
-            "segreto": "segretu", "blindato": "segretu", "password": "clabi-voltu", "chiave": "clabi-voltu", "riunione": "cussorgia", "consiglio": "cussorgia", "falso": "ze-mika", "pane": "pani", "carne": "petza", "pizza": "pitzas", "bere": "buffare", "bibita": "lattis-abba",
-            "scemo": "baddu-omu", "sciocho": "baddu-omu", "sciocco": "baddu-omu", "traditore": "ze-zhuadini", "spia": "ze-zhuadini", "nabbo": "ze-predatori", "fifone": "timore-saccu", "rompipalle": "buggu-bentis", "fastidioso": "buggu-bentis"
-        };
-        const inverseDictionary = {}; Object.keys(dictionary).forEach(k => { inverseDictionary[dictionary[k]] = k; });
+                          const dictionary = {
+            // 📖 ARTICOLI, PREPOSIZIONI E CONGIUNZIONI (Grammatica Ufficiale)
+            "il": "su", "lo": "su", "la": "su", "i": "sos", "gli": "sos", "le": "sos",
+            "un": "un", "uno": "un", "una": "un",
+            "di": "de", "a": "a", "da": "da", "in": "in", "con": "kun", "su": "su-supra", "per": "pro", "tra": "in-mesu", "fra": "in-mesu",
+            "e": "kun", "ma": "koza-kun", "perché": "pro-kiti", "se": "se-zhu",
 
-                   aggiornaDatiSchermoUtente(); applicaStatoAllertaGrafica(); controllaStatoDailyLive(); ripristinaControlliAcquistiPrecedenti();
+            // 📅 MESI E FESTIVITÀ
+            "gennaio": "ze-die", "febbraio": "un-die", "marzo": "do-die", "aprile": "tri-die", "maggio": "quat-die", "giugno": "kink-die",
+            "luglio": "se-die", "agosto": "setis-die", "settembre": "oto-die", "ottobre": "nufi-die", "novembre": "mika-die", "dicembre": "totu-die",
+            "natale": "regalo-noti", "capodanno": "nou-die", "pasqua": "allia-die", "festa": "mika-festa",
+
+            // 🗣️ SALUTI, COMANDI E AVVERBI
+            "ciao": "zhuao", "arrivederci": "zhuaorami", "sì": "zhu", "si": "zhu", "no": "koza", "grazie": "merki", "prego": "mika-benu",
+            "oh": "Zhuao!", "ehi": "Omu!", "cavolo": "Baddu!", "fermo": "ferma-te",
+            "oggi": "die", "domani": "die-nou", "ieri": "antigu-die", "molto": "magnu", "poco": "biku",
+
+            // 💻 PRONOMI E CREATORI DI CONTENUTI (Tynøx_714)
+            "io": "zi", "tu": "ko", "lui": "eddu", "lei": "edda", "noi": "ziko", "voi": "koko", "loro": "eddus", "questo": "kiti", "quello": "katu", "anche": "anku", "tutto": "totu",
+            "youtube": "mika-tube", "video": "visualu-edit", "edit": "taglia-tech", "editor": "mika-artisti", "mapping": "mappa-tech", "mapper": "mika-mappatori", "mappa": "carta-biddai", "iscritto": "zhu-follower", "follower": "zhu-follower", "canale": "canale-mika", "commento": "parola-netu", "like": "sordu-benu",
+
+            // ⚙️ HARDWARE, LAVORI ED ENERGIE
+            "capo": "mika", "computer": "predatori", "hardware": "predatori-tech", "internet": "netu", "sito": "netu-pagu", "schermo": "visualu", "tastiera": "tastu", "mouse": "cliccu", "cavo": "linia", "database": "mika-memoria", "gioco": "jukare", "player": "cacciatore",
+            "youtuber": "mika-tube-omu", "programmatore": "predatori-omu", "poliziotto": "scudo-omu", "guardia": "scudo-omu", "soldato": "guerru-omu", "dottore": "benu-omu",
+            "elettricità": "voltu", "elettricita": "voltu", "energia": "voltu", "nucleare": "magnu-voltu",
+
+            // 🍕 CIBI E BEVANDE
+            "pane": "pani", "carne": "petza", "pizza": "pitzas", "pasta": "mika-granu", "dolce": "grogu-papare", "torta": "grogu-papare",
+            "acqua": "abba", "bibita": "lattis-abba", "latte": "lattis", "coca-cola": "ruju-buffare",
+            // 🏠 OGGETTI DELLA CASA
+            "casa": "domu", "porta": "janna", "letto": "lettis", "comodino": "biku-lettis", "armadio": "domu-bestiri", "sedia": "cadrea", "tavolo": "mesa", "luce": "lughi",
+            "frigorifero": "frittu-domu", "televisione": "predatori-visualu", "finestra": "biku-janna", "divano": "allia-cadrea",
+
+            // 🏢 ELEMENTI DI CITTÀ E CAMPAGNA
+            "palazzo": "domu-magnu", "edificio": "domu-magnu", "negozio": "sordu-domu", "shop": "sordu-domu", "scuola": "sapare-domu", "ospedale": "benu-domu", "stazione": "flussu-biddai", "piazza": "cussorgia-biddai",
+            "fattoria": "papare-domu", "campo": "traballu-biddai", "terreno": "traballu-biddai", "trattore": "traballu-makinari",
+
+            // 🛒 OGGETTI DEL SUPERMERCATO
+            "carrello": "saccu-makinari", "cassa": "sordu-tastu", "scontrino": "sordu-panno",
+
+            // 🌋 ELEMENTI NATURALI E DISASTRI
+            "mondo": "mundu", "paese": "biddai", "stato": "nazione-mika", "repubblica": "repubblica", "impero": "impero-mika", "bandiera": "panno-mika", "confine": "linia-biddai", "strada": "stradu", "cielo": "kelu", "sole": "sko", "luna": "juna", "fuoco": "fogu",
+            "mare": "mari", "spiaggia": "rena-biddai", "ombrellone": "tentu-sole", "asciugamano": "panno-abba", "tempo": "tempu", "pioggia": "frore", "vento": "bentis", 
+            "ghiaccio": "frittu-abba", "neve": "nii", "foglie": "birde-panno", "albero": "tech-legnu", "fiore": "frore", "erba": "birde-rena", "fiume": "flussu-abba", "montagna": "magnu-kelu",
+            "terremoto": "spaccare-biddai", "alluvione": "totu-abba", "tempesta": "frore-guerru", "eruzione": "fogu-kelu",
+
+            // 🦁 ANIMALI E PESCI
+            "cane": "zhuadini-omu", "gatto": "noti-omu", "uccello": "kelu-omu", "pesce": "abba-omu", "squalo": "banadini-abba",
+
+            // 📚 MATERIE SCOLASTICHE
+            "matematica": "ze-tri-sapare", "storia": "antigu-sapare", "geografia": "mundu-sapare", "italiano": "ze-mika-lingua",
+
+            // 🎨 COLORI DI STATO
+            "blu": "burk", "azzurro": "burk", "rosso": "ruju", "verde": "birde", "giallo": "grogu", "oro": "oru", "nero": "nieddu", "bianco": "albu", "grigio": "fumofis", "arancione": "fogu-ruju", "viola": "lughis-noti", "rosa": "frore-albu",
+
+            // 🛑 ECONOMIA, DIRITTO E MILITARE
+            "soldi": "sordu", "lavoro": "traballu", "macchina": "makinari", "zaino": "saccu", "vestiti": "bestiri", "scarpe": "kalzatru", "legge": "lege", "multa": "sanzione", "codice": "clabi-voltu", "passaporto": "tessera-mika",
+            "guerra": "guerru", "pace": "pakis", "alleanza": "team-zhuadini", "alleato": "team-zhuadini", "spia": "ze-zhuadini", "traditore": "ze-zhuadini", "allerta": "allerta-militare", "difesa": "scudo-tech", "munizioni": "voltu-saccu", "bandito": "kickatu",
+
+            // 🎭 SENTIMENTI, AGGETTIVI E GRADI
+            "bene": "benu", "male": "malu", "grande": "magnu", "piccolo": "biku", "bello": "bellu", "brutto": "bruttu", "forte": "fortis", "debole": "scuru", "nuovo": "nou", "vecchio": "antigu", "veloce": "flussu", "lento": "ze-flussu", "caldo": "kallenti", "freddo": "frittu",
+            "felicità": "allia", "felicita": "allia", "tristezza": "buggis", "paura": "timore", "grado": "gradu", "livello": "gradu", "cavaliere": "cavaliere", "duca": "duca-predator",
+
+            // 🛠️ VERBI PRINCIPALI
+            "essere": "essere", "avere": "tenere", "fare": "fakere", "andare": "andare", "sapere": "sapare", "volere": "bolere", "mangiare": "papare", "dormire": "dormire", "vedere": "mirare", "ascoltare": "askoltare", "comprare": "akattare", "cercare": "kerkare", "rompere": "spaccare", "giocare": "jukare", "vincere": "binkere", "perdere": "perdere", "parlare": "parlare", "sparare": "spara-voltu", "lavorare": "traballare", "editare": "taglia-tech", "mappare": "mappare",
+
+            // 🤬 INSULTI GOVERNATIVI E SLANG
+            "scemo": "baddu-omu", "sciocho": "baddu-omu", "sciocco": "baddu-omu", "nabbo": "ze-predatori", "fifone": "timore-saccu", "rompipalle": "buggu-bentis", "fastidioso": "buggu-bentis"
+        };
+         
+           const inverseDictionary = {}; Object.keys(dictionary).forEach(k => { inverseDictionary[dictionary[k]] = k; })
+                 
+           aggiornaDatiSchermoUtente(); applicaStatoAllertaGrafica(); controllaStatoDailyLive(); ripristinaControlliAcquistiPrecedenti();
 
         function aggiornaDatiSchermoUtente() {
             document.getElementById("badgePuntiXP").innerText = puntiXP + " XP"; 
