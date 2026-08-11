@@ -182,127 +182,106 @@
     </div>
     <div id="rainContainer" style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:99999; display:none;"></div>
        <script>
-        // DISATTIVAZIONE FIREBASE - PASSAGGIO A FREQUENZA WHATSAPP DI STATO
-        function toggleMenu() { 
-            const m = document.getElementById("dropdownMenu"); 
-            m.style.display = (m.style.display === "block") ? "none" : "block"; 
-        }
-        document.querySelectorAll('.dropdown-menu a').forEach(l => { 
-            l.addEventListener('click', () => document.getElementById("dropdownMenu").style.display = "none"); 
-        });
+        function toggleMenu() { const m = document.getElementById("dropdownMenu"); m.style.display = (m.style.display === "block") ? "none" : "block"; }
+        document.querySelectorAll('.dropdown-menu a').forEach(l => { l.addEventListener('click', () => document.getElementById("dropdownMenu").style.display = "none"); });
 
-        // Database locale persistente (Sincronizzato sul browser del cittadino)
+        // CONFIGURAZIONE REALE FIREBASE DATABASE
+        const firebaseConfig = {
+            apiKey: "AIzaSyB3-XVl2BibguQ1ooL5Qa6RM_HcW6RESfQ",
+            authDomain: "://firebaseapp.com",
+            databaseURL: "https://romikami-database-default-rtdb.firebaseio.com",
+            projectId: "romikami-database",
+            storageBucket: "romikami-database.firebasestorage.app",
+            messagingSenderId: "368702503742",
+            appId: "1:368702503742:web:aa2a5f6e9a3389ed5f8a6f",
+            measurementId: "G-SL1X286N59"
+        };
+
+        let databaseOnline;
+        let nomeUtenteStato = localStorage.getItem("rmk_username") || "";
         let puntiXP = parseInt(localStorage.getItem("rmk_xp")) || 50;
         let saldoSordu = parseInt(localStorage.getItem("rmk_sordu")) || 500;
         let allertaStato = localStorage.getItem("rmk_allerta") === "true";
         let idPersonalizzato = localStorage.getItem("rmk_custom_id") || "";
 
-                          const dictionary = {
-                    // 📖 ARTICOLI, PREPOSIZIONI E CONGIUNZIONI
-            "il": "su", "lo": "su", "la": "su", "i": "sos", "gli": "sos", "le": "sos", "un": "un", "uno": "un", "una": "un",
-            "di": "de", "a": "a", "da": "da", "in": "in", "con": "kun", "su-supra": "su-supra", "per": "pro", "tra": "in-mesu", "fra": "in-mesu",
-            "e": "kun", "ma": "koza-kun", "perché": "pro-kiti", "se": "se-zhu",
+        // Oggetti dizionario che verranno riempiti dal server di Google
+        let dictionary = {};
+        let inverseDictionary = {};
 
-            // 📅 MESI, FESTIVITÀ, SPORT E RUOLI (PARTE NUOVA!)
-            "gennaio": "ze-die", "febbraio": "un-die", "marzo": "do-die", "aprile": "tri-die", "maggio": "quat-die", "giugno": "kink-die",
-            "luglio": "se-die", "agosto": "setis-die", "settembre": "oto-die", "ottobre": "nufi-die", "novembre": "mika-die", "dicembre": "totu-die",
-            "natale": "regalo-noti", "capodanno": "nou-die", "pasqua": "allia-die", "festa": "mika-festa",
-            "calcio": "palla-tech", "tennis": "tastu-palla", "basket": "saccu-palla", "partita": "guerru-jukare", "match": "guerru-jukare", "squadra": "team-zhuadini", "allenamento": "traballu-jukare",
-            "nuoto": "mari-andare", "ciclismo": "do-rotas-flussu", "palestra": "fortis-omu-traballu", "palla": "tech-palla", "pallone": "tech-palla", "gol": "binkere-tastu", "canestro": "binkere-tastu", "arbitro": "lege-omu", "giocatore": "cacciatore-tech", "atleta": "cacciatore-tech", "vincitore": "mika-binkere", "campione": "mika-binkere", "coppa": "oru-mesa", "trofeo": "oru-mesa", "moto": "do-rotas-flussu",
+        // ATTIVAZIONE RETE E DOWNLOAD DIZIONARIO DA FIREBASE
+        function forzaAccensioneFirebaseLive() {
+            if (typeof firebase !== 'undefined') {
+                firebase.initializeApp(firebaseConfig);
+                databaseOnline = firebase.database();
+                
+                // Scarica tutto il mega dizionario B2 dal server online in un colpo solo
+                databaseOnline.ref("dizionario_romikami").once("value", function(snapshot) {
+                    const dati = snapshot.val();
+                    if (dati) {
+                        dictionary = dati;
+                        // Genera in automatico il dizionario inverso per il traduttore
+                        Object.keys(dictionary).forEach(function(k) { inverseDictionary[dictionary[k]] = k; });
+                        // Genera la griglia visiva sullo schermo
+                        disegnaDizionarioGraficoRemoto();
+                    }
+                });
 
-            // 🗣️ SALUTI, COMANDI E AVVERBI
-            "ciao": "zhuao", "arrivederci": "zhuaorami", "sì": "zhu", "si": "zhu", "no": "koza", "grazie": "merki", "prego": "mika-benu",
-            "oh": "Zhuao!", "ehi": "Omu!", "cavolo": "Baddu!", "fermo": "ferma-te",
-            "oggi": "die", "domani": "die-nou", "ieri": "antigu-die", "molto": "magnu", "poco": "biku",
+                if (nomeUtenteStato === "") { document.getElementById("schermataLoginRomikami").style.display = "flex"; } 
+            } else { setTimeout(forzaAccensioneFirebaseLive, 200); }
+        }
+        forzaAccensioneFirebaseLive();
 
-            // 💻 PRONOMI E YOUTUBE (Tynøx_714)
-            "io": "zi", "tu": "ko", "lui": "eddu", "lei": "edda", "noi": "ziko", "voi": "koko", "loro": "eddus", "questo": "kiti", "quello": "katu", "anche": "anku", "tutto": "totu",
-            "youtube": "mika-tube", "video": "visualu-edit", "edit": "taglia-tech", "editor": "mika-artisti", "mapping": "mappa-tech", "mapper": "mika-mappatori", "mappa": "carta-biddai", "iscritto": "zhu-follower", "follower": "zhu-follower", "canale": "canale-mika", "commento": "parola-netu", "like": "sordu-benu",
-
-            // 🍕 CIBI, BEVANDE, FRUTTA E VERDURA ESPANSA
-            "pane": "pani", "carne": "petza", "pizza": "pitzas", "pasta": "mika-granu", "dolce": "grogu-papare", "torta": "grogu-papare",
-            "acqua": "abba", "bibita": "lattis-abba", "latte": "lattis", "coca-cola": "ruju-buffare",
-            "mela": "grogu-frore", "banana": "grogu-linia", "arancia": "fogu-papare", "limone": "kallenti-grogu", "pomodoro": "ruju-papare", "insalata": "birde-panno", "lattuga": "birde-panno", "patata": "domu-rena", "carota": "fogu-legnu", "fragola": "biku-ruju", "pera": "albu-frore-papare", "uva": "mari-grogu", "pesca": "allia-frore", "anguria": "magnu-abba-birde", "melone": "grogu-mundu", "ciliegia": "ruju-oto", "ananas": "tech-fogu-frore", "cipolla": "buggu-janna", "aglio": "fortis-albu", "zucchina": "birde-linia", "melanzana": "lughis-noti-papare", "zucca": "fogu-ruju-magnu", "fungo": "domu-nii",
-            // 👅 GUSTI E SAPORI
-            "dolce": "grogu-papare",  "salato": "sordu-papare",  "amaro": "frittu-papare","aspro": "kallenti-grogu-papare","acido": "kallenti-grogu-papare", "piccante": "fogu-papare", "gustoso": "bellu-papare",  "buono": "bellu-papare", "insipido": "ze-papare",
-
-                      // 🏠 OGGETTI DELLA CASA
-            "casa": "domu", "porta": "janna", "letto": "lettis", "comodino": "biku-lettis", "armadio": "domu-bestiri", "sedia": "cadrea", "tavolo": "mesa", "luce": "lughi",
-            "frigorifero": "frittu-domu", "televisione": "predatori-visualu", "finestra": "biku-janna", "divano": "allia-cadrea",
-
-            // 🏢 ELEMENTI DI CITTÀ E CAMPAGNA
-            "palazzo": "domu-magnu", "edificio": "domu-magnu", "negozio": "sordu-domu", "shop": "sordu-domu", "scuola": "sapare-domu", "ospedale": "benu-domu", "stazione": "flussu-biddai", "piazza": "cussorgia-biddai",
-            "fattoria": "papare-domu", "campo": "traballu-biddai", "terreno": "traballu-biddai", "trattore": "traballu-makinari",
-
-            // 🛒 OGGETTI DEL SUPERMERCATO
-            "carrello": "saccu-makinari", "cassa": "sordu-tastu", "scontrino": "sordu-panno",
-
-            // 🌋 ELEMENTI NATURALI E DISASTRI
-            "mondo": "mundu", "paese": "biddai", "stato": "nazione-mika", "repubblica": "repubblica", "impero": "impero-mika", "bandiera": "panno-mika", "confine": "linia-biddai", "strada": "stradu", "cielo": "kelu", "sole": "sko", "luna": "juna", "fuoco": "fogu",
-            "mare": "mari", "spiaggia": "rena-biddai", "ombrellone": "tentu-sole", "asciugamano": "panno-abba", "tempo": "tempu", "pioggia": "frore", "vento": "bentis", 
-            "ghiaccio": "frittu-abba", "neve": "nii", "foglie": "birde-panno", "albero": "tech-legnu", "fiore": "frore", "erba": "birde-rena", "fiume": "flussu-abba", "montagna": "magnu-kelu",
-            "terremoto": "spaccare-biddai", "alluvione": "totu-abba", "tempesta": "frore-guerru", "eruzione": "fogu-kelu",
-
-            // 🦁 ANIMALI E PESCI
-            "cane": "zhuadini-omu", "gatto": "noti-omu", "uccello": "kelu-omu", "pesce": "abba-omu", "squalo": "banadini-abba",
-
-            // 📚 MATERIE SCOLASTICHE
-            "matematica": "ze-tri-sapare", "storia": "antigu-sapare", "geografia": "mundu-sapare", "italiano": "ze-mika-lingua",
-
-            // 🎨 COLORI DI STATO
-            "blu": "burk", "azzurro": "burk", "rosso": "ruju", "verde": "birde", "giallo": "grogu", "oro": "oru", "nero": "nieddu", "bianco": "albu", "grigio": "fumofis", "arancione": "fogu-ruju", "viola": "lughis-noti", "rosa": "frore-albu",
-
-            // 🛑 ECONOMIA, DIRITTO E MILITARE
-            "soldi": "sordu", "lavoro": "traballu", "macchina": "makinari", "zaino": "saccu", "vestiti": "bestiri", "scarpe": "kalzatru", "legge": "lege", "multa": "sanzione", "codice": "clabi-voltu", "passaporto": "tessera-mika",
-            "guerra": "guerru", "pace": "pakis", "alleanza": "team-zhuadini", "alleato": "team-zhuadini", "spia": "ze-zhuadini", "traditore": "ze-zhuadini", "allerta": "allerta-militare", "difesa": "scudo-tech", "munizioni": "voltu-saccu", "bandito": "kickatu",
-
-            // 🎭 SENTIMENTI, AGGETTIVI E GRADI
-            "bene": "benu", "male": "malu", "grande": "magnu", "piccolo": "biku", "bello": "bellu", "brutto": "bruttu", "forte": "fortis", "debole": "scuru", "nuovo": "nou", "vecchio": "antigu", "veloce": "flussu", "lento": "ze-flussu", "caldo": "kallenti", "freddo": "frittu",
-            "felicità": "allia", "felicita": "allia", "tristezza": "buggis", "paura": "timore", "grado": "gradu", "livello": "gradu", "cavaliere": "cavaliere", "duca": "duca-predator",
-
-            // 🛠️ VERBI PRINCIPALI
-            "essere": "essere", "avere": "tenere", "fare": "fakere", "andare": "andare", "sapere": "sapare", "volere": "bolere", "mangiare": "papare", "dormire": "dormire", "vedere": "mirare", "ascoltare": "askoltare", "comprare": "akattare", "cercare": "kerkare", "rompere": "spaccare", "giocare": "jukare", "vincere": "binkere", "perdere": "perdere", "parlare": "parlare", "sparare": "spara-voltu", "lavorare": "traballare", "editare": "taglia-tech", "mappare": "mappare",
-
-            // 🤬 INSULTI GOVERNATIVI E SLANG
-            "scemo": "baddu-omu", "sciocho": "baddu-omu", "sciocco": "baddu-omu", "nabbo": "ze-predatori", "fifone": "timore-saccu", "rompipalle": "buggu-bentis", "fastidioso": "buggu-bentis"
-        };
-
-           const inverseDictionary = {}; Object.keys(dictionary).forEach(k => { inverseDictionary[dictionary[k]] = k; })
-                 
-           aggiornaDatiSchermoUtente(); applicaStatoAllertaGrafica(); controllaStatoDailyLive(); ripristinaControlliAcquistiPrecedenti();
-
-        function aggiornaDatiSchermoUtente() {
-            document.getElementById("badgePuntiXP").innerText = puntiXP + " XP"; 
-            document.getElementById("labelSaldoSordu").innerText = saldoSordu + " SRL";
-            let g = "Cittadino Scelto 🏅"; 
-            if(puntiXP >= 150) g = "Guardiano della Rete 🌐"; 
-            if(puntiXP >= 300) g = "Cavaliere del Predator 👑"; 
-            if(puntiXP >= 500) g = "Mika-Quadrumviro / Capo Supremo 👑🛡️";
-            document.getElementById("labelGradoCittadino").innerText = g;
+                   // TRADUTTORI INTELLIGENTI CONNESSI AL DATABASE SERVER
+        function translateItaToRmk() {
+            const input = document.getElementById("inputIta").value.toLowerCase();
+            if (!input.trim()) { document.getElementById("outputRmk").innerText = "In attesa del testo..."; return; }
+            const words = input.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(/\s+/);
+            // Cerca ogni singola parola nel database scaricato da Google
+            document.getElementById("outputRmk").innerText = words.map(word => dictionary[word] ? dictionary[word] : word).join(" ");
         }
 
+        function translateRmkToIta() {
+            const input = document.getElementById("inputRmk").value.toLowerCase();
+            if (!input.trim()) { document.getElementById("outputIta").innerText = "In attesa del testo..."; return; }
+            const words = input.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(/\s+/);
+            document.getElementById("outputIta").innerText = words.map(word => inverseDictionary[word] ? inverseDictionary[word] : word).join(" ");
+        }
+
+        // GENERATORE DELLA GRIGLIA VISIVA DA FILE REMOTO
+        function disegnaDizionarioGraficoRemoto() {
+            const grid = document.getElementById("dictionaryVisualGrid");
+            if (!grid) return;
+            grid.innerHTML = ""; // Pulisce la griglia precedente
+            Object.keys(dictionary).sort().forEach(w => {
+                if(w !== "si" && w !== "elettricita" && w !== "felicita") {
+                    const item = document.createElement("div"); 
+                    item.className = "dict-item";
+                    item.innerHTML = `${w.charAt(0).toUpperCase() + w.slice(1)} ➡️ <span>${dictionary[w]}</span>`; 
+                    grid.appendChild(item);
+                }
+            });
+        }
+
+              aggiornaDatiSchermoUtente(); applicaStatoAllertaGrafica(); controllaStatoDailyLive(); ripristinaControlliAcquistiPrecedenti();
+
+        function aggiornaDatiSchermoUtente() {
+            document.getElementById("badgePuntiXP").innerText = puntiXP + " XP"; document.getElementById("labelSaldoSordu").innerText = saldoSordu + " SRL";
+            let g = "Cittadino Scelto 🏅"; if(puntiXP >= 150) g = "Guardiano della Rete 🌐"; if(puntiXP >= 300) g = "Cavaliere del Predator 👑"; if(puntiXP >= 500) g = "Mika-Quadrumviro / Capo Supremo 👑🛡️";
+            document.getElementById("labelGradoCittadino").innerText = g;
+        }
         function ripristinaControlliAcquistiPrecedenti() {
             let inv = JSON.parse(localStorage.getItem("rmk_inventario")) || [];
             if(inv.length > 0) {
-                document.getElementById("labelRuoliPosseduti").innerText = "Inventario Elementi Sbloccati: " + inv.join(", "); 
-                document.getElementById("controlliExtraShop").style.display = "block";
-                if (inv.includes("Tema Matrix 🎨")) { 
-                    let b = document.getElementById("btnAttivaMatrix"); 
-                    b.disabled = false; b.style.background = "#eab308"; b.style.cursor = "pointer"; 
-                    b.innerText = "ATTIVA TEMA MATRIX 🎨"; b.style.display = "inline-block"; 
-                }
-                if (inv.includes("Modifica ID 🛡️")) { 
-                    document.getElementById("divCustomId").style.display = "block"; 
-                }
+                document.getElementById("labelRuoliPosseduti").innerText = "Inventario Elementi Sbloccati: " + inv.join(", "); document.getElementById("controlliExtraShop").style.display = "block";
+                if (inv.includes("Tema Matrix 🎨")) { let b = document.getElementById("btnAttivaMatrix"); b.disabled = false; b.style.background = "#eab308"; b.style.cursor = "pointer"; b.innerText = "ATTIVA TEMA MATRIX 🎨"; b.style.display = "inline-block"; }
+                if (inv.includes("Modifica ID 🛡️")) { document.getElementById("divCustomId").style.display = "block"; }
             }
         }
-
-                   function controllaStatoDailyLive() {
+        function controllaStatoDailyLive() {
             const u = localStorage.getItem("rmk_ultimo_daily"), d = new Date().toDateString(), btn = document.getElementById("btnDailyBonus"), lbl = document.getElementById("labelDailyStatus");
             if (u === d) { btn.disabled = true; btn.style.background = "#64748b"; lbl.innerText = "✔ BONUS RISCOSSO OGGI!"; }
             else { btn.disabled = false; btn.style.background = "#34d399"; lbl.innerText = "🎁 Bonus disponibile!"; }
         }
-
         function riscuotiDailyBonus() {
             let inv = JSON.parse(localStorage.getItem("rmk_inventario")) || [], b = 100, x = 10, m = "🎁 RISCOSSIONE COMPLETATA!\n\n+100 SRL e +10 XP";
             if (inv.includes("Cavaliere ⚔️")) { x = 50; m = "⚔️ PRIVILEGIO CAVALIERE:\n\n+100 SRL e +50 XP"; }
@@ -316,7 +295,7 @@
                 if (tipo === "xp") { puntiXP += valore; localStorage.setItem("rmk_xp", puntiXP); }
                 let inv = JSON.parse(localStorage.getItem("rmk_inventario")) || []; inv.push(nome); localStorage.setItem("rmk_inventario", JSON.stringify(inv));
                 aggiornaDatiSchermoUtente(); ripristinaControlliAcquistiPrecedenti();
-                if (tipo === "licenza") { alert("📝 LICENZA ATTIVA! Verrai reindirizzato al Google Modulo."); window.open("https://forms.gle", "_blank"); return; }
+                if (tipo === "licenza") { alert("📝 LICENZA ATTIVA!"); window.open("https://forms.gle", "_blank"); return; }
                 if (tipo === "lotteria") {
                     let n = Math.floor(Math.random() * 10);
                     if (n === 7) { saldoSordu += 1000; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); avviaPioggiaCoriandoli(); alert("🎰 LOTTERIA: Vinci +1000 SRL!"); }
@@ -325,28 +304,22 @@
                 alert("🛒 ACQUISTO EFFETTUATO: " + nome.toUpperCase());
             } else { alert("❌ Sordu insufficienti!"); }
         }
-
         function riscattaCodiceUfficialeLive() {
             const c = document.getElementById("inputRiscattoCodice").value.trim().toUpperCase(); if (c === "") return;
-            if (c === "REGALO500") { saldoSordu += 500; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); document.getElementById("inputRiscattoCodice").value = ""; avviaPioggiaCoriandoli(); alert("👑 Codice valido! Accreditati +500 SRL!"); return; }
-            if (c === "MULTA200") { saldoSordu = (saldoSordu >= 200) ? saldoSordu - 200 : 0; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); document.getElementById("inputRiscattoCodice").value = ""; alert("🛑 Sanzione applicata: Detratti -200 SRL."); return; }
+            if (c === "REGALO500") { saldoSordu += 500; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); document.getElementById("inputRiscattoCodice").value = ""; avviaPioggiaCoriandoli(); alert("👑 +500 SRL!"); return; }
+            if (c === "MULTA200") { saldoSordu = (saldoSordu >= 200) ? saldoSordu - 200 : 0; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); document.getElementById("inputRiscattoCodice").value = ""; alert("🛑 Detratti -200 SRL."); return; }
             alert("❌ CODICE NON VALIDO!");
         }
-
-                   function attivaTemaMatrixLive() { document.body.style.background = "#052e16"; document.body.style.color = "#22c55e"; alert("🎨 TEMA PREDATOR MATRIX ATTIVATO!"); }
-        function salvaCustomIdLive() { const t = document.getElementById("textCustomIdInput").value.trim().toUpperCase(); if (t === "") return; idPersonalizzato = "RMK-" + t; localStorage.setItem("rmk_custom_id", idPersonalizzato); alert("🛡️ ID REGISTRATO: " + idPersonalizzato); }
+        function attivaTemaMatrixLive() { document.body.style.background = "#052e16"; document.body.style.color = "#22c55e"; alert("🎨 TEMA MATRIX ATTIVATO!"); }
+        function salvaCustomIdLive() { const t = document.getElementById("textCustomIdInput").value.trim().toUpperCase(); if (t === "") return; idPersonalizzato = "RMK-" + t; localStorage.setItem("rmk_custom_id", idPersonalizzato); alert("🛡️ ID: " + idPersonalizzato); }
         function generaPassaportoLive() { const n = document.getElementById("inputNomePassaporto").value.trim().toUpperCase(); if (n === "") return; let inv = JSON.parse(localStorage.getItem("rmk_inventario")) || [], t = inv.length > 0 ? inv.join(", ") : "Nessuno"; document.getElementById("cardPassaportoVisivo").style.display = "block"; document.getElementById("passNome").innerText = n; document.getElementById("passGrado").innerText = document.getElementById("labelGradoCittadino").innerText + " (" + t + ")"; document.getElementById("passSaldo").innerText = saldoSordu + " SRL"; document.getElementById("passID").innerText = idPersonalizzato ? idPersonalizzato : "RMK-" + Math.floor(100000 + Math.random() * 900000); }
-        function controllaPasswordChat() { if (document.getElementById("inputPassChat").value === "zhuaoromikami2026") { document.getElementById("boxChatMilitare").style.display = "block"; document.getElementById("corpoChatMilitare").innerHTML = '<div class="msg"><span class="msg-ty">[TYNOX]:</span> Server online.</div><div class="msg"><span class="msg-ny">[NYNX]:</span> Protezione filtri attiva.</div><div class="msg"><span class="msg-le">[LEO]:</span> Logistica munizioni coordinata via WhatsApp.</div>'; } else { document.getElementById("boxChatMilitare").style.display = "none"; } }
-        function assegnaPremioSordu() { saldoSordu += 500; puntiXP += 500; localStorage.setItem("rmk_sordu", saldoSordu); localStorage.setItem("rmk_xp", puntiXP); aggiornaDatiSchermoUtente(); alert("👑 Fondi accreditati al portafoglio di TYNOX!"); }
-        function applicaMultaDiStato() { saldoSordu = (saldoSordu >= 200) ? saldoSordu - 200 : 0; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); alert("🛑 Sanzione ministeriale di -200 SRL applicata."); }
+        function controllaPasswordChat() { if (document.getElementById("inputPassChat").value === "zhuaoromikami2026") { document.getElementById("boxChatMilitare").style.display = "block"; document.getElementById("corpoChatMilitare").innerHTML = '<div class="msg"><span class="msg-ty">[TYNOX]:</span> Server online.</div><div class="msg"><span class="msg-ny">[NYNX]:</span> Protetti.</div><div class="msg"><span class="msg-le">[LEO]:</span> Logistica coordinata.</div>'; } else { document.getElementById("boxChatMilitare").style.display = "none"; } }
+        function assegnaPremioSordu() { saldoSordu += 500; puntiXP += 500; localStorage.setItem("rmk_sordu", saldoSordu); localStorage.setItem("rmk_xp", puntiXP); aggiornaDatiSchermoUtente(); alert("👑 Sbloccato bonus!"); }
+        function applicaMultaDiStato() { saldoSordu = (saldoSordu >= 200) ? saldoSordu - 200 : 0; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); alert("🛑 Sanzione applicata."); }
         function azzeraTuttiXP() { puntiXP = 50; saldoSordu = 500; localStorage.setItem("rmk_xp", puntiXP); localStorage.setItem("rmk_sordu", saldoSordu); localStorage.removeItem("rmk_inventario"); document.getElementById("labelRuoliPosseduti").innerText = "Inventario Elementi Sbloccati: Nessuno"; aggiornaDatiSchermoUtente(); alert("Database azzerato."); }
         function toggleAllertaStato() { allertaStato = !allertaStato; localStorage.setItem("rmk_allerta", allertaStato); applicaStatoAllertaGrafica(); }
         function applicaStatoAllertaGrafica() { const b = document.getElementById("btnAllertaDifesa"), banner = document.getElementById("statoAllertaBanner"); if(allertaStato) { document.body.classList.add("allerta-attiva"); if(b) b.innerText = "DISATTIVA ALLERTA"; if(banner) banner.style.display = "block"; } else { document.body.classList.remove("allerta-attiva"); if(b) b.innerText = "ATTIVA ALLERTA"; if(banner) banner.style.display = "none"; } }
         function avviaPioggiaCoriandoli() { const c = document.getElementById("rainContainer"); c.style.display = "block"; c.innerHTML = ""; for(let i=0; i<30; i++) { const drop = document.createElement("div"); drop.style = "position:absolute; width:15px; height:15px; border-radius:50%; background:" + (Math.random() > 0.5 ? "#38bdf8" : "#eab308") + "; left:" + Math.random() * 100 + "%; top:-20px; animation: fall " + (1 + Math.random() * 1.5) + "s linear forwards;"; c.appendChild(drop); } setTimeout(() => c.style.display = "none", 2500); }
-
-        const grid = document.getElementById("dictionaryVisualGrid"); Object.keys(dictionary).sort().forEach(w => { if(w !== "si" && w !== "elettricita" && w !== "felicita") { const item = document.createElement("div"); item.className = "dict-item"; item.innerHTML = `${w.charAt(0).toUpperCase() + w.slice(1)} ➡️ <span>${dictionary[w]}</span>`; grid.appendChild(item); } });
-        function translateItaToRmk() { const input = document.getElementById("inputIta").value.toLowerCase(); if (!input.trim()) { document.getElementById("outputRmk").innerText = "In attesa del testo..."; return; } const words = input.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(/\s+/); document.getElementById("outputRmk").innerText = words.map(word => dictionary[word] ? dictionary[word] : word).join(" "); }
-        function translateRmkToIta() { const input = document.getElementById("inputRmk").value.toLowerCase(); if (!input.trim()) { document.getElementById("outputIta").innerText = "In attesa del testo..."; return; } const words = input.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(/\s+/); document.getElementById("outputIta").innerText = words.map(word => inverseDictionary[word] ? inverseDictionary[word] : word).join(" "); }
     </script>
     <style>@keyframes fall { to { top: 100%; transform: rotate(360deg); } }</style>
 </body>
