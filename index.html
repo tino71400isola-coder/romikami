@@ -164,54 +164,42 @@
     </div>
     <div id="rainContainer" style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:99999; display:none;"></div>
 
-    <script>
+       <script>
         function toggleMenu() { const m = document.getElementById("dropdownMenu"); m.style.display = (m.style.display === "block") ? "none" : "block"; }
         document.querySelectorAll('.dropdown-menu a').forEach(l => { l.addEventListener('click', () => document.getElementById("dropdownMenu").style.display = "none"); });
 
-        // CONFIGURAZIONE REALE FIREBASE DATABASE GOOGLE
-        const firebaseConfig = {
-            apiKey: "AIzaSyB3-XVl2BibguQ1ooL5Qa6RM_HcW6RESfQ",
-            authDomain: "://firebaseapp.com",
-            databaseURL: "https://firebaseio.com",
-            projectId: "romikami-database",
-            storageBucket: "romikami-database.firebasestorage.app",
-            messagingSenderId: "368702503742",
-            appId: "1:368702503742:web:aa2a5f6e9a3389ed5f8a6f",
-            measurementId: "G-SL1X286N59"
-        };
-
-        let databaseOnline;
-        let nomeUtenteStato = localStorage.getItem("rmk_username") || "CITTADINO";
         let puntiXP = parseInt(localStorage.getItem("rmk_xp")) || 50;
         let saldoSordu = parseInt(localStorage.getItem("rmk_sordu")) || 500;
         let allertaStato = localStorage.getItem("rmk_allerta") === "true";
         let idPersonalizzato = localStorage.getItem("rmk_custom_id") || "";
 
-        // Strutture dati dinamiche caricate via cloud
+        // Strutture dati che verranno riempite all'istante dal file parole.json
         let dictionary = {};
         let inverseDictionary = {};
 
-        // SBLOCCO DIZIONARIO LIVE VIA CLOUD AD AGGANCIO REATTIVO
-        function forzaAccensioneFirebaseLive() {
-            if (typeof firebase !== 'undefined') {
-                firebase.initializeApp(firebaseConfig);
-                databaseOnline = firebase.database();
-                
-                // Pesca l'albero delle parole dal server di Google
-                databaseOnline.ref("dizionario_romikami").once("value", function(snapshot) {
-                    const dati = snapshot.val();
-                    if (dati) {
-                        dictionary = dati;
-                        // Genera l'inversione per la traduzione bidirezionale
-                        Object.keys(dictionary).forEach(function(k) { inverseDictionary[dictionary[k]] = k; });
-                        // Stampa la lista completa a schermo
-                        disegnaDizionarioGraficoRemoto();
-                    }
+        // CARICATORE AUTOMATICO LOCALE - METODO FETCH INFALLIBILE
+        function caricaDizionarioIndistruttibile() {
+            fetch('parole.json')
+                .then(response => {
+                    if (!response.ok) throw new Error("Errore nel caricamento del file parole.json");
+                    return response.json();
+                })
+                .then(data => {
+                    dictionary = data;
+                    // Genera in automatico il dizionario inverso per il traduttore inverso
+                    Object.keys(dictionary).forEach(function(k) { inverseDictionary[dictionary[k]] = k; });
+                    // Disegna all'istante la griglia visiva in fondo alla pagina
+                    disegnaDizionarioGraficoRemoto();
+                    console.log("🏆 Dizionario Imperiale caricato con successo localmente!");
+                })
+                .catch(error => {
+                    console.error("⚠️ Rilevato un problema:", error);
                 });
-            } else { setTimeout(forzaAccensioneFirebaseLive, 200); }
         }
-        forzaAccensioneFirebaseLive();
-        // TRADUTTORI INTELLIGENTI CONNESSI AL DATABASE SERVER
+
+        // Lancia il caricamento non appena la struttura del sito è pronta sullo schermo
+        window.addEventListener('DOMContentLoaded', caricaDizionarioIndistruttibile);
+        // TRADUTTORI AD AGGANCIO LOCALE IMMEDIATO
         function translateItaToRmk() {
             const input = document.getElementById("inputIta").value.toLowerCase();
             if (!input.trim()) { document.getElementById("outputRmk").innerText = "In attesa del testo..."; return; }
@@ -226,7 +214,7 @@
             document.getElementById("outputIta").innerText = words.map(word => inverseDictionary[word] ? inverseDictionary[word] : word).join(" ");
         }
 
-        // GENERATORE DELLA GRIGLIA VISIVA DA FILE REMOTO
+        // STAMPATRICE DELLA TABELLA GRAFICA IN TEMPO REALE
         function disegnaDizionarioGraficoRemoto() {
             const grid = document.getElementById("dictionaryVisualGrid");
             if (!grid) return;
@@ -280,7 +268,7 @@
         function attivaTemaMatrixLive() { document.body.style.background = "#052e16"; document.body.style.color = "#22c55e"; alert("🎨 TEMA MATRIX ATTIVATO!"); }
         function salvaCustomIdLive() { const t = document.getElementById("textCustomIdInput").value.trim().toUpperCase(); if (t === "") return; idPersonalizzato = "RMK-" + t; localStorage.setItem("rmk_custom_id", idPersonalizzato); alert("🛡️ ID: " + idPersonalizzato); }
         function generaPassaportoLive() { const n = document.getElementById("inputNomePassaporto").value.trim().toUpperCase(); if (n === "") return; let inv = JSON.parse(localStorage.getItem("rmk_inventario")) || [], t = inv.length > 0 ? inv.join(", ") : "Nessuno"; document.getElementById("cardPassaportoVisivo").style.display = "block"; document.getElementById("passNome").innerText = n; document.getElementById("passGrado").innerText = document.getElementById("labelGradoCittadino").innerText + " (" + t + ")"; document.getElementById("passSaldo").innerText = saldoSordu + " SRL"; document.getElementById("passID").innerText = idPersonalizzato ? idPersonalizzato : "RMK-" + Math.floor(100000 + Math.random() * 900000); }
-        function controllaPasswordChat() { if (document.getElementById("inputPassChat").value === "zhuaoromikami2026") { document.getElementById("boxChatMilitare").style.display = "block"; document.getElementById("corpoChatMilitare").innerHTML = '<div class="msg"><span class="msg-ty">[TYNOX]: ...</span></div>'; } else { document.getElementById("boxChatMilitare").style.display = "none"; } }
+        function controllaPasswordChat() { if (document.getElementById("inputPassChat").value === "zhuaoromikami2026") { document.getElementById("boxChatMilitare").style.display = "block"; document.getElementById("corpoChatMilitare").innerHTML = '<div class="msg"><span class="msg-ty">[TYNOX]: Server online e protetto da local JSON.</span></div>'; } else { document.getElementById("boxChatMilitare").style.display = "none"; } }
         function assegnaPremioSordu() { saldoSordu += 500; puntiXP += 500; localStorage.setItem("rmk_sordu", saldoSordu); localStorage.setItem("rmk_xp", puntiXP); aggiornaDatiSchermoUtente(); alert("👑 Sbloccato bonus!"); }
         function applicaMultaDiStato() { saldoSordu = (saldoSordu >= 200) ? saldoSordu - 200 : 0; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); alert("🛑 Sanzione applicata."); }
         function azzeraTuttiXP() { puntiXP = 50; saldoSordu = 500; localStorage.setItem("rmk_xp", puntiXP); localStorage.setItem("rmk_sordu", saldoSordu); localStorage.removeItem("rmk_inventario"); document.getElementById("labelRuoliPosseduti").innerText = "Inventario Elementi Sbloccati: Nessuno"; aggiornaDatiSchermoUtente(); alert("Database azzerato."); }
