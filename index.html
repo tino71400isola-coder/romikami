@@ -2,8 +2,8 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>Repubblica di Romikami - Centrale Imperiale v4.0</title>
-    <!-- CONNESSIONE FORZATA AI SERVER DI GOOGLE FIREBASE ALL'AVVIO -->
+    <title>Repubblica di Romikami - Imperiale v4.0</title>
+    <!-- LIBRERIE FIREBASE CARICATE DIRETTAMENTE IN CIMA ALL'AVVIO -->
     <script src="https://cloudflare.com"></script>
     <script src="https://cloudflare.com"></script>
     <style>
@@ -38,30 +38,21 @@
     </style>
 </head>
 <body>
-    <div id="schermataLoginRomikami" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#0f172a; z-index:999999; display:none; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:20px; box-sizing:border-box;">
-        <div style="background:#1e293b; padding:30px; border-radius:20px; border:2px solid #38bdf8; max-width:450px; width:100%;">
-            <h2 style="margin-top:0; color:#38bdf8; font-size:1.8rem;">👑 Benvenuto nella Repubblica</h2>
-            <p style="color:#94a3b8;">Identificati scegliendo il tuo Nome Utente ufficiale:</p>
-            <input type="text" id="inputUsernameLogin" style="background:#0f172a; color:#fff; border:1px solid #38bdf8; padding:12px; border-radius:8px; width:100%; font-size:1.1rem; text-align:center; margin-bottom:15px;" placeholder="INSERISCI IL TUO NOME">
-            <button class="nav-btn" onclick="eseguiLoginIniziale()" style="background:#34d399; width:100%; margin:0;">ENTRA NEL SITO 🚀</button>
-        </div>
-    </div>
-
     <div class="header-controls">
         <a href="#" class="nav-btn home-btn" style="margin: 0; padding: 8px 16px;">🏠 Home</a>
         <div class="hamburger-icon" onclick="toggleMenu()">☰</div>
         <div class="dropdown-menu" id="dropdownMenu">
             <a href="#sezione-daily">🎁 Bonus Giornaliero</a>
             <a href="#sezione-shop">🛒 Mega-Shop v3.0</a>
-            <a href="#sezione-passaporto">🪪 Passaporto Live</a>
-            <a href="#sezione-chat">💬 Direttive WhatsApp</a>
+            <a href="#sezione-chat">💬 Canale WhatsApp</a>
+            <a href="#sezione-banca">   Banca Centrale</a>
             <a href="#sezione-traduttori">🗣️ Traduttori</a>
         </div>
     </div>
 
     <div class="container">
         <div style="text-align: center; margin-bottom: 20px;">
-            <img src="https://i.ibb.co/60JwG2Z0/bandiera-romikami.jpg" alt="Bandiera" style="max-width: 100%; border-radius: 15px; border: 2px solid #38bdf8;">
+            <img src="https://ibb.co" alt="Bandiera" style="max-width: 100%; border-radius: 15px; border: 2px solid #38bdf8;">
         </div>
         <div id="statoAllertaBanner" style="display:none; background:#ef4444; color:#fff; text-align:center; padding:10px; font-weight:bold; border-radius:10px; margin-bottom:20px; font-family:monospace;">🚨 MODALITÀ ALLERTA DI STATO ATTIVATA DAL MINISTRO LEO 🚨</div>
 
@@ -69,14 +60,7 @@
         <p style="text-align: center; font-style: italic; color: #64748b;">Portale Governativo Centrale v4.0 (1500+ Cittadini)</p>
 
         <h2>📜 Fondazione e Storia dello Stato</h2>
-        <p>La Repubblica di Romikami conta oltre 1500 cittadini ufficiali. Fondata sulla stabilità e sulla potenza di calcolo della fortezza hardware <strong>Predator 5000</strong>.</p>
-
-        <h2 id="sezione-daily">🎁 Ricompensa di Stato Giornaliera (Mika-Daily)</h2>
-        <div class="panel-box" style="border-color: #34d399; text-align: center;">
-            <button class="nav-btn" id="btnDailyBonus" onclick="riscuotiDailyBonus()" style="background: #34d399; width: 80%;">RISCUOTI 100 SORDU GRATIS</button>
-            <p id="labelDailyStatus" style="font-size: 0.95rem; color: #34d399; margin-top: 10px; font-family: monospace; font-weight: bold;"></p>
-        </div>
-
+        <p>La Repubblica di Romikami conta oltre 1500 cittadini ufficiali. Fondata sulla potenza di calcolo della fortezza hardware <strong>Predator 5000</strong>.</p>
         <h2 id="sezione-shop">🛒 Il Mega-Shop di Romikami (Mika-Shop)</h2>
         <div class="panel-box" style="border-color: #38bdf8;">
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
@@ -119,20 +103,19 @@
             </div>
             <div id="labelRuoliPosseduti" style="margin-top:15px; padding:10px; background:#0f172a; border-radius:6px; font-family:monospace; color:#34d399; text-align:center;">Inventario Elementi Sbloccati: Nessuno</div>
         </div>
-
-                  <!-- NUOVA SEZIONE WHATSAPP DI STATO (MIKA-TALK v4.0) -->
+        <!-- SEZIONE WHATSAPP DI STATO (MIKA-TALK v4.0) -->
         <h2 id="sezione-chat">💬 Canale Comunicazioni di Stato (Mika-Talk)</h2>
         <div class="panel-box" style="border-color: #25d366; background: #052e16;">
-            <p style="margin-top: 0; color: #a7f3d0;">Connettiti istantaneamente alla frequenza radio ufficiale della Repubblica su WhatsApp per ricevere ordini dai Ministri:</p>
+            <p style="margin-top: 0; color: #a7f3d0;">Connettiti istantaneamente alla frequenza radio ufficiale della Repubblica su WhatsApp per ricevere ordini dai Capi:</p>
             <div style="text-align: center; padding: 15px 0;">
-                <a href="https://chat.whatsapp.com/FQCluWWhzk2KSBjze8iRjw" target="_blank" class="nav-btn" style="background: #25d366; color: #fff; font-size: 1.2rem; padding: 15px 30px; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: bold; border-radius: 8px;">
+                <a href="https://whatsapp.com" target="_blank" class="nav-btn" style="background: #25d366; color: #fff; font-size: 1.2rem; padding: 15px 30px; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: bold; border-radius: 8px;">
                     ENTRA NELLA CHAT WHATSAPP GOVERNATIVA 🚀
                 </a>
             </div>
         </div>
 
-
-              <h2 id="sezione-banca">   Banca Centrale di Romikami (Sordu-Tech)</h2>
+        <!-- BANCA CENTRALE DI ROMIKAMI -->
+        <h2 id="sezione-banca">   Banca Centrale di Romikami (Sordu-Tech)</h2>
         <div class="panel-box" style="border-color: #eab308;">
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; background: #1e293b; padding: 15px; border-radius: 8px;">
                 <div>Conto Corrente:<br><strong id="labelSaldoSordu" style="font-size: 1.8rem; color: #eab308; font-family: monospace;">500 SRL</strong></div>
@@ -158,7 +141,6 @@
             </div>
         </div>
 
-
         <h2>🏆 Grado del Cittadino (Mika-XP)</h2>
         <div class="panel-box"><div style="background: #1e293b; padding: 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;"><div>Rango: <span id="labelGradoCittadino" style="font-weight: bold; color: #eab308;">Cittadino Scelto 🏅</span></div><div><span class="xp-badge" id="badgePuntiXP">50 XP</span></div></div></div>
 
@@ -178,18 +160,19 @@
         <textarea id="inputRmk" placeholder="Scrivi in romikamese..." oninput="translateRmkToIta()"></textarea><div class="output-box inverse" id="outputIta">In attesa del testo...</div>
 
         <h2>📖 Dizionario Completo della Nazione</h2><div class="dict-grid" id="dictionaryVisualGrid"></div>
-        <h2>🪪 Documenti Ufficiali</h2><div style="text-align: center; margin-top: 20px;"><a href="https://forms.gle/32T28kATvY74Jjbd8" target="_blank" class="nav-btn">Quiz Cittadinanza</a><a href="passaporto_vuoto.pdf" download class="nav-btn gold-btn">👑 Scarica Passaporto</a></div>
+        <h2>🪪 Documenti Ufficiali</h2><div style="text-align: center; margin-top: 20px;"><a href="https://forms.gle/pd2uBvoysbZ4qH3G6 target="_blank" class="nav-btn">Quiz Cittadinanza</a><a href="passaporto_vuoto.pdf" download class="nav-btn gold-btn">👑 Scarica Passaporto</a></div>
     </div>
     <div id="rainContainer" style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:99999; display:none;"></div>
-       <script>
+
+    <script>
         function toggleMenu() { const m = document.getElementById("dropdownMenu"); m.style.display = (m.style.display === "block") ? "none" : "block"; }
         document.querySelectorAll('.dropdown-menu a').forEach(l => { l.addEventListener('click', () => document.getElementById("dropdownMenu").style.display = "none"); });
 
-        // CONFIGURAZIONE REALE FIREBASE DATABASE
+        // CONFIGURAZIONE REALE FIREBASE DATABASE GOOGLE
         const firebaseConfig = {
             apiKey: "AIzaSyB3-XVl2BibguQ1ooL5Qa6RM_HcW6RESfQ",
             authDomain: "://firebaseapp.com",
-            databaseURL: "https://romikami-database-default-rtdb.firebaseio.com",
+            databaseURL: "https://firebaseio.com",
             projectId: "romikami-database",
             storageBucket: "romikami-database.firebasestorage.app",
             messagingSenderId: "368702503742",
@@ -198,45 +181,41 @@
         };
 
         let databaseOnline;
-        let nomeUtenteStato = localStorage.getItem("rmk_username") || "";
+        let nomeUtenteStato = localStorage.getItem("rmk_username") || "CITTADINO";
         let puntiXP = parseInt(localStorage.getItem("rmk_xp")) || 50;
         let saldoSordu = parseInt(localStorage.getItem("rmk_sordu")) || 500;
         let allertaStato = localStorage.getItem("rmk_allerta") === "true";
         let idPersonalizzato = localStorage.getItem("rmk_custom_id") || "";
 
-        // Oggetti dizionario che verranno riempiti dal server di Google
+        // Strutture dati dinamiche caricate via cloud
         let dictionary = {};
         let inverseDictionary = {};
 
-        // ATTIVAZIONE RETE E DOWNLOAD DIZIONARIO DA FIREBASE
+        // SBLOCCO DIZIONARIO LIVE VIA CLOUD AD AGGANCIO REATTIVO
         function forzaAccensioneFirebaseLive() {
             if (typeof firebase !== 'undefined') {
                 firebase.initializeApp(firebaseConfig);
                 databaseOnline = firebase.database();
                 
-                // Scarica tutto il mega dizionario B2 dal server online in un colpo solo
+                // Pesca l'albero delle parole dal server di Google
                 databaseOnline.ref("dizionario_romikami").once("value", function(snapshot) {
                     const dati = snapshot.val();
                     if (dati) {
                         dictionary = dati;
-                        // Genera in automatico il dizionario inverso per il traduttore
+                        // Genera l'inversione per la traduzione bidirezionale
                         Object.keys(dictionary).forEach(function(k) { inverseDictionary[dictionary[k]] = k; });
-                        // Genera la griglia visiva sullo schermo
+                        // Stampa la lista completa a schermo
                         disegnaDizionarioGraficoRemoto();
                     }
                 });
-
-                if (nomeUtenteStato === "") { document.getElementById("schermataLoginRomikami").style.display = "flex"; } 
             } else { setTimeout(forzaAccensioneFirebaseLive, 200); }
         }
         forzaAccensioneFirebaseLive();
-
-                   // TRADUTTORI INTELLIGENTI CONNESSI AL DATABASE SERVER
+        // TRADUTTORI INTELLIGENTI CONNESSI AL DATABASE SERVER
         function translateItaToRmk() {
             const input = document.getElementById("inputIta").value.toLowerCase();
             if (!input.trim()) { document.getElementById("outputRmk").innerText = "In attesa del testo..."; return; }
             const words = input.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(/\s+/);
-            // Cerca ogni singola parola nel database scaricato da Google
             document.getElementById("outputRmk").innerText = words.map(word => dictionary[word] ? dictionary[word] : word).join(" ");
         }
 
@@ -251,7 +230,7 @@
         function disegnaDizionarioGraficoRemoto() {
             const grid = document.getElementById("dictionaryVisualGrid");
             if (!grid) return;
-            grid.innerHTML = ""; // Pulisce la griglia precedente
+            grid.innerHTML = "";
             Object.keys(dictionary).sort().forEach(w => {
                 if(w !== "si" && w !== "elettricita" && w !== "felicita") {
                     const item = document.createElement("div"); 
@@ -262,7 +241,7 @@
             });
         }
 
-              aggiornaDatiSchermoUtente(); applicaStatoAllertaGrafica(); controllaStatoDailyLive(); ripristinaControlliAcquistiPrecedenti();
+        aggiornaDatiSchermoUtente(); applicaStatoAllertaGrafica(); ripristinaControlliAcquistiPrecedenti();
 
         function aggiornaDatiSchermoUtente() {
             document.getElementById("badgePuntiXP").innerText = puntiXP + " XP"; document.getElementById("labelSaldoSordu").innerText = saldoSordu + " SRL";
@@ -276,18 +255,6 @@
                 if (inv.includes("Tema Matrix 🎨")) { let b = document.getElementById("btnAttivaMatrix"); b.disabled = false; b.style.background = "#eab308"; b.style.cursor = "pointer"; b.innerText = "ATTIVA TEMA MATRIX 🎨"; b.style.display = "inline-block"; }
                 if (inv.includes("Modifica ID 🛡️")) { document.getElementById("divCustomId").style.display = "block"; }
             }
-        }
-        function controllaStatoDailyLive() {
-            const u = localStorage.getItem("rmk_ultimo_daily"), d = new Date().toDateString(), btn = document.getElementById("btnDailyBonus"), lbl = document.getElementById("labelDailyStatus");
-            if (u === d) { btn.disabled = true; btn.style.background = "#64748b"; lbl.innerText = "✔ BONUS RISCOSSO OGGI!"; }
-            else { btn.disabled = false; btn.style.background = "#34d399"; lbl.innerText = "🎁 Bonus disponibile!"; }
-        }
-        function riscuotiDailyBonus() {
-            let inv = JSON.parse(localStorage.getItem("rmk_inventario")) || [], b = 100, x = 10, m = "🎁 RISCOSSIONE COMPLETATA!\n\n+100 SRL e +10 XP";
-            if (inv.includes("Cavaliere ⚔️")) { x = 50; m = "⚔️ PRIVILEGIO CAVALIERE:\n\n+100 SRL e +50 XP"; }
-            if (inv.includes("Duca del Predator 👑")) { b = 110; x = 150; m = "👑 RENDITA SUPREMA DA DUCA:\n\n+110 SRL e +150 XP"; }
-            saldoSordu += b; puntiXP += x; localStorage.setItem("rmk_sordu", saldoSordu); localStorage.setItem("rmk_xp", puntiXP); localStorage.setItem("rmk_ultimo_daily", new Date().toDateString());
-            aggiornaDatiSchermoUtente(); controllaStatoDailyLive(); avviaPioggiaCoriandoli(); alert(m);
         }
         function compraElementoShop(nome, prezzo, tipo, valore) {
             if (saldoSordu >= prezzo) {
@@ -313,7 +280,7 @@
         function attivaTemaMatrixLive() { document.body.style.background = "#052e16"; document.body.style.color = "#22c55e"; alert("🎨 TEMA MATRIX ATTIVATO!"); }
         function salvaCustomIdLive() { const t = document.getElementById("textCustomIdInput").value.trim().toUpperCase(); if (t === "") return; idPersonalizzato = "RMK-" + t; localStorage.setItem("rmk_custom_id", idPersonalizzato); alert("🛡️ ID: " + idPersonalizzato); }
         function generaPassaportoLive() { const n = document.getElementById("inputNomePassaporto").value.trim().toUpperCase(); if (n === "") return; let inv = JSON.parse(localStorage.getItem("rmk_inventario")) || [], t = inv.length > 0 ? inv.join(", ") : "Nessuno"; document.getElementById("cardPassaportoVisivo").style.display = "block"; document.getElementById("passNome").innerText = n; document.getElementById("passGrado").innerText = document.getElementById("labelGradoCittadino").innerText + " (" + t + ")"; document.getElementById("passSaldo").innerText = saldoSordu + " SRL"; document.getElementById("passID").innerText = idPersonalizzato ? idPersonalizzato : "RMK-" + Math.floor(100000 + Math.random() * 900000); }
-        function controllaPasswordChat() { if (document.getElementById("inputPassChat").value === "zhuaoromikami2026") { document.getElementById("boxChatMilitare").style.display = "block"; document.getElementById("corpoChatMilitare").innerHTML = '<div class="msg"><span class="msg-ty">[TYNOX]:</span> Server online.</div><div class="msg"><span class="msg-ny">[NYNX]:</span> Protetti.</div><div class="msg"><span class="msg-le">[LEO]:</span> Logistica coordinata.</div>'; } else { document.getElementById("boxChatMilitare").style.display = "none"; } }
+        function controllaPasswordChat() { if (document.getElementById("inputPassChat").value === "zhuaoromikami2026") { document.getElementById("boxChatMilitare").style.display = "block"; document.getElementById("corpoChatMilitare").innerHTML = '<div class="msg"><span class="msg-ty">[TYNOX]: ...</span></div>'; } else { document.getElementById("boxChatMilitare").style.display = "none"; } }
         function assegnaPremioSordu() { saldoSordu += 500; puntiXP += 500; localStorage.setItem("rmk_sordu", saldoSordu); localStorage.setItem("rmk_xp", puntiXP); aggiornaDatiSchermoUtente(); alert("👑 Sbloccato bonus!"); }
         function applicaMultaDiStato() { saldoSordu = (saldoSordu >= 200) ? saldoSordu - 200 : 0; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); alert("🛑 Sanzione applicata."); }
         function azzeraTuttiXP() { puntiXP = 50; saldoSordu = 500; localStorage.setItem("rmk_xp", puntiXP); localStorage.setItem("rmk_sordu", saldoSordu); localStorage.removeItem("rmk_inventario"); document.getElementById("labelRuoliPosseduti").innerText = "Inventario Elementi Sbloccati: Nessuno"; aggiornaDatiSchermoUtente(); alert("Database azzerato."); }
