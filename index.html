@@ -269,12 +269,41 @@
                 alert("🛒 ACQUISTO EFFETTUATO: " + nome.toUpperCase());
             } else { alert("❌ Sordu insufficienti!"); }
         }
+                       // 🧮 RICEVITORIA CODICI: CALCOLO ORARIO E SANZIONI DI STATO
         function riscattaCodiceUfficialeLive() {
-            const c = document.getElementById("inputRiscattoCodice").value.trim().toUpperCase(); if (c === "") return;
-            if (c === "REGALO500") { saldoSordu += 500; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); document.getElementById("inputRiscattoCodice").value = ""; avviaPioggiaCoriandoli(); alert("👑 +500 SRL!"); return; }
-            if (c === "MULTA200") { saldoSordu = (saldoSordu >= 200) ? saldoSordu - 200 : 0; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); document.getElementById("inputRiscattoCodice").value = ""; alert("🛑 Detratti -200 SRL."); return; }
-            alert("❌ CODICE NON VALIDO!");
+            const c = document.getElementById("inputRiscattoCodice").value.trim().toUpperCase(); 
+            if (c === "") return;
+            
+            // 👑 BONUS GENERICI DI STATO
+            if (c === "REGALO500") { saldoSordu += 500; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); document.getElementById("inputRiscattoCodice").value = ""; avviaPioggiaCoriandoli(); alert("👑 BONUS DI STATO:\n\nAccreditati +500 SRL!"); return; }
+            
+            // 🛑 SISTEMA SANZIONI E MULTE DI STATO PROGRESSIVE
+            if (c === "MULTA50") { saldoSordu = (saldoSordu >= 50) ? saldoSordu - 50 : 0; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); document.getElementById("inputRiscattoCodice").value = ""; alert("🛑 DETRAZIONE SANZIONE MINORE:\n\nRimossi -50 SRL per ordine dei Ministri."); return; }
+            if (c === "MULTA100") { saldoSordu = (saldoSordu >= 100) ? saldoSordu - 100 : 0; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); document.getElementById("inputRiscattoCodice").value = ""; alert("🛑 DETRAZIONE SANZIONE MEDIA:\n\nRimossi -100 SRL per ordine dei Ministri."); return; }
+            if (c === "MULTA200") { saldoSordu = (saldoSordu >= 200) ? saldoSordu - 200 : 0; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); document.getElementById("inputRiscattoCodice").value = ""; alert("🛑 DETRAZIONE SANZIONE STANDARD:\n\nRimossi -200 SRL per ordine dei Ministri."); return; }
+            if (c === "MULTA500") { saldoSordu = (saldoSordu >= 500) ? saldoSordu - 500 : 0; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); document.getElementById("inputRiscattoCodice").value = ""; alert("🚨 SENTENZA DI ALTO TRADIMENTO:\n\nConfiscati -500 SRL per decreto del Capo Supremo."); return; }
+            
+            // 🗺️ MIKA-MAPPATORI (40 SRL ALL'ORA - INCLUDE MAPPE ED EDITING VIDEO)
+            if (c === "STIPENDIO_MAPPER_1H") { saldoSordu += 40; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); document.getElementById("inputRiscattoCodice").value = ""; avviaPioggiaCoriandoli(); alert("🧮 VALIDAZIONE CONTABILE:\n\nRiscatto 1 ora da Mappatore/Editor: +40 SRL!"); return; }
+            if (c === "STIPENDIO_MAPPER_2H") { saldoSordu += 80; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); document.getElementById("inputRiscattoCodice").value = ""; avviaPioggiaCoriandoli(); alert("🧮 VALIDAZIONE CONTABILE:\n\nRiscatto 2 ore da Mappatore/Editor: +80 SRL!"); return; }
+            if (c === "STIPENDIO_MAPPER_5H") { saldoSordu += 200; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); document.getElementById("inputRiscattoCodice").value = ""; avviaPioggiaCoriandoli(); alert("🧮 VALIDAZIONE CONTABILE:\n\nRiscatto 5 ore da Mappatore/Editor: +200 SRL!"); return; }
+            
+            // 🦺 MIKA-SORDU-OMU (CONTABILE - 35 SRL ALL'ORA)
+            if (c === "STIPENDIO_CONTABILE_2H") { saldoSordu += 70; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); document.getElementById("inputRiscattoCodice").value = ""; avviaPioggiaCoriandoli(); alert("🧮 VALIDAZIONE CONTABILE:\n\nRiscatto 2 ore da Contabile: +70 SRL!"); return; }
+            
+            // 🕵️ SPIA-OMU / ZE-ZHUADINI (ISPETTORE SICUREZZA - 35 SRL ALL'ORA)
+            if (c === "STIPENDIO_SPIA_2H") { saldoSordu += 70; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); document.getElementById("inputRiscattoCodice").value = ""; avviaPioggiaCoriandoli(); alert("🧮 VALIDAZIONE CONTABILE:\n\nRiscatto 2 ore da Ispettore: +70 SRL!"); return; }
+            
+            // 🏗️ COSTRUTTORE-TECH (BUILDER MINECRAFT - 30 SRL ALL'ORA)
+            if (c === "STIPENDIO_BUILDER_2H") { saldoSordu += 60; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); document.getElementById("inputRiscattoCodice").value = ""; avviaPioggiaCoriandoli(); alert("🧮 VALIDAZIONE CONTABILE:\n\nRiscatto 2 ore da Costruttore: +60 SRL!"); return; }
+            
+            // 🛡️ SCUDO-OMU (GUARDIA / MODERATORE CHAT - 25 SRL ALL'ORA)
+            if (c === "STIPENDIO_GUARDIA_2H") { saldoSordu += 50; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); document.getElementById("inputRiscattoCodice").value = ""; avviaPioggiaCoriandoli(); alert("🧮 VALIDAZIONE CONTABILE:\n\nRiscatto 2 ore da Guardia Chat: +50 SRL!"); return; }
+            
+            alert("❌ CODICE ERRATO O GIÀ UTILIZZATO!");
         }
+
+
         function attivaTemaMatrixLive() { document.body.style.background = "#052e16"; document.body.style.color = "#22c55e"; alert("🎨 TEMA MATRIX ATTIVATO!"); }
         function salvaCustomIdLive() { const t = document.getElementById("textCustomIdInput").value.trim().toUpperCase(); if (t === "") return; idPersonalizzato = "RMK-" + t; localStorage.setItem("rmk_custom_id", idPersonalizzato); alert("🛡️ ID: " + idPersonalizzato); }
         function generaPassaportoLive() { const n = document.getElementById("inputNomePassaporto").value.trim().toUpperCase(); if (n === "") return; let inv = JSON.parse(localStorage.getItem("rmk_inventario")) || [], t = inv.length > 0 ? inv.join(", ") : "Nessuno"; document.getElementById("cardPassaportoVisivo").style.display = "block"; document.getElementById("passNome").innerText = n; document.getElementById("passGrado").innerText = document.getElementById("labelGradoCittadino").innerText + " (" + t + ")"; document.getElementById("passSaldo").innerText = saldoSordu + " SRL"; document.getElementById("passID").innerText = idPersonalizzato ? idPersonalizzato : "RMK-" + Math.floor(100000 + Math.random() * 900000); }
