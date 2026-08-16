@@ -51,7 +51,33 @@
         <div id="statoAllertaBanner" style="display:none; background:#ef4444; color:#fff; text-align:center; padding:10px; font-weight:bold; border-radius:10px; margin-bottom:20px; font-family:monospace;">🚨 MODALITÀ ALLERTA DI STATO ATTIVATA DAL MINISTRO LEO 🚨</div>
 
         <h1>Repubblica di Romikami 🛡️</h1>
-        <p style="text-align: center; font-style: italic; color: #64748b;">Portale Governativo Centrale v4.0 (1500+ Cittadini)</p>
+        <p style="text-align: center; font-style: italic; color: #64748b;">Portale Governativo Centrale v5.0 (1500+ Cittadini)</p>
+        // 📢 MOTORE GESTIONE ANNUNCI LIVE (PATCH v5.0)
+        let annuncioSalvato = localStorage.getItem("rmk_annuncio_testo") || "🕊️ STATO ATTUALE: Repubblica in pace. Nessun ordine militare attivo.";
+        let firmaSalvata = localStorage.getItem("rmk_annuncio_firma") || "Amministrazione Centrale Romikami";
+        
+        window.addEventListener('DOMContentLoaded', function() {
+            document.getElementById("boxAnnuncioStato").innerHTML = annuncioSalvato;
+            document.getElementById("firmaAnnuncioStato").innerText = "~ Firma: " + firmaSalvata;
+        });
+
+        function pubblicaAnnuncioDiStatoLive() {
+            const testo = document.getElementById("inputNuovoAnnuncio").value.trim();
+            const firma = document.getElementById("inputFirmaAnnuncio").value.trim();
+            if (testo === "" || firma === "") { alert("❌ Inserisci testo e firma!"); return; }
+            
+            localStorage.setItem("rmk_annuncio_testo", "🚨 DECRETO: " + testo.toUpperCase());
+            localStorage.setItem("rmk_annuncio_firma", firma.toUpperCase());
+            
+            document.getElementById("boxAnnuncioStato").innerHTML = "🚨 DECRETO: " + testo.toUpperCase();
+            document.getElementById("firmaAnnuncioStato").innerText = "~ Firma: " + firma.toUpperCase();
+            document.getElementById("inputNuovoAnnuncio").value = ""; document.getElementById("inputFirmaAnnuncio").value = "";
+            avviaPioggiaCoriandoli(); alert("📢 DECRETO PUBBLICATO CON SUCCESSO!");
+        }
+
+
+
+
 
         <h2>📜 Fondazione e Storia dello Stato</h2>
         <p>La Repubblica di Romikami conta oltre 1500 cittadini ufficiali. Fondata sulla potenza di calcolo della fortezza hardware <strong>Predator 5000</strong>.</p>
@@ -167,7 +193,144 @@
         <h2>🔄 Traduttore Inverso (Romikamese ➡️ Italiano)</h2>
         <textarea id="inputRmk" placeholder="Scrivi in romikamese..." oninput="translateRmkToIta()"></textarea><div class="output-box inverse" id="outputIta">In attesa del testo...</div>
 
-        <h2>📖 Dizionario Completo della Nazione (Livello B2)</h2><div class="dict-grid" id="dictionaryVisualGrid"></div>
+       <!-- ==========================================
+     MODULO 2: RADAR SERPENTARA & ASSUNZIONI (PATCH v5.0)
+     ========================================== -->
+
+<!-- 1. GRAFICA DELLA MAPPA INTERATTIVA -->
+<h2>🔍 Radar Geopolitico dell'Isola di Serpentara (Avamposto Militare)</h2>
+<div class="panel-box" style="border-color: #38bdf8; text-align: center;">
+    <p style="margin-top: 0; color: #94a3b8;">Passa il mouse sopra i settori dell'isola per controllare lo stato delle fortificazioni dell'Impero:</p>
+    
+    <!-- Disegno Vettoriale dell'Isola -->
+    <svg viewBox="0 0 200 400" style="max-width: 250px; margin: 20px auto; background: #0f172a; border-radius: 10px; border: 1px solid #334155;">
+        <!-- Settore Nord (Torre) -->
+        <path d="M100,20 Q120,40 110,90 Q90,90 90,50 Z" fill="#1e293b" stroke="#38bdf8" stroke-width="2" style="cursor:pointer; transition: 0.3s;" 
+              onmouseover="this.setAttribute('fill', '#ef4444'); document.getElementById('infoRadar').innerHTML='<strong>📍 SETTORE NORD: TORRE SPAGNOLA</strong><br>Stato: BLINDATO<br>Lore: Avamposto Radio Militare e antenna di trasmissione gestita dal Ministro Leo.';" 
+              onmouseout="this.setAttribute('fill', '#1e293b'); document.getElementById('infoRadar').innerHTML='Passa il mouse su un settore dell\'isola...';"></path>
+        
+        <!-- Settore Centro-Ovest (Spiaggia) -->
+        <path d="M90,50 Q90,90 85,150 Q100,150 100,90 Z" fill="#1e293b" stroke="#38bdf8" stroke-width="2" style="cursor:pointer; transition: 0.3s;" 
+              onmouseover="this.setAttribute('fill', '#38bdf8'); document.getElementById('infoRadar').innerHTML='<strong>📍 SETTORE CENTRO-OVEST: CALA SBARCO</strong><br>Stato: CONTROLLATO<br>Lore: Porto di attracco ufficiale. La guardia controlla i passaporti numerati prima di autorizzare l\'accesso.';" 
+              onmouseout="this.setAttribute('fill', '#1e293b'); document.getElementById('infoRadar').innerHTML='Passa il mouse su un settore dell\'isola...';"></path>
+              
+        <!-- Settore Centro-Est (Scogliere) -->
+        <path d="M100,90 Q100,150 115,160 Q120,110 110,90 Z" fill="#1e293b" stroke="#38bdf8" stroke-width="2" style="cursor:pointer; transition: 0.3s;" 
+              onmouseover="this.setAttribute('fill', '#eab308'); document.getElementById('infoRadar').innerHTML='<strong>📍 SETTORE CENTRO-EST: SCOGLIERE ALTE</strong><br>Stato: PATTUGLIAMENTO<br>Lore: Area ad alta sicurezza. Le Spie controllano le infiltrazioni di mapper nemici o truffatori.';" 
+              onmouseout="this.setAttribute('fill', '#1e293b'); document.getElementById('infoRadar').innerHTML='Passa il mouse su un settore dell\'isola...';"></path>
+
+        <!-- Settore Sud (Punta S'Isvedda) -->
+        <path d="M85,150 Q100,150 105,220 Q95,250 80,180 Z" fill="#1e293b" stroke="#38bdf8" stroke-width="2" style="cursor:pointer; transition: 0.3s;" 
+              onmouseover="this.setAttribute('fill', '#10b981'); document.getElementById('infoRadar').innerHTML='<strong>📍 SETTORE SUD: PUNTA S\'ISVEDDA</strong><br>Stato: COSTRUZIONE<br>Lore: Campo di addestramento militare. I Costruttori stanno edificando le trincee hardware protettive.';" 
+              onmouseout="this.setAttribute('fill', '#1e293b'); document.getElementById('infoRadar').innerHTML='Passa il mouse su un settore dell\'isola...';"></path>
+    </svg>
+    
+    <!-- Scatola di Testo della Lore Dinamica -->
+    <div id="infoRadar" style="background: #0f172a; padding: 15px; border-radius: 8px; font-family: monospace; border: 1px dashed #334155; min-height: 60px; color: #34d399; text-align: center;">
+        Passa il mouse su un settore dell'isola...
+    </div>
+</div>
+
+<!-- 2. STRUTTURA DELL'UFFICIO COLLOCAMENTO -->
+<h2 id="sezione-assunzioni">🦺 Ufficio di Collocamento Statale (Mika-Assunzioni)</h2>
+<div class="panel-box" style="border-color: #34d399;">
+    <p style="margin-top: 0; color: #94a3b8;">Candidati per un ruolo ufficiale inviando la richiesta ai Capi su WhatsApp. Guadagna Sordu calcolati all'ora:</p>
+    
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+        <!-- Lavoro 1 -->
+        <div style="background: #0f172a; padding: 12px; border-radius: 8px; border: 1px solid #334155; display: flex; justify-content: space-between; align-items: center;">
+            <div><strong>Mika-Mappatore (Editor)</strong><br><span style="color: #eab308; font-size: 0.9rem;">Paga: 40 SRL / ora</span></div>
+            <div style="text-align: right;">
+                <span style="color: #34d399; font-weight: bold; font-size: 0.85rem; display: block; margin-bottom: 5px;">🟢 APERTO</span>
+                <a href="https://whatsapp.com" target="_blank" class="action-btn" style="padding: 5px 10px; background: #38bdf8; text-decoration: none; color: #0f172a; border-radius: 4px; font-size: 0.85rem;">CANDIDATI</a>
+            </div>
+        </div>
+        
+        <!-- Lavoro 2 -->
+        <div style="background: #0f172a; padding: 12px; border-radius: 8px; border: 1px solid #334155; display: flex; justify-content: space-between; align-items: center;">
+            <div><strong>Mika-Sordu-Omu (Contabile)</strong><br><span style="color: #eab308; font-size: 0.9rem;">Paga: 35 SRL / ora</span></div>
+            <div style="text-align: right;">
+                <span style="color: #ef4444; font-weight: bold; font-size: 0.85rem; display: block; margin-bottom: 5px;">🔴 CHIUSO</span>
+                <button class="action-btn" style="padding: 5px 10px; background: #64748b; cursor: not-allowed; border-radius: 4px; font-size: 0.85rem;" disabled>COMPLETO</button>
+            </div>
+        </div>
+
+        <!-- Lavoro 3 -->
+        <div style="background: #0f172a; padding: 12px; border-radius: 8px; border: 1px solid #334155; display: flex; justify-content: space-between; align-items: center;">
+            <div><strong>Spia-Omu (Ispettore Sicurezza)</strong><br><span style="color: #eab308; font-size: 0.9rem;">Paga: 35 SRL / ora</span></div>
+            <div style="text-align: right;">
+                <span style="color: #34d399; font-weight: bold; font-size: 0.85rem; display: block; margin-bottom: 5px;">🟢 1 POSTO</span>
+                <a href="https://whatsapp.com" target="_blank" class="action-btn" style="padding: 5px 10px; background: #38bdf8; text-decoration: none; color: #0f172a; border-radius: 4px; font-size: 0.85rem;">CANDIDATI</a>
+            </div>
+        </div>
+    </div>
+</div>
+        <!-- 🏛️ IL MINISTERO DEGLI INTERNI: ANAGRAFE DIGITALE (PATCH v5.0) -->
+        <h2>🏛️ Anagrafe Digitale della Repubblica (Mika-Anagrafe)</h2>
+        <div class="panel-box" style="border-color: #38bdf8; text-align: center;">
+            <p style="margin-top: 0; color: #94a3b8;">Inserisci il tuo nome di Stato per generare la tua Carta d'Identità Digitale di Romikami:</p>
+            <input type="text" id="inputNomeAnagrafe" style="background:#0f172a; color:#fff; border:1px solid #38bdf8; padding:10px; border-radius:8px; width:60%; text-align:center;" placeholder="IL TUO NOME DI STATO">
+            <button class="action-btn" onclick="generaCartaIdentitaLive()" style="background:#38bdf8; color:#0f172a; width:30%; font-weight:bold; margin-left:10px; padding:10px; display:inline-block;">GENERA 🪪</button>
+            
+            <!-- Card d'Identità Visiva Dinamica -->
+            <div id="cartaIdentitaVisiva" style="display:none; background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); border: 2px solid #38bdf8; border-radius: 12px; padding: 20px; margin-top: 20px; text-align: left; font-family: monospace; box-shadow: 0 5px 15px rgba(56,189,248,0.2);">
+                <div style="display: flex; gap: 20px; align-items: center;">
+                    <div style="width: 80px; height: 100px; background: #1e293b; border: 1px solid #38bdf8; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem;">👤</div>
+                    <div style="flex-grow: 1; color: #f8fafc; line-height: 1.5;">
+                        <p style="margin: 0; font-size: 1.1rem; color: #38bdf8; font-weight: bold; border-bottom: 1px solid #334155; padding-bottom: 3px;">REPUBBLICA DI ROMIKAMI</p>
+                        <p style="margin: 5px 0 0 0;">NOME: <span id="idCardNome" style="color:#fff; font-weight:bold;">---</span></p>
+                        <p style="margin: 2px 0 0 0;">STATUS: <span id="idCardStatus" style="color:#eab308;">CITTADINO CERTIFICATO 🟢</span></p>
+                        <p style="margin: 2px 0 0 0;">AVAMPOSTO: <span style="color:#10b981;">SERPENTARA (SETTORE SBARCO) 🏝️</span></p>
+                        <p style="margin: 2px 0 0 0;">SALDO REGISTRATO: <span id="idCardSaldo" style="color:#34d399;">---</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 📜 L'ARCHIVIO STORICO DEI DECRETI (PATCH v5.0) -->
+        <h2>📜 Archivio Storico delle Leggi di Romikami (Mika-Archivio)</h2>
+        <div class="panel-box" style="border-color: #64748b; background: #0f172a;">
+            <p style="margin-top: 0; color: #94a3b8; font-size: 0.95rem;">Cronologia completa di tutti i decreti emanati dal Quadrumvirato:</p>
+            <div id="listaLeggiStoriche" style="max-height: 120px; overflow-y: auto; font-family: monospace; font-size: 0.95rem; color: #94a3b8; padding-right: 10px; line-height: 1.5;">
+                <div style="border-bottom: 1px dashed #334155; padding: 5px 0;">📜 [Decreto Fondazione]: Reclamata sovranità su Serpentara.</div>
+            </div>
+        </div>
+
+        <!-- 💰 IL FONDO MONETARIO E LE TASSE NAZIONALI (PATCH v5.0) -->
+        <h2>💰 Fondo Monetario Nazionale (Sordu-Tax)</h2>
+        <div class="panel-box" style="border-color: #10b981; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(135deg, #0f172a 0%, #064e3b 100%);">
+            <div>Fondo dello Stato:<br><strong id="labelFondoTasse" style="font-size: 1.8rem; color: #10b981; font-family: monospace;">0 SRL</strong></div>
+            <div style="text-align: right; font-size: 0.9rem; color: #a7f3d0; font-family: monospace;">Aliquota Fissa: <strong>10%</strong><br><span style="color: #64748b; font-size: 0.8rem;">Trattenuta automatica su premi e stipendi</span></div>
+        </div>
+
+
+        <!-- 📈 LA BORSA VALORI DI ROMIKAMI (PATCH v5.0) -->
+        <h2>📈 Borsa Valori Imperiale (Mika-WallStreet)</h2>
+        <div class="panel-box" style="border-color: #38bdf8; display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <div>Valore del Sordu:<br><strong id="valoreBorsaSordu" style="font-size: 1.8rem; color: #38bdf8; font-family: monospace;">1 SRL = 0.010€</strong></div>
+            <div style="border-left: 1px solid #334155; padding-left: 15px;">Tendenza Mercato:<br><strong id="trendBorsaSordu" style="color: #34d399; font-size: 1.1rem; font-family: monospace;">🟢 STABILE (+0.0%)</strong></div>
+        </div>
+
+        <!-- 🎰 IL CASINÒ IMPERIALE (SORDU-VEGAS PATCH v5.0) -->
+        <h2>🎰 Casinò di Stato (Sordu-Vegas)</h2>
+        <div class="panel-box" style="border-color: #eab308; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <!-- Ruota della Fortuna -->
+            <div style="background:#0f172a; padding:15px; border-radius:8px; border:1px solid #334155; text-align:center;">
+                <strong>🎡 RUOTA DELLA FORTUNA</strong><br><span style="color:#94a3b8; font-size:0.85rem;">Costo: 50 SRL</span>
+                <button class="action-btn" onclick="giraRuotaFortunaLive()" style="background:#eab308; color:#0f172a; margin-top:10px; font-weight:bold;">GIRA LA RUOTA</button>
+            </div>
+            <!-- Blackjack Semplificato -->
+            <div style="background:#0f172a; padding:15px; border-radius:8px; border:1px solid #334155; text-align:center;">
+                <strong>🃏 MIKA-BLACKJACK</strong><br><span style="color:#94a3b8; font-size:0.85rem;">Puntata: 100 SRL</span>
+                <div id="tavoloBlackjack" style="font-family:monospace; font-size:0.9rem; color:#38bdf8; margin:5px 0;">Fai la tua puntata!</div>
+                <button class="action-btn" onclick="giocaBlackjackLive()" style="background:#38bdf8; color:#0f172a; font-weight:bold;">CARTA / SFIDA</button>
+            </div>
+        </div>
+
+
+
+
+ <h2>📖 Dizionario Completo della Nazione (Livello B2)</h2><div class="dict-grid" id="dictionaryVisualGrid"></div>
         <h2>🪪 Documenti e Ammissione di Stato</h2><div style="text-align: center; margin-top: 20px;"><a href="https://forms.gle/pd2uBvoysbZ4qH3G6" target="_blank" class="nav-btn">Quiz Cittadinanza</a></div>
     </div>
     <div id="rainContainer" style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:99999; display:none;"></div>
@@ -364,7 +527,187 @@
             }
         }
 
-        function toggleAllertaStato() { 
+         // =================================================================
+        // SBLOCCO AGGIORNAMENTO PATCH v5.0 - UNIFICAZIONE CODICE JAVASCRIPT
+        // =================================================================
+
+        // 📢 BACHECA DECRETI LIVE: CARICAMENTO MEMORIA AUTOMATICO
+        let annuncioSalvato = localStorage.getItem("rmk_annuncio_testo") || "🕊️ STATO ATTUALE: Repubblica in pace. Nessun ordine militare attivo.";
+        let firmaSalvata = localStorage.getItem("rmk_annuncio_firma") || "Amministrazione Centrale Romikami";
+        
+        window.addEventListener('DOMContentLoaded', function() {
+            const boxAnnuncio = document.getElementById("boxAnnuncioStato");
+            const boxFirma = document.getElementById("firmaAnnuncioStato");
+            if (boxAnnuncio) boxAnnuncio.innerHTML = annuncioSalvato;
+            if (boxFirma) boxFirma.innerText = "~ Firma: " + firmaSalvata;
+        });
+
+        function pubblicaAnnuncioDiStatoLive() {
+            const testo = document.getElementById("inputNuovoAnnuncio").value.trim();
+            const firma = document.getElementById("inputFirmaAnnuncio").value.trim();
+            if (testo === "" || firma === "") { alert("❌ Inserisci testo e firma!"); return; }
+            
+            localStorage.setItem("rmk_annuncio_testo", "🚨 DECRETO: " + testo.toUpperCase());
+            localStorage.setItem("rmk_annuncio_firma", firma.toUpperCase());
+            
+            document.getElementById("boxAnnuncioStato").innerHTML = "🚨 DECRETO: " + testo.toUpperCase();
+            document.getElementById("firmaAnnuncioStato").innerText = "~ Firma: " + firma.toUpperCase();
+            document.getElementById("inputNuovoAnnuncio").value = ""; 
+            document.getElementById("inputFirmaAnnuncio").value = "";
+            avviaPioggiaCoriandoli(); 
+            alert("📢 DECRETO PUBBLICATO CON SUCCESSO SULLA BACHECA DI STATO!");
+        }
+
+        // 📈 SIMULATORE OSCILLAZIONE BORSA DI STATO (WALLSTREET)
+        function aggiornaBorsaRomikami() {
+            const variazioni = [-0.002, -0.001, 0.001, 0.002, 0.003];
+            let variazione = variazioni[Math.floor(Math.random() * variazioni.length)];
+            let valoreBase = 0.010 + variazione;
+            if (valoreBase < 0.005) valoreBase = 0.005;
+            
+            const valoreBox = document.getElementById("valoreBorsaSordu");
+            const trendBox = document.getElementById("trendBorsaSordu");
+            
+            if(valoreBox && trendBox) {
+                valoreBox.innerText = "1 SRL = " + valoreBase.toFixed(3) + "€";
+                if(variazione >= 0) {
+                    trendBox.innerText = "🟢 ACCELERAZIONE (+" + (variazione*100).toFixed(1) + "%)";
+                    trendBox.style.color = "#34d399";
+                } else {
+                    trendBox.innerText = "🔴 DEFLAZIONE (" + (variazione*100).toFixed(1) + "%)";
+                    trendBox.style.color = "#ef4444";
+                }
+            }
+        }
+        setInterval(aggiornaBorsaRomikami, 10000); // Fa oscillare la borsa del Predator 5000 ogni 10 secondi
+
+        // 🎡 CIRCUITO CASINÒ: RUOTA DELLA FORTUNA
+        function giraRuotaFortunaLive() {
+            if (saldoSordu < 50) { alert("❌ Non hai abbastanza Sordu!"); return; }
+            saldoSordu -= 50;
+            const premi = [0, 20, 50, 100, 200, "XP"];
+            let premio = premi[Math.floor(Math.random() * premi.length)];
+            
+            if (premio === "XP") {
+                puntiXP += 50; localStorage.setItem("rmk_xp", puntiXP);
+                alert("🎡 RUOTA: Hai vinto +50 XP di addestramento!");
+            } else if (premio > 0) {
+                saldoSordu += premio;
+                avviaPioggiaCoriandoli();
+                alert("🎡 RUOTA: Colpo di fortuna! Hai vinto +" + premio + " SRL!");
+            } else {
+                alert("🎰 RUOTA: Slot vuota. Ritenta la fortuna!");
+            }
+            localStorage.setItem("rmk_sordu", saldoSordu); 
+            aggiornaDatiSchermoUtente();
+        }
+
+        // 🃏 CIRCUITO CASINÒ: BLACKJACK AUTOMATICO ANTI-INFLAZIONE
+        function giocaBlackjackLive() {
+            if (saldoSordu < 100) { alert("❌ Sordu insufficienti per puntare!"); return; }
+            saldoSordu -= 100;
+            
+            let puntiTuo = Math.floor(Math.random() * 10) + 12; // Punteggio utente tra 12 e 21
+            let puntiPredator = Math.floor(Math.random() * 9) + 13; // Punteggio banco tra 13 e 21
+            
+            const tavolo = document.getElementById("tavoloBlackjack");
+            if (!tavolo) return;
+
+            if (puntiTuo > 21) {
+                tavolo.innerHTML = "❌ Sballato! Tu: " + puntiTuo + " | PC: " + puntiPredator;
+                alert("❌ CASINÒ: Hai sballato! Perdi la puntata di 100 SRL.");
+            } else if (puntiTuo > puntiPredator || puntiPredator > 21) {
+                saldoSordu += 200;
+                tavolo.innerHTML = "🏆 VITTORIA! Tu: " + puntiTuo + " | PC: " + puntiPredator;
+                avviaPioggiaCoriandoli();
+                alert("🎰 VITTORIA! Raddoppi la posta: +200 SRL!");
+            } else {
+                tavolo.innerHTML = "❌ BANCO VINCE. Tu: " + puntiTuo + " | PC: " + puntiPredator;
+                alert("❌ CASINÒ: La fortezza Predator 5000 vince la mano.");
+            }
+            localStorage.setItem("rmk_sordu", saldoSordu); 
+            aggiornaDatiSchermoUtente();
+        }
+
+        // =================================================================
+        // PILASTRI FINANZIARI E ANAGRAFE DELLA PATC v5.0 (JAVASCRIPT)
+        // =================================================================
+        
+        // Inizializza il Fondo Monetario caricandolo dalla memoria del computer
+        let fondoTasseStato = parseInt(localStorage.getItem("rmk_fondo_tasse")) || 0;
+        let archivioDecreti = JSON.parse(localStorage.getItem("rmk_archivio_testi")) || ["[Decreto Fondazione]: Reclamata sovranità su Serpentara."];
+
+        window.addEventListener('DOMContentLoaded', function() {
+            const labelFondo = document.getElementById("labelFondoTasse");
+            if (labelFondo) labelFondo.innerText = fondoTasseStato + " SRL";
+            aggiornaGrigliaArchivioLeggi();
+        });
+
+        // 🪪 FUNZIONE GENERA CARTA IDENTITÀ LOCALE
+        function generaCartaIdentitaLive() {
+            const nome = document.getElementById("inputNomeAnagrafe").value.trim().toUpperCase();
+            if (nome === "") { alert("❌ Inserisci un nome valido!"); return; }
+            
+            document.getElementById("cartaIdentitaVisiva").style.display = "block";
+            document.getElementById("idCardNome").innerText = nome;
+            document.getElementById("idCardSaldo").innerText = saldoSordu + " SRL";
+            alert("🪪 ANAGRAFE: Carta d'Identità Digitale generata con successo!");
+        }
+
+        // 📜 AGGIORNA L'ELENCO VISIVO DELLO STORICO DEI DECRETI
+        function aggiornaGrigliaArchivioLeggi() {
+            const boxLista = document.getElementById("listaLeggiStoriche");
+            if (!boxLista) return;
+            boxLista.innerHTML = "";
+            archivioDecreti.forEach(function(decreto) {
+                const voce = document.createElement("div");
+                voce.style = "border-bottom: 1px dashed #334155; padding: 5px 0; color: #cbd5e1;";
+                voce.innerHTML = "📜 " + decreto;
+                boxLista.appendChild(voce);
+            });
+        }
+
+        // 💰 SISTEMA DI TRATTENUTA FISCALE AUTOMATICA (ANTI-INFLAZIONE)
+        function applicaTrattenutaTasseStato(importoLordo) {
+            let tassa = Math.round(importoLordo * 0.10); // Calcola il 10% di tasse
+            fondoTasseStato += tassa;
+            localStorage.setItem("rmk_fondo_tasse", fondoTasseStato);
+            
+            const labelFondo = document.getElementById("labelFondoTasse");
+            if (labelFondo) labelFondo.innerText = fondoTasseStato + " SRL";
+            
+            return importoLordo - tassa; // Restituisce l'importo netto da dare al cittadino
+        }
+
+        // 📢 MODIFICA DELLA FUNZIONE ANNONCIO PRECEDENTE PER AGGANCIARE L'ARCHIVIO
+        // Nota per settembre: Questa funzione andrà a sostituire la vecchia versione
+        function pubblicaAnnuncioDiStatoLive() {
+            const testo = document.getElementById("inputNuovoAnnuncio").value.trim();
+            const firma = document.getElementById("inputFirmaAnnuncio").value.trim();
+            if (testo === "" || firma === "") { alert("❌ Inserisci testo e firma!"); return; }
+            
+            let testoDecreto = "🚨 DECRETO: " + testo.toUpperCase() + " (Firma: " + firma.toUpperCase() + ")";
+            
+            localStorage.setItem("rmk_annuncio_testo", "🚨 DECRETO: " + testo.toUpperCase());
+            localStorage.setItem("rmk_annuncio_firma", firma.toUpperCase());
+            
+            document.getElementById("boxAnnuncioStato").innerHTML = "🚨 DECRETO: " + testo.toUpperCase();
+            document.getElementById("firmaAnnuncioStato").innerText = "~ Firma: " + firma.toUpperCase();
+            
+            // Salva il decreto nell'archivio storico
+            archivioDecreti.unshift(testo.toUpperCase() + " [Firmato: " + firma.toUpperCase() + "]");
+            if (archivioDecreti.length > 20) archivioDecreti.pop(); // Tiene al massimo 20 leggi storiche
+            localStorage.setItem("rmk_archivio_testi", JSON.stringify(archivioDecreti));
+            
+            aggiornaGrigliaArchivioLeggi();
+            document.getElementById("inputNuovoAnnuncio").value = ""; 
+            document.getElementById("inputFirmaAnnuncio").value = "";
+            avviaPioggiaCoriandoli(); 
+            alert("📢 DECRETO PUBBLICATO E SALVATO NELL'ARCHIVIO STORICO!");
+        }
+
+      
+ function toggleAllertaStato() { 
             allertaStato = !allertaStato; 
             localStorage.setItem("rmk_allerta", allertaStato); 
             applicaStatoAllertaGrafica(); 
@@ -399,4 +742,5 @@
     <style>@keyframes fall { to { top: 100%; transform: rotate(360deg); } }</style>
 </body>
 </html>
+
 
