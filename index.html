@@ -175,7 +175,7 @@
     </div>
     <div id="rainContainer" style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:99999; display:none;"></div>
 
-       <script>
+          <script>
         function toggleMenu() { const m = document.getElementById("dropdownMenu"); m.style.display = (m.style.display === "block") ? "none" : "block"; }
         document.querySelectorAll('.dropdown-menu a').forEach(l => { l.addEventListener('click', () => document.getElementById("dropdownMenu").style.display = "none"); });
 
@@ -184,51 +184,24 @@
         let allertaStato = localStorage.getItem("rmk_allerta") === "true";
         let idPersonalizzato = localStorage.getItem("rmk_custom_id") || "";
 
-        // Strutture dati che verranno riempite all'istante dal file parole.json
-        let dictionary = {};
-        let inverseDictionary = {};
-
-        // CARICATORE AUTOMATICO LOCALE - METODO FETCH INFALLIBILE
-        // DIZIONARIO IMPERIALE B2 INTEGRATO ANTI-CRASH
-               // DIZIONARIO IMPERIALE B2 INTEGRATO CORRETTO
-        const dictionary = {"il":"su","lo":"su","la":"su","i":"sos","gli":"sos","le":"sos","un":"un","uno":"un","una":"un","di":"de","a":"a","da":"da","in":"in","con":"kun","su-supra":"su-supra","per":"pro","tra":"in-mesu","fra":"in-mesu","e":"kun","ma":"koza-kun","perché":"pro-kiti","se":"se-zhu","zero":"ze","uno":"un","due":"do","tre":"tri","quattro":"quat","cinque":"kink","sei":"se","sette":"setis","otto":"oto","nove":"nufi","ciao":"zhuao","arrivederci":"zhuaorami","sì":"zhu","si":"zhu","no":"koza","grazie":"merki","prego":"mika-benu","oh":"Zhuao!","ehi":"Omu!","cavolo":"Baddu!","fermo":"ferma-te","io":"zi","tu":"ko","lui":"eddu","lei":"edda","noi":"ziko","voi":"koko","loro":"eddus","questo":"kiti","quello":"katu","anche":"anku","tutto":"totu","oggi":"die","domani":"die-nou","ieri":"antigu-die","molto":"magnu","poco":"biku","gennaio":"ze-die","febbraio":"un-die","marzo":"do-die","aprile":"tri-die","maggio":"quat-die","giugno":"kink-die","luglio":"se-die","agosto":"setis-die","settembre":"oto-die","ottobre":"nufi-die","novembre":"mika-die","dicembre":"totu-die","natale":"regalo-noti","capodanno":"nou-die","pasqua":"allia-die","festa":"mika-festa","youtube":"mika-tube","video":"visualu-edit","edit":"taglia-tech","editor":"mika-artisti","mapping":"mappa-tech","mapper":"mika-mappatori","mappa":"carta-biddai","iscritto":"zhu-follower","follower":"zhu-follower","canale":"canale-mika","commento":"parola-netu","like":"sordu-benu","capo":"mika","computer":"predatori","hardware":"predatori-tech","internet":"netu","sito":"netu-pagu","schermo":"visualu","tastiera":"tastu","mouse":"cliccu","cavo":"linia","database":"mika-memoria","gioco":"jukare","player":"cacciatore","youtuber":"mika-tube-omu","programmatore":"predatori-omu","poliziotto":"scudo-omu","guardia":"scudo-omu","soldato":"guerru-omu","dottore":"benu-omu","elettricità":"voltu","elettricita":"voltu","energia":"voltu","nucleare":"magnu-voltu","pane":"pani","carne":"petza","pizza":"pitzas","pasta":"mika-granu","dolce":"grogu-papare","torta":"grogu-papare","acqua":"abba","bibita":"lattis-abba","latte":"lattis","coca-cola":"ruju-buffare","mela":"grogu-frore","banana":"grogu-linia","arancia":"fogu-papare","limone":"kallenti-grogu","pomodoro":"ruju-papare","insalata":"birde-panno","lattuga":"birde-panno","patata":"domu-rena","carota":"fogu-legnu","fragola":"biku-ruju","pera":"albu-frore-papare","uva":"mari-grogu","pesca":"allia-frore","anguria":"magnu-abba-birde","melone":"grogu-mundu","ciliegia":"ruju-oto","ananas":"tech-fogu-frore","cipolla":"buggu-janna","aglio":"fortis-albu","zucchina":"birde-linia","melanzana":"lughis-noti-papare","zucca":"fogu-ruju-magnu","fungo":"domu-nii","salato":"sordu-papare","amaro":"frittu-papare","aspro":"kallenti-grogu-papare","acido":"kallenti-grogu-papare","piccante":"fogu-papare","gustoso":"bellu-papare","buono":"bellu-papare","insipido":"ze-papare","casa":"domu","porta":"janna","letto":"lettis","comodino":"biku-lettis","armadio":"domu-bestiri","sedia":"cadrea","tavolo":"mesa","luce":"lughi","frigorifero":"frittu-domu","televisione":"predatori-visualu","finestra":"biku-janna","divano":"allia-cadrea","palazzo":"domu-magnu","edificio":"domu-magnu","negozio":"sordu-domu","shop":"sordu-domu","scuola":"sapare-domu","ospedale":"benu-domu","stazione":"flussu-biddai","piazza":"cussorgia-biddai","fattoria":"papare-domu","campo":"traballu-biddai","terreno":"traballu-biddai","trattore":"traballu-makinari","carrello":"saccu-makinari","cassa":"sordu-tastu","scontrino":"sordu-panno","mondo":"mundu","paese":"biddai","stato":"nazione-mika","repubblica":"repubblica","impero":"impero-mika","bandiera":"panno-mika","confine":"linia-biddai","strada":"stradu","cielo":"kelu","sole":"sko","luna":"juna","fuoco":"fogu","mare":"mari","spiaggia":"rena-biddai","ombrellone":"tentu-sole","asciugamano":"panno-abba","tempo":"tempu","pioggia":"frore","vento":"bentis","ghiaccio":"frittu-abba","neve":"nii","foglie":"birde-panno","albero":"tech-legnu","fiore":"frore","erba":"birde-rena","fiume":"flussu-abba","montagna":"magnu-kelu","terremoto":"spaccare-biddai","alluvione":"totu-abba","tempesta":"frore-guerru","eruzione":"fogu-kelu","cane":"zhuadini-omu","gatto":"noti-omu","uccello":"kelu-omu","pesce":"abba-omu","squalo":"banadini-abba","matematica":"ze-tri-sapare","storia":"antigu-sapare","geografia":"mundu-sapare","italiano":"ze-mika-lingua","blu":"burk","azzurro":"burk","rosso":"ruju","verde":"birde","giallo":"grogu","oro":"oru","nero":"nieddu","bianco":"albu","grigio":"fumofis","arancione":"fogu-ruju","viola":"lughis-noti","rosa":"frore-albu","soldi":"sordu","lavoro":"traballu","macchina":"makinari","zaino":"saccu","vestiti":"bestiri","scarpe":"kalzatru","legge":"lege","multa":"sanzione","codice":"clabi-voltu","passaporto":"tessera-mika","guerra":"guerru","pace":"pakis","alleanza":"team-zhuadini","alleato":"team-zhuadini","spia":"ze-zhuadini","traditore":"ze-zhuadini","allerta":"allerta-militare","difesa":"scudo-tech","munizioni":"voltu-saccu","bandito":"kickatu","bene":"benu","male":"malu","grande":"magnu","piccolo":"biku","bello":"bellu","brutto":"bruttu","forte":"fortis","debole":"scuru","nuovo":"nou","vecchio":"antigu","veloce":"flussu","lento":"ze-flussu","caldo":"kallenti","freddo":"frittu","felicità":"allia","felicita":"allia","tristezza":"buggis","paura":"timore","grado":"gradu","livello":"gradu","cavaliere":"cavaliere","duca":"duca-predator","essere":"essere","avere":"tenere","fare":"fakere","andare":"andare","sapere":"sapare","volere":"bolere","mangiare":"papare","dormire":"dormire","vedere":"mirare","giocare":"jukare","vincere":"binkere","perdere":"perdere","parlare":"parlare","sparare":"spara-voltu","lavorare":"traballare","editare":"taglia-tech","mappare":"mappare","scemo":"baddu-omu","sciocho":"baddu-omu","sciocco":"baddu-omu","nabbo":"ze-predatori","fifone":"timore-saccu","rompipalle":"buggu-bentis","fastidioso":"buggu-bentis","rabbia":"fogu-buggis","noia":"ze-tempu","ansia":"timore-voltu","orgoglio":"mika-allia","triste":"buggis","felice":"allia","sorpresa":"nou-visualu","stanchezza":"scuru-omu","stanco":"scuru-omu","confuso":"ze-tastu","sicuro":"scudo-tech","calmo":"pakis-omu","testa":"mika-corpo","mente":"mika-memoria","cuore":"voltu-corpo","sangue":"ruju-abba-corpo","mano":"cliccu-corpo","mani":"cliccu-corpo","braccio":"linia-corpo","gamba":"flussu-corpo","piede":"tastu-corpo","occhi":"visualu-corpo","orecchio":"askoltare-corpo","bocca":"parlare-corpo","salute":"benu-corpo","malattia":"malu-corpo","ferita":"spaccare-corpo","correre":"flussu-andare","saltare":"kelu-andare","viaggiare":"mundu-andare","pensare":"mika-memoria-fakere","capire":"sapare-benu","creare":"nou-fakere","distruggere":"spaccare-totu","aiutare":"scudo-fakere","difendere":"scudo-tech-fakere","attaccare":"guerru-fakere","scrivere":"tastu-fakere","leggere":"visualu-fakere","ridere":"allia-parlare","piangere":"buggis-abba","guardare":"mirare","prima":"antigu-tempu","dopo":"nou-tempu","vicino":"biku-linia","lontano":"magnu-linia","alto":"kelu-linia","basso":"domu-linia","dentro":"in-domu","fuori":"da-domu","destra":"oru-cliccu","sinistra":"ze-cliccu","accordo":"team-pakis","trattato":"lege-panno","tradimento":"banadini-fakere","governo":"mika-cussorgia","parlamento":"cussorgia-parlare","politica":"nazione-traballu","economia":"sordu-lege","società":"totu-kitiadini","libertà":"andare-totu","giustizia":"benu-lege","crimine":"malu-lege","verità":"mika-parola","bugia":"ze-mika-parola","pubblicare":"netu-andare","condividere":"team-andare","tendenza":"magnu-visualu","community":"totu-follower","ascoltatori":"sos-askoltare","spettatori":"sos-mirare","fama":"mika-nome","successo":"binkere-nome","calcio":"palla-tech","tennis":"tastu-palla","basket":"saccu-palla","partita":"guerru-jukare","match":"guerru-jukare","squadra":"team-zhuadini","allenamento":"traballu-jukare","nuoto":"mari-andare","ciclismo":"do-rotas-flussu","palestra":"fortis-omu-traballu","palla":"tech-palla","pallone":"tech-palla","gol":"binkere-tastu","canestro":"binkere-tastu","arbitro":"lege-omu","giocatore":"cacciatore-tech","atleta":"cacciatore-tech","vincitore":"mika-binkere","campione":"mika-binkere","coppa":"oru-mesa","trofeo":"oru-mesa","moto":"do-rotas-flussu"};
-
-        const inverseDictionary = {}; 
-        Object.keys(dictionary).forEach(function(k) { inverseDictionary[dictionary[k]] = k; });
-
-        // Lancia il disegno della griglia automatica all'avvio
-        window.addEventListener('DOMContentLoaded', function() {
-            disegnaDizionarioGraficoRemoto();
-        });
-
-            fetch('parole.json')
-                .then(response => {
-                    if (!response.ok) throw new Error("Errore nel file parole.json");
-                    return response.json();
-                })
-                .then(data => {
-                    // Gestisce l'ingresso sicuro nella cartella o legge i dati lisci
-                    dictionary = data.dizionario_romikami || data;
-                    
-                    // Rigenera in automatico l'inversione dei vocaboli
-                    inverseDictionary = {};
-                    Object.keys(dictionary).forEach(function(k) { 
-                        inverseDictionary[dictionary[k]] = k; 
-                    });
-                    
-                    // Forza il disegno immediato sullo schermo
-                    disegnaDizionarioGraficoRemoto();
-                    console.log("🏆 Dizionario caricato con successo!");
-                })
-                .catch(error => {
-                    console.error("⚠️ Problema di lettura:", error);
-                });
-        }
-
-
-        // Lancia il caricamento non appena la struttura del sito è pronta sullo schermo
-        window.addEventListener('DOMContentLoaded', caricaDizionarioIndistruttibile);
-        // TRADUTTORI AD AGGANCIO LOCALE IMMEDIATO
+        // DIZIONARIO IMPERIALE B2 INTEGRATO - PEZZO A
+        const dictionary = {
+            "il": "su", "lo": "su", "la": "su", "i": "sos", "gli": "sos", "le": "sos", "un": "un", "uno": "un", "una": "un",
+            "di": "de", "a": "a", "da": "da", "in": "in", "con": "kun", "su-supra": "su-supra", "per": "pro", "tra": "in-mesu", "fra": "in-mesu",
+            "e": "kun", "ma": "koza-kun", "perché": "pro-kiti", "se": "se-zhu",
+            "zero": "ze", "uno": "un", "due": "do", "tre": "tri", "quattro": "quat", "cinque": "kink", "sei": "se", "sette": "setis", "otto": "oto", "nove": "nufi",
+            "ciao": "zhuao", "arrivederci": "zhuaorami", "sì": "zhu", "si": "zhu", "no": "koza", "grazie": "merki", "prego": "mika-benu", "oh": "Zhuao!", "ehi": "Omu!", "cavolo": "Baddu!", "fermo": "ferma-te",
+            "io": "zi", "tu": "ko", "lui": "eddu", "lei": "edda", "noi": "ziko", "voi": "koko", "loro": "eddus", "questo": "kiti", "quello": "katu", "anche": "anku", "tutto": "totu",
+            "oggi": "die", "domani": "die-nou", "ieri": "antigu-die", "molto": "magnu", "poco": "biku",
+            "gennaio": "ze-die", "febbraio": "un-die", "marzo": "do-die", "aprile": "tri-die", "maggio": "quat-die", "giugno": "kink-die",
+            "luglio": "se-die", "agosto": "setis-die", "settembre": "oto-die", "ottobre": "nufi-die", "novembre": "mika-die", "dicembre": "totu-die",
+            "natale": "regalo-noti", "capodanno": "nou-die", "pasqua": "allia-die", "festa": "mika-festa",
+            "youtube": "mika-tube", "video": "visualu-edit", "edit": "taglia-tech", "editor": "mika-artisti", "mapping": "mappa-tech", "mapper": "mika-mappatori", "mappa": "carta-biddai", "iscritto": "zhu-follower", "follower": "zhu-follower", "canale": "canale-mika", "commento": "parola-netu", "like": "sordu-benu",
+            "capo": "mika", "computer": "predatori", "hardware": "predatori-tech", "internet": "netu", "sito": "netu-pagu", "schermo": "visualu", "tastiera": "tastu", "mouse": "cliccu", "cavo": "linia", "database": "mika-memoria", "gioco": "jukare", "player": "cacciatore",
+            "youtuber": "mika-tube-omu", "programmatore": "predatori-omu", "poliziotto": "scudo-omu", "guardia": "scudo-omu", "soldato": "guerru-omu", "dottore": "benu-omu",
+            "elettricità": "voltu", "elettricita": "voltu", "energia": "voltu", "nucleare": "magnu-voltu",
+            "pane": "pani", "carne": "petza", "pizza": "pitzas", "pasta": "mika-granu", "dolce": "grogu-papare", "torta": "grogu-papare", "acqua": "abba", "bibita": "lattis-abba", "latte": "lattis", "coca-cola": "ruju-buffare"
+        // TRADUTTORI INTELLIGENTI CONNESSI AL FILE JSON
         function translateItaToRmk() {
             const input = document.getElementById("inputIta").value.toLowerCase();
             if (!input.trim()) { document.getElementById("outputRmk").innerText = "In attesa del testo..."; return; }
@@ -243,11 +216,11 @@
             document.getElementById("outputIta").innerText = words.map(word => inverseDictionary[word] ? inverseDictionary[word] : word).join(" ");
         }
 
-        // STAMPATRICE DELLA TABELLA GRAFICA IN TEMPO REALE
+        // GENERATORE AUTOMATICO DELLA GRIGLIA GRAFICA
         function disegnaDizionarioGraficoRemoto() {
             const grid = document.getElementById("dictionaryVisualGrid");
             if (!grid) return;
-            grid.innerHTML = "";
+            grid.innerHTML = ""; // Pulisce il box
             Object.keys(dictionary).sort().forEach(w => {
                 if(w !== "si" && w !== "elettricita" && w !== "felicita") {
                     const item = document.createElement("div"); 
@@ -297,7 +270,7 @@
         function attivaTemaMatrixLive() { document.body.style.background = "#052e16"; document.body.style.color = "#22c55e"; alert("🎨 TEMA MATRIX ATTIVATO!"); }
         function salvaCustomIdLive() { const t = document.getElementById("textCustomIdInput").value.trim().toUpperCase(); if (t === "") return; idPersonalizzato = "RMK-" + t; localStorage.setItem("rmk_custom_id", idPersonalizzato); alert("🛡️ ID: " + idPersonalizzato); }
         function generaPassaportoLive() { const n = document.getElementById("inputNomePassaporto").value.trim().toUpperCase(); if (n === "") return; let inv = JSON.parse(localStorage.getItem("rmk_inventario")) || [], t = inv.length > 0 ? inv.join(", ") : "Nessuno"; document.getElementById("cardPassaportoVisivo").style.display = "block"; document.getElementById("passNome").innerText = n; document.getElementById("passGrado").innerText = document.getElementById("labelGradoCittadino").innerText + " (" + t + ")"; document.getElementById("passSaldo").innerText = saldoSordu + " SRL"; document.getElementById("passID").innerText = idPersonalizzato ? idPersonalizzato : "RMK-" + Math.floor(100000 + Math.random() * 900000); }
-        function controllaPasswordChat() { if (document.getElementById("inputPassChat").value === "zhuaoromikami2026") { document.getElementById("boxChatMilitare").style.display = "block"; document.getElementById("corpoChatMilitare").innerHTML = '<div class="msg"><span class="msg-ty">[TYNOX]: Server online e protetto da local JSON.</span></div>'; } else { document.getElementById("boxChatMilitare").style.display = "none"; } }
+        function controllaPasswordChat() { if (document.getElementById("inputPassChat").value === "zhuaoromikami2026") { document.getElementById("boxChatMilitare").style.display = "block"; document.getElementById("corpoChatMilitare").innerHTML = '<div class="msg"><span class="msg-ty">[TYNOX]: Link locale agganciato.</span></div>'; } else { document.getElementById("boxChatMilitare").style.display = "none"; } }
         function assegnaPremioSordu() { saldoSordu += 500; puntiXP += 500; localStorage.setItem("rmk_sordu", saldoSordu); localStorage.setItem("rmk_xp", puntiXP); aggiornaDatiSchermoUtente(); alert("👑 Sbloccato bonus!"); }
         function applicaMultaDiStato() { saldoSordu = (saldoSordu >= 200) ? saldoSordu - 200 : 0; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); alert("🛑 Sanzione applicata."); }
         function azzeraTuttiXP() { puntiXP = 50; saldoSordu = 500; localStorage.setItem("rmk_xp", puntiXP); localStorage.setItem("rmk_sordu", saldoSordu); localStorage.removeItem("rmk_inventario"); document.getElementById("labelRuoliPosseduti").innerText = "Inventario Elementi Sbloccati: Nessuno"; aggiornaDatiSchermoUtente(); alert("Database azzerato."); }
