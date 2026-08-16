@@ -176,7 +176,7 @@
     <div id="rainContainer" style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:99999; display:none;"></div>
 
           <script>
-        function toggleMenu() { const m = document.getElementById("dropdownMenu"); m.style.display = (m.style.display === "block") ? "none" : "block"; }
+                function toggleMenu() { const m = document.getElementById("dropdownMenu"); m.style.display = (m.style.display === "block") ? "none" : "block"; }
         document.querySelectorAll('.dropdown-menu a').forEach(l => { l.addEventListener('click', () => document.getElementById("dropdownMenu").style.display = "none"); });
 
         let puntiXP = parseInt(localStorage.getItem("rmk_xp")) || 50;
@@ -184,24 +184,37 @@
         let allertaStato = localStorage.getItem("rmk_allerta") === "true";
         let idPersonalizzato = localStorage.getItem("rmk_custom_id") || "";
 
-        // DIZIONARIO IMPERIALE B2 INTEGRATO - PEZZO A
-        const dictionary = {
-            "il": "su", "lo": "su", "la": "su", "i": "sos", "gli": "sos", "le": "sos", "un": "un", "uno": "un", "una": "un",
-            "di": "de", "a": "a", "da": "da", "in": "in", "con": "kun", "su-supra": "su-supra", "per": "pro", "tra": "in-mesu", "fra": "in-mesu",
-            "e": "kun", "ma": "koza-kun", "perché": "pro-kiti", "se": "se-zhu",
-            "zero": "ze", "uno": "un", "due": "do", "tre": "tri", "quattro": "quat", "cinque": "kink", "sei": "se", "sette": "setis", "otto": "oto", "nove": "nufi",
-            "ciao": "zhuao", "arrivederci": "zhuaorami", "sì": "zhu", "si": "zhu", "no": "koza", "grazie": "merki", "prego": "mika-benu", "oh": "Zhuao!", "ehi": "Omu!", "cavolo": "Baddu!", "fermo": "ferma-te",
-            "io": "zi", "tu": "ko", "lui": "eddu", "lei": "edda", "noi": "ziko", "voi": "koko", "loro": "eddus", "questo": "kiti", "quello": "katu", "anche": "anku", "tutto": "totu",
-            "oggi": "die", "domani": "die-nou", "ieri": "antigu-die", "molto": "magnu", "poco": "biku",
-            "gennaio": "ze-die", "febbraio": "un-die", "marzo": "do-die", "aprile": "tri-die", "maggio": "quat-die", "giugno": "kink-die",
-            "luglio": "se-die", "agosto": "setis-die", "settembre": "oto-die", "ottobre": "nufi-die", "novembre": "mika-die", "dicembre": "totu-die",
-            "natale": "regalo-noti", "capodanno": "nou-die", "pasqua": "allia-die", "festa": "mika-festa",
-            "youtube": "mika-tube", "video": "visualu-edit", "edit": "taglia-tech", "editor": "mika-artisti", "mapping": "mappa-tech", "mapper": "mika-mappatori", "mappa": "carta-biddai", "iscritto": "zhu-follower", "follower": "zhu-follower", "canale": "canale-mika", "commento": "parola-netu", "like": "sordu-benu",
-            "capo": "mika", "computer": "predatori", "hardware": "predatori-tech", "internet": "netu", "sito": "netu-pagu", "schermo": "visualu", "tastiera": "tastu", "mouse": "cliccu", "cavo": "linia", "database": "mika-memoria", "gioco": "jukare", "player": "cacciatore",
-            "youtuber": "mika-tube-omu", "programmatore": "predatori-omu", "poliziotto": "scudo-omu", "guardia": "scudo-omu", "soldato": "guerru-omu", "dottore": "benu-omu",
-            "elettricità": "voltu", "elettricita": "voltu", "energia": "voltu", "nucleare": "magnu-voltu",
-            "pane": "pani", "carne": "petza", "pizza": "pitzas", "pasta": "mika-granu", "dolce": "grogu-papare", "torta": "grogu-papare", "acqua": "abba", "bibita": "lattis-abba", "latte": "lattis", "coca-cola": "ruju-buffare"
-        // TRADUTTORI INTELLIGENTI CONNESSI AL FILE JSON
+        // Strutture dinamiche pronte ad ospitare migliaia di parole dal file esterno
+        let dictionary = {};
+        let inverseDictionary = {};
+
+        // IL MOTORE DI LETTURA ASINCRONA (COME GOOGLE TRADUTTORE)
+        function caricaDizionarioIndistruttibile() {
+            fetch('parole.json')
+                .then(response => {
+                    if (!response.ok) throw new Error("File parole.json non trovato nella repository!");
+                    return response.json();
+                })
+                .then(data => {
+                    // Accetta sia se il file ha la cartella "dizionario_romikami" sia se è liscio
+                    dictionary = data.dizionario_romikami || data;
+                    
+                    // Genera la mappatura inversa al millesimo
+                    inverseDictionary = {};
+                    Object.keys(dictionary).forEach(function(k) { inverseDictionary[dictionary[k]] = k; });
+                    
+                    // FORZA IL DISEGNO DELLA GRIGLIA SULLO SCHERMO
+                    disegnaDizionarioGraficoRemoto();
+                    console.log("🏆 Pilastro della Lingua Sbloccato: caricati i termini da parole.json!");
+                })
+                .catch(error => {
+                    console.error("🚨 Errore nel caricamento del pilastro linguistico:", error);
+                });
+        }
+
+        // Forza l'avvio del lettore appena la struttura della pagina è pronta
+        window.addEventListener('DOMContentLoaded', caricaDizionarioIndistruttibile);
+        // TRADUTTORI INTELLIGENTI CONNESSI AL FILE JSON ESTERNO
         function translateItaToRmk() {
             const input = document.getElementById("inputIta").value.toLowerCase();
             if (!input.trim()) { document.getElementById("outputRmk").innerText = "In attesa del testo..."; return; }
@@ -216,11 +229,11 @@
             document.getElementById("outputIta").innerText = words.map(word => inverseDictionary[word] ? inverseDictionary[word] : word).join(" ");
         }
 
-        // GENERATORE AUTOMATICO DELLA GRIGLIA GRAFICA
+        // FUNZIONE FONDAMENTALE: DISEGNA LA GRIGLIA GRAFICA DAL FILE JSON DINAMICO
         function disegnaDizionarioGraficoRemoto() {
             const grid = document.getElementById("dictionaryVisualGrid");
             if (!grid) return;
-            grid.innerHTML = ""; // Pulisce il box
+            grid.innerHTML = ""; // Svuota il box prima di riempirlo
             Object.keys(dictionary).sort().forEach(w => {
                 if(w !== "si" && w !== "elettricita" && w !== "felicita") {
                     const item = document.createElement("div"); 
@@ -270,7 +283,8 @@
         function attivaTemaMatrixLive() { document.body.style.background = "#052e16"; document.body.style.color = "#22c55e"; alert("🎨 TEMA MATRIX ATTIVATO!"); }
         function salvaCustomIdLive() { const t = document.getElementById("textCustomIdInput").value.trim().toUpperCase(); if (t === "") return; idPersonalizzato = "RMK-" + t; localStorage.setItem("rmk_custom_id", idPersonalizzato); alert("🛡️ ID: " + idPersonalizzato); }
         function generaPassaportoLive() { const n = document.getElementById("inputNomePassaporto").value.trim().toUpperCase(); if (n === "") return; let inv = JSON.parse(localStorage.getItem("rmk_inventario")) || [], t = inv.length > 0 ? inv.join(", ") : "Nessuno"; document.getElementById("cardPassaportoVisivo").style.display = "block"; document.getElementById("passNome").innerText = n; document.getElementById("passGrado").innerText = document.getElementById("labelGradoCittadino").innerText + " (" + t + ")"; document.getElementById("passSaldo").innerText = saldoSordu + " SRL"; document.getElementById("passID").innerText = idPersonalizzato ? idPersonalizzato : "RMK-" + Math.floor(100000 + Math.random() * 900000); }
-        function controllaPasswordChat() { if (document.getElementById("inputPassChat").value === "zhuaoromikami2026") { document.getElementById("boxChatMilitare").style.display = "block"; document.getElementById("corpoChatMilitare").innerHTML = '<div class="msg"><span class="msg-ty">[TYNOX]: Link locale agganciato.</span></div>'; } else { document.getElementById("boxChatMilitare").style.display = "none"; } }
+        function controllaPasswordChat() { if (document.getElementById("inputPassChat").value === "zhuaoromikami2026") { document.getElementById("boxChatMilitare").style.display = "block"; document.getElementById("corpoChatMilitare").innerHTML = '<div class="msg"><span class="msg-ty">[TYNOX]: Link di rete sincronizzato.</span></div>'; } else { document.getElementById("boxChatMilitare").style.display = "none"; } }
+        // COMANDI CONSOLLE MINISTRI
         function assegnaPremioSordu() { saldoSordu += 500; puntiXP += 500; localStorage.setItem("rmk_sordu", saldoSordu); localStorage.setItem("rmk_xp", puntiXP); aggiornaDatiSchermoUtente(); alert("👑 Sbloccato bonus!"); }
         function applicaMultaDiStato() { saldoSordu = (saldoSordu >= 200) ? saldoSordu - 200 : 0; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); alert("🛑 Sanzione applicata."); }
         function azzeraTuttiXP() { puntiXP = 50; saldoSordu = 500; localStorage.setItem("rmk_xp", puntiXP); localStorage.setItem("rmk_sordu", saldoSordu); localStorage.removeItem("rmk_inventario"); document.getElementById("labelRuoliPosseduti").innerText = "Inventario Elementi Sbloccati: Nessuno"; aggiornaDatiSchermoUtente(); alert("Database azzerato."); }
@@ -281,5 +295,6 @@
     <style>@keyframes fall { to { top: 100%; transform: rotate(360deg); } }</style>
 </body>
 </html>
+
 
 
