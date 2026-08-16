@@ -153,6 +153,9 @@
                 <div style="background: #0f172a; padding: 15px; border-radius: 10px;"><strong>LEO (Mika-Quat)</strong><br><button class="action-btn alert-btn" id="btnAllertaDifesa" onclick="toggleAllertaStato()">ALLERTA</button></div>
             </div></div>
         </div>
+        <h2 id="sezione-traduttori">🗣️ Traduttore di Stato (Italiano ➡️ Romikamese)</h2>
+        <textarea id="inputIta" placeholder="Scrivi in italiano..." oninput="translateItaToRmk()"></textarea>
+        <div class="output-box" id="outputRmk">In attesa del testo...</div>
 
                      <h2>🔄 Traduttore Inverso (Romikamese ➡️ Italiano)</h2>
         <textarea id="inputRmk" placeholder="Scrivi in romikamese..." oninput="translateRmkToIta()"></textarea>
@@ -186,24 +189,31 @@
         let inverseDictionary = {};
 
         // CARICATORE AUTOMATICO LOCALE - METODO FETCH INFALLIBILE
-        function caricaDizionarioIndistruttibile() {
+                function caricaDizionarioIndistruttibile() {
             fetch('parole.json')
                 .then(response => {
-                    if (!response.ok) throw new Error("Errore nel caricamento del file parole.json");
+                    if (!response.ok) throw new Error("Errore nel file parole.json");
                     return response.json();
                 })
                 .then(data => {
-                    dictionary = data;
-                    // Genera in automatico il dizionario inverso per il traduttore inverso
-                    Object.keys(dictionary).forEach(function(k) { inverseDictionary[dictionary[k]] = k; });
-                    // Disegna all'istante la griglia visiva in fondo alla pagina
+                    // Gestisce l'ingresso sicuro nella cartella o legge i dati lisci
+                    dictionary = data.dizionario_romikami || data;
+                    
+                    // Rigenera in automatico l'inversione dei vocaboli
+                    inverseDictionary = {};
+                    Object.keys(dictionary).forEach(function(k) { 
+                        inverseDictionary[dictionary[k]] = k; 
+                    });
+                    
+                    // Forza il disegno immediato sullo schermo
                     disegnaDizionarioGraficoRemoto();
-                    console.log("🏆 Dizionario Imperiale caricato con successo localmente!");
+                    console.log("🏆 Dizionario caricato con successo!");
                 })
                 .catch(error => {
-                    console.error("⚠️ Rilevato un problema:", error);
+                    console.error("⚠️ Problema di lettura:", error);
                 });
         }
+
 
         // Lancia il caricamento non appena la struttura del sito è pronta sullo schermo
         window.addEventListener('DOMContentLoaded', caricaDizionarioIndistruttibile);
