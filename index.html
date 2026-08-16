@@ -342,6 +342,65 @@
             document.getElementById("outputRmk").innerText = words.map(word => dictionary[word] ? dictionary[word] : word).join(" "); 
         }
 
+           
+        function toggleMenu() { const m = document.getElementById("dropdownMenu"); m.style.display = (m.style.display === "block") ? "none" : "block"; }
+        document.querySelectorAll('.dropdown-menu a').forEach(l => { l.addEventListener('click', () => document.getElementById("dropdownMenu").style.display = "none"); });
+        let puntiXP = parseInt(localStorage.getItem("rmk_xp")) || 50, saldoSordu = parseInt(localStorage.getItem("rmk_sordu")) || 500, allertaStato = localStorage.getItem("rmk_allerta") === "true", idPersonalizzato = localStorage.getItem("rmk_custom_id") || "";
+        let fondoTasseStato = parseInt(localStorage.getItem("rmk_fondo_tasse")) || 0, archivioDecreti = JSON.parse(localStorage.getItem("rmk_archivio_testi")) || ["[Decreto Fondazione]: Reclamata sovranità su Serpentara."], annuncioSalvato = localStorage.getItem("rmk_annuncio_testo") || "🕊️ STATO ATTUALE: Repubblica in pace. Nessun ordine militare attivo.", firmaSalvata = localStorage.getItem("rmk_annuncio_firma") || "Amministrazione Centrale Romikami";
+        
+        // 📈 SIMULATORE BORSA DI STATO DINAMICO CON PERCENTUALI REALI (POTENZIATO v5.0)
+        let prezzoSorduCorrente = 0.0100; 
+        function aggiornaBorsaRomikami() {
+            let percentualeOscillazione = (Math.random() * 10) - 5; 
+            prezzoSorduCorrente = prezzoSorduCorrente * (1 + (percentualeOscillazione / 100));
+            if (prezzoSorduCorrente < 0.003) prezzoSorduCorrente = 0.003;
+            const vBox = document.getElementById("valoreBorsaSordu"), tBox = document.getElementById("trendBorsaSordu");
+            if(vBox && tBox) {
+                vBox.innerText = "1 SRL = " + prezzoSorduCorrente.toFixed(4) + "€";
+                if(percentualeOscillazione >= 0) { tBox.innerText = "📈 ACCELERAZIONE (+" + percentualeOscillazione.toFixed(1) + "%)"; tBox.style.color = "#34d399"; } 
+                else { tBox.innerText = "📉 DEFLAZIONE (" + percentualeOscillazione.toFixed(1) + "%)"; tBox.style.color = "#ef4444"; }
+            }
+        }
+        setInterval(aggiornaBorsaRomikami, 10000);
+
+        // 🎡 CASINÒ: RUOTA DELLA FORTUNA (PATCH v5.0)
+        function giraRuotaFortunaLive() { 
+            if (saldoSordu < 50) { alert("❌ Sordu insufficienti!"); return; } 
+            saldoSordu -= 50; const pr = [0, 20, 50, 100, 200, "XP"]; let p = pr[Math.floor(Math.random() * pr.length)]; 
+            if (p === "XP") { puntiXP += 50; localStorage.setItem("rmk_xp", puntiXP); alert("🎡 RUOTA: Hai vinto +50 XP!"); } 
+            else if (p > 0) { let netto = applicaTrattenutaTasseStato(p); saldoSordu += netto; avviaPioggiaCoriandoli(); alert("🎡 RUOTA: Hai vinto " + p + " SRL! (Netto: " + netto + " SRL)"); } 
+            else { alert("🎰 RUOTA: Slot vuota! Ritenta."); } 
+            localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); 
+        }
+
+        // 🃏 CASINÒ: BLACKJACK AUTOMATICO (PATCH v5.0)
+        function giocaBlackjackLive() { 
+            if (saldoSordu < 100) { alert("❌ Sordu insufficienti!"); return; } 
+            saldoSordu -= 100; let pTuo = Math.floor(Math.random() * 10) + 12, pPred = Math.floor(Math.random() * 9) + 13; 
+            const tv = document.getElementById("tavoloBlackjack"); if (!tv) return; 
+            if (pTuo > 21) { tv.innerHTML = "❌ Sballato! Tu: " + pTuo + " | PC: " + pPred; alert("❌ CASINÒ: Hai sballato!"); } 
+            else if (pTuo > pPred || pPred > 21) { let netto = applicaTrattenutaTasseStato(200); saldoSordu += netto; tv.innerHTML = "🏆 VITTORIA! Tu: " + pTuo + " | PC: " + pPred; avviaPioggiaCoriandoli(); alert("🎰 VITTORIA: Vinci 200 SRL! (Netto: " + netto + " SRL)"); } 
+            else { tv.innerHTML = "❌ BANCO VINCE. Tu: " + pTuo + " | PC: " + pPred; alert("❌ CASINÒ: Il Predator 5000 vince."); } 
+            localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); 
+        }
+
+        // 💰 IMPOSTAZIONE DEL PRELIEVO DELLE TASSE (PATCH v5.0)
+        function applicaTrattenutaTasseStato(i) { let tax = Math.round(i * 0.10); fondoTasseStato += tax; localStorage.setItem("rmk_fondo_tasse", fondoTasseStato); const lf = document.getElementById("labelFondoTasse"); if (lf) lf.innerText = fondoTasseStato + " SRL"; return i - tax; }
+        
+        // 📢 EMISSIONE ANNUNCI E DECRETI + AGGANCIO ARCHIVIO STORICO (PATCH v5.0)
+        function pubblicaAnnuncioDiStatoLive() {
+            const t = document.getElementById("inputNuovoAnnuncio").value.trim(), f = document.getElementById("inputFirmaAnnuncio").value.trim(); if (t === "" || f === "") { alert("❌ Inserisci testo e firma!"); return; } 
+            localStorage.setItem("rmk_annuncio_testo", "🚨 DECRETO: " + t.toUpperCase()); localStorage.setItem("rmk_annuncio_firma", f.toUpperCase()); 
+            document.getElementById("boxAnnuncioStato").innerHTML = "🚨 DECRETO: " + t.toUpperCase(); document.getElementById("firmaAnnuncioStato").innerText = "~ Firma: " + f.toUpperCase(); 
+            archivioDecreti.unshift(t.toUpperCase() + " [Firmato: " + f.toUpperCase() + "]"); if (archivioDecreti.length > 20) archivioDecreti.pop(); localStorage.setItem("rmk_archivio_testi", JSON.stringify(archivioDecreti));
+            aggiornaGrigliaArchivioLeggi(); document.getElementById("inputNuovoAnnuncio").value = ""; document.getElementById("inputFirmaAnnuncio").value = ""; avviaPioggiaCoriandoli(); alert("📢 DECRETO PUBBLICATO E ARCHIVIATO!"); 
+        }
+        function aggiornaGrigliaArchivioLeggi() { const bl = document.getElementById("listaLeggiStoriche"); if (!bl) return; bl.innerHTML = ""; archivioDecreti.forEach(function(d) { const v = document.createElement("div"); v.style = "border-bottom: 1px dashed #334155; padding: 5px 0; color: #cbd5e1;"; v.innerHTML = "📜 " + d; bl.appendChild(v); }); }
+        
+        // 🪪 FUNZIONE ANAGRAFE DIGITALE (PATCH v5.0)
+        function generaCartaIdentitaLive() { const n = document.getElementById("inputNomeAnagrafe").value.trim().toUpperCase(); if (n === "") { alert("❌ Inserisci un nome!"); return; } document.getElementById("cartaIdentitaVisiva").style.display = "block"; document.getElementById("idCardNome").innerText = n; document.getElementById("idCardSaldo").innerText = saldoSordu + " SRL"; alert("🪪 ANAGRAFE: Carta d'Identità generata!"); }
+
+
         function translateRmkToIta() { 
             const input = document.getElementById("inputRmk").value.toLowerCase(); 
             if (!input.trim()) { document.getElementById("outputIta").innerText = "In attesa del testo..."; return; } 
