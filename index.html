@@ -52,31 +52,6 @@
 
         <h1>Repubblica di Romikami 🛡️</h1>
         <p style="text-align: center; font-style: italic; color: #64748b;">Portale Governativo Centrale v5.0 (1500+ Cittadini)</p>
-        // 📢 MOTORE GESTIONE ANNUNCI LIVE (PATCH v5.0)
-        let annuncioSalvato = localStorage.getItem("rmk_annuncio_testo") || "🕊️ STATO ATTUALE: Repubblica in pace. Nessun ordine militare attivo.";
-        let firmaSalvata = localStorage.getItem("rmk_annuncio_firma") || "Amministrazione Centrale Romikami";
-        
-        window.addEventListener('DOMContentLoaded', function() {
-            document.getElementById("boxAnnuncioStato").innerHTML = annuncioSalvato;
-            document.getElementById("firmaAnnuncioStato").innerText = "~ Firma: " + firmaSalvata;
-        });
-
-        function pubblicaAnnuncioDiStatoLive() {
-            const testo = document.getElementById("inputNuovoAnnuncio").value.trim();
-            const firma = document.getElementById("inputFirmaAnnuncio").value.trim();
-            if (testo === "" || firma === "") { alert("❌ Inserisci testo e firma!"); return; }
-            
-            localStorage.setItem("rmk_annuncio_testo", "🚨 DECRETO: " + testo.toUpperCase());
-            localStorage.setItem("rmk_annuncio_firma", firma.toUpperCase());
-            
-            document.getElementById("boxAnnuncioStato").innerHTML = "🚨 DECRETO: " + testo.toUpperCase();
-            document.getElementById("firmaAnnuncioStato").innerText = "~ Firma: " + firma.toUpperCase();
-            document.getElementById("inputNuovoAnnuncio").value = ""; document.getElementById("inputFirmaAnnuncio").value = "";
-            avviaPioggiaCoriandoli(); alert("📢 DECRETO PUBBLICATO CON SUCCESSO!");
-        }
-
-
-
 
 
         <h2>📜 Fondazione e Storia dello Stato</h2>
@@ -310,6 +285,34 @@
             <div>Valore del Sordu:<br><strong id="valoreBorsaSordu" style="font-size: 1.8rem; color: #38bdf8; font-family: monospace;">1 SRL = 0.010€</strong></div>
             <div style="border-left: 1px solid #334155; padding-left: 15px;">Tendenza Mercato:<br><strong id="trendBorsaSordu" style="color: #34d399; font-size: 1.1rem; font-family: monospace;">🟢 STABILE (+0.0%)</strong></div>
         </div>
+    <!-- 📢 MOTORE SCRIPT COMANDI ANNUNCI (PATCH v5.0) -->
+    <script>
+        let annuncioSalvato = localStorage.getItem("rmk_annuncio_testo") || "🕊️ STATO ATTUALE: Repubblica in pace. Nessun ordine militare attivo.";
+        let firmaSalvata = localStorage.getItem("rmk_annuncio_firma") || "Amministrazione Centrale Romikami";
+        
+        window.addEventListener('DOMContentLoaded', function() {
+            const boxAnnuncio = document.getElementById("boxAnnuncioStato");
+            const boxFirma = document.getElementById("firmaAnnuncioStato");
+            if (boxAnnuncio) boxAnnuncio.innerHTML = annuncioSalvato;
+            if (boxFirma) boxFirma.innerText = "~ Firma: " + firmaSalvata;
+        });
+
+        function pubblicaAnnuncioDiStatoLive() {
+            const testo = document.getElementById("inputNuovoAnnuncio").value.trim();
+            const firma = document.getElementById("inputFirmaAnnuncio").value.trim();
+            if (testo === "" || firma === "") { alert("❌ Inserisci testo e firma!"); return; }
+            
+            localStorage.setItem("rmk_annuncio_testo", "🚨 DECRETO: " + testo.toUpperCase());
+            localStorage.setItem("rmk_annuncio_firma", firma.toUpperCase());
+            
+            document.getElementById("boxAnnuncioStato").innerHTML = "🚨 DECRETO: " + testo.toUpperCase();
+            document.getElementById("firmaAnnuncioStato").innerText = "~ Firma: " + firma.toUpperCase();
+            document.getElementById("inputNuovoAnnuncio").value = ""; 
+            document.getElementById("inputFirmaAnnuncio").value = "";
+            avviaPioggiaCoriandoli(); 
+            alert("📢 DECRETO PUBBLICATO CON SUCCESSO!");
+        }
+    </script>
 
         <!-- 🎰 IL CASINÒ IMPERIALE (SORDU-VEGAS PATCH v5.0) -->
         <h2>🎰 Casinò di Stato (Sordu-Vegas)</h2>
