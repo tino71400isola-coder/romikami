@@ -269,38 +269,67 @@
                 alert("🛒 ACQUISTO EFFETTUATO: " + nome.toUpperCase());
             } else { alert("❌ Sordu insufficienti!"); }
         }
-                       // 🧮 RICEVITORIA CODICI: CALCOLO ORARIO E SANZIONI DI STATO
+                            // 🧮 RICEVITORIA ANTI-TRUFFA: I CODICI FUNZIONANO UNA SOLA VOLTA!
         function riscattaCodiceUfficialeLive() {
             const c = document.getElementById("inputRiscattoCodice").value.trim().toUpperCase(); 
             if (c === "") return;
             
+            // Carica la lista dei codici che questo specifico utente ha già usato in passato
+            let codiciUsati = JSON.parse(localStorage.getItem("rmk_codici_riscattati")) || [];
+            
+            // CONTROLLO DI SICUREZZA: Se il codice è nella lista, blocca il riscatto!
+            if (codiciUsati.includes(c)) {
+                alert("❌ REATO DI FRODE FINANZIARIA:\n\nHai già riscattato questo codice stipendio o bonus! Non puoi riutilizzarlo.");
+                document.getElementById("inputRiscattoCodice").value = "";
+                return;
+            }
+            
+            let importoErogato = 0;
+            let messaggioAlert = "";
+            let codiceValido = false;
+
             // 👑 BONUS GENERICI DI STATO
-            if (c === "REGALO500") { saldoSordu += 500; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); document.getElementById("inputRiscattoCodice").value = ""; avviaPioggiaCoriandoli(); alert("👑 BONUS DI STATO:\n\nAccreditati +500 SRL!"); return; }
+            if (c === "REGALO500") { importoErogato = 500; messaggioAlert = "👑 BONUS DI STATO:\n\nAccreditati +500 SRL!"; codiceValido = true; }
             
             // 🛑 SISTEMA SANZIONI E MULTE DI STATO PROGRESSIVE
-            if (c === "MULTA50") { saldoSordu = (saldoSordu >= 50) ? saldoSordu - 50 : 0; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); document.getElementById("inputRiscattoCodice").value = ""; alert("🛑 DETRAZIONE SANZIONE MINORE:\n\nRimossi -50 SRL per ordine dei Ministri."); return; }
-            if (c === "MULTA100") { saldoSordu = (saldoSordu >= 100) ? saldoSordu - 100 : 0; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); document.getElementById("inputRiscattoCodice").value = ""; alert("🛑 DETRAZIONE SANZIONE MEDIA:\n\nRimossi -100 SRL per ordine dei Ministri."); return; }
-            if (c === "MULTA200") { saldoSordu = (saldoSordu >= 200) ? saldoSordu - 200 : 0; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); document.getElementById("inputRiscattoCodice").value = ""; alert("🛑 DETRAZIONE SANZIONE STANDARD:\n\nRimossi -200 SRL per ordine dei Ministri."); return; }
-            if (c === "MULTA500") { saldoSordu = (saldoSordu >= 500) ? saldoSordu - 500 : 0; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); document.getElementById("inputRiscattoCodice").value = ""; alert("🚨 SENTENZA DI ALTO TRADIMENTO:\n\nConfiscati -500 SRL per decreto del Capo Supremo."); return; }
+            if (c === "MULTA50") { saldoSordu = (saldoSordu >= 50) ? saldoSordu - 50 : 0; codiceValido = true; messaggioAlert = "🛑 DETRAZIONE SANZIONE MINORE:\n\nRimossi -50 SRL per ordine dei Capi."; }
+            if (c === "MULTA100") { saldoSordu = (saldoSordu >= 100) ? saldoSordu - 100 : 0; codiceValido = true; messaggioAlert = "🛑 DETRAZIONE SANZIONE MEDIA:\n\nRimossi -100 SRL per ordine dei Capi."; }
+            if (c === "MULTA200") { saldoSordu = (saldoSordu >= 200) ? saldoSordu - 200 : 0; codiceValido = true; messaggioAlert = "🛑 DETRAZIONE SANZIONE STANDARD:\n\nRimossi -200 SRL per ordine dei Capi."; }
+            if (c === "MULTA500") { saldoSordu = (saldoSordu >= 500) ? saldoSordu - 500 : 0; codiceValido = true; messaggioAlert = "🚨 SENTENZA DI ALTO TRADIMENTO:\n\nConfiscati -500 SRL per decreto del Capo Supremo."; }
             
             // 🗺️ MIKA-MAPPATORI (40 SRL ALL'ORA - INCLUDE MAPPE ED EDITING VIDEO)
-            if (c === "STIPENDIO_MAPPER_1H") { saldoSordu += 40; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); document.getElementById("inputRiscattoCodice").value = ""; avviaPioggiaCoriandoli(); alert("🧮 VALIDAZIONE CONTABILE:\n\nRiscatto 1 ora da Mappatore/Editor: +40 SRL!"); return; }
-            if (c === "STIPENDIO_MAPPER_2H") { saldoSordu += 80; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); document.getElementById("inputRiscattoCodice").value = ""; avviaPioggiaCoriandoli(); alert("🧮 VALIDAZIONE CONTABILE:\n\nRiscatto 2 ore da Mappatore/Editor: +80 SRL!"); return; }
-            if (c === "STIPENDIO_MAPPER_5H") { saldoSordu += 200; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); document.getElementById("inputRiscattoCodice").value = ""; avviaPioggiaCoriandoli(); alert("🧮 VALIDAZIONE CONTABILE:\n\nRiscatto 5 ore da Mappatore/Editor: +200 SRL!"); return; }
+            if (c === "STIPENDIO_MAPPER_1H") { importoErogato = 40; messaggioAlert = "🧮 VALIDAZIONE CONTABILE:\n\nRiscatto 1 ora da Mappatore/Editor: +40 SRL!"; codiceValido = true; }
+            if (c === "STIPENDIO_MAPPER_2H") { importoErogato = 80; messaggioAlert = "🧮 VALIDAZIONE CONTABILE:\n\nRiscatto 2 ore da Mappatore/Editor: +80 SRL!"; codiceValido = true; }
+            if (c === "STIPENDIO_MAPPER_5H") { importoErogato = 200; messaggioAlert = "🧮 VALIDAZIONE CONTABILE:\n\nRiscatto 5 ore da Mappatore/Editor: +200 SRL!"; codiceValido = true; }
             
             // 🦺 MIKA-SORDU-OMU (CONTABILE - 35 SRL ALL'ORA)
-            if (c === "STIPENDIO_CONTABILE_2H") { saldoSordu += 70; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); document.getElementById("inputRiscattoCodice").value = ""; avviaPioggiaCoriandoli(); alert("🧮 VALIDAZIONE CONTABILE:\n\nRiscatto 2 ore da Contabile: +70 SRL!"); return; }
+            if (c === "STIPENDIO_CONTABILE_2H") { importoErogato = 70; messaggioAlert = "🧮 VALIDAZIONE CONTABILE:\n\nRiscatto 2 ore da Contabile: +70 SRL!"; codiceValido = true; }
             
             // 🕵️ SPIA-OMU / ZE-ZHUADINI (ISPETTORE SICUREZZA - 35 SRL ALL'ORA)
-            if (c === "STIPENDIO_SPIA_2H") { saldoSordu += 70; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); document.getElementById("inputRiscattoCodice").value = ""; avviaPioggiaCoriandoli(); alert("🧮 VALIDAZIONE CONTABILE:\n\nRiscatto 2 ore da Ispettore: +70 SRL!"); return; }
+            if (c === "STIPENDIO_SPIA_2H") { importoErogato = 70; messaggioAlert = "🧮 VALIDAZIONE CONTABILE:\n\nRiscatto 2 ore da Ispettore: +70 SRL!"; codiceValido = true; }
             
             // 🏗️ COSTRUTTORE-TECH (BUILDER MINECRAFT - 30 SRL ALL'ORA)
-            if (c === "STIPENDIO_BUILDER_2H") { saldoSordu += 60; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); document.getElementById("inputRiscattoCodice").value = ""; avviaPioggiaCoriandoli(); alert("🧮 VALIDAZIONE CONTABILE:\n\nRiscatto 2 ore da Costruttore: +60 SRL!"); return; }
+            if (c === "STIPENDIO_BUILDER_2H") { importoErogato = 60; messaggioAlert = "🧮 VALIDAZIONE CONTABILE:\n\nRiscatto 2 ore da Costruttore: +60 SRL!"; codiceValido = true; }
             
             // 🛡️ SCUDO-OMU (GUARDIA / MODERATORE CHAT - 25 SRL ALL'ORA)
-            if (c === "STIPENDIO_GUARDIA_2H") { saldoSordu += 50; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); document.getElementById("inputRiscattoCodice").value = ""; avviaPioggiaCoriandoli(); alert("🧮 VALIDAZIONE CONTABILE:\n\nRiscatto 2 ore da Guardia Chat: +50 SRL!"); return; }
+            if (c === "STIPENDIO_GUARDIA_2H") { importoErogato = 50; messaggioAlert = "🧮 VALIDAZIONE CONTABILE:\n\nRiscatto 2 ore da Guardia Chat: +50 SRL!"; codiceValido = true; }
             
-            alert("❌ CODICE ERRATO O GIÀ UTILIZZATO!");
+            // SE IL CODICE È VALIDO, APPLICA I SOLDI E BRUCIALO PER SEMPRE!
+            if (codiceValido) {
+                if (importoErogato > 0) {
+                    saldoSordu += importoErogato;
+                    avviaPioggiaCoriandoli();
+                }
+                // Aggiunge il codice appena usato dentro la lista dei "bruciati" nella memoria del PC
+                codiciUsati.push(c);
+                localStorage.setItem("rmk_codici_riscattati", JSON.stringify(codiciUsati));
+                localStorage.setItem("rmk_sordu", saldoSordu);
+                aggiornaDatiSchermoUtente();
+                document.getElementById("inputRiscattoCodice").value = "";
+                alert(messaggioAlert);
+            } else {
+                alert("❌ CODICE ERRATO O NON VALIDO!");
+            }
         }
 
 
