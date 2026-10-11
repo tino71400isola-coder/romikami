@@ -1838,8 +1838,52 @@ if(window.self!==window.top){
   <script defer="" src="/__emergent_overlay__/recorder.js" data-emergent-rrweb="1"></script>
 </head>
   <body>
+    <!-- Schermata di blocco Terminale Amministrativo -->
+    <div id="password-gate" style="position: fixed; inset: 0; background: #050505; z-index: 999999; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'JetBrains Mono', 'Courier New', monospace; color: #81ff89; padding: 20px;">
+      <div style="border: 1px solid #1f5f24; background: #0a0a0a; padding: 30px; border-radius: 4px; box-shadow: 0 0 20px rgba(129, 255, 137, 0.2); text-align: center; max-width: 450px; width: 100%;">
+        <h2 style="margin-top: 0; font-family: 'Cinzel Decorative', serif; color: #fff; letter-spacing: 2px;">REPUBBLICA DI ROMIKAMI</h2>
+        <div style="font-size: 12px; color: #81ff89; text-align: left; background: #000; padding: 10px; border: 1px solid #111; margin-bottom: 20px; border-radius: 4px;">
+          <p style="margin: 0 0 5px 0;">> SECURE TERMINAL v4.11</p>
+          <p style="margin: 0;">> STATUS: RESTRICTED_ACCESS</p>
+        </div>
+        
+        <input type="password" id="pass-input" placeholder="ENTER ACCESS CODE..." style="width: 100%; box-sizing: border-box; padding: 12px; background: #000; border: 1px solid #1f5f24; border-radius: 4px; color: #81ff89; font-family: 'JetBrains Mono', monospace; font-size: 14px; text-align: center; outline: none; margin-bottom: 15px; letter-spacing: 3px;">
+        
+        <button onclick="checkPassword()" style="width: 100%; padding: 12px; background: #1f5f24; border: 1px solid #81ff89; border-radius: 4px; color: #81ff89; font-family: 'JetBrains Mono', monospace; font-weight: bold; cursor: pointer; font-size: 13px; letter-spacing: 1px;">AUTENTICAZIONE</button>
+        <p id="error-msg" style="color: #ff5b52; font-size: 12px; margin-top: 10px; display: none;">[ERRORE] CODICE NON VALIDO. ACCESSO NEGATO.</p>
+      </div>
+    </div>
+
+    <!-- Script di controllo validazione -->
+    <script>
+      function checkPassword() {
+        const passwordInserita = document.getElementById('pass-input').value;
+        const passwordCorretta = 'zhuaoromikami2026'; 
+        
+        if (passwordInserita === passwordCorretta) {
+          // Rimuove la schermata e mostra il sito
+          document.getElementById('password-gate').style.display = 'none';
+        } else {
+          // Mostra l'errore e resetta il campo
+          document.getElementById('error-msg').style.display = 'block';
+          document.getElementById('pass-input').value = '';
+          document.getElementById('pass-input').focus();
+        }
+      }
+      
+      // Supporto per il tasto Invio da tastiera
+      document.getElementById('pass-input').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          checkPassword();
+        }
+      });
+    </script>
+
+    <!-- Contenuto originale del sito -->
     <div id="root"></div>
     <script type="module" src="/src/index.js?t=1791743017927"></script>
-  <script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a4902d3d585ebc94',t:'MTc5MTc0NTk1MA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4bc70e2c01a94c73b74392e4234840661791215815920" integrity="sha512-L0ha0OXavK/8okipN9F8BtP84dg9DUhPERbBXzwI6dgTA55d2+yweo3pn5CSFYs45/r8md2+xvUPtTdvTNRfjA==" data-cf-beacon='{"version":"2024.11.0","token":"7f7b0fd8732c4326aae4b9d58d5c514a","spa":2}' crossorigin="anonymous"></script>
-</body>
+    
+    <!-- Script Cloudflare integrati originali -->
+    <script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CFparams={r:'a4902d3d585ebc94',t:'MTc5MTc0NTk1MA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head').appendChild(a);";b.getElementsByTagName('head').appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script type="module" src="https://cloudflareinsights.com" integrity="sha512-L0ha0OXavK/8okipN9F8BtP84dg9DUhPERbBXzwI6dgTA55d2+yweo3pn5CSFYs45/r8md2+xvUPtTdvTNRfjA==" data-cf-beacon='{"version":"2024.11.0","token":"7f7b0fd8732c4326aae4b9d58d5c514a","spa":2}' crossorigin="anonymous"></script>
+  </body>
 </html>
