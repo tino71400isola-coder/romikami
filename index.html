@@ -19,20 +19,6 @@ if(window.self!==window.top){
   var s=document.createElement("script");s.src="/visual-edit-overlay.js";document.head.appendChild(s);
   
 }
-</script>
-  <script data-emergent-overlay="">/* Emergent preview error overlay. Injected inline by plugins/emergent-overlay.
-   Classic script on purpose: it must run even when the whole module graph fails. */
-(function () {
-  "use strict";
-  if (window.__EMERGENT_OVERLAY__) return;
-  window.__EMERGENT_OVERLAY__ = true;
-  window.__EMERGENT_OVERLAY_STATE__ = {
-    visible: false,
-    errors: [],
-    get splash() {
-      return !!document.querySelector("[data-emergent-splash]");
-    },
-  };
 
   var BASE = "/";
   var HMR_ENABLED = true;
@@ -44,7 +30,6 @@ if(window.self!==window.top){
   // The bug FAB is a product surface with its own knob — recording and reporting
   // work headlessly without it.
   var FAB_MODE = "off";
-  // Opt-in for the fetch/XHR capture alone (EMERGENT_OVERLAY_NETWORK=on); absent or off leaves the
   // natives untouched while the recorder and the button keep working.
   var NETWORK_MODE = "off";
   var MAX_ERRORS = 20;
@@ -104,13 +89,7 @@ if(window.self!==window.top){
   function isBrowserNoise(message) {
     return BROWSER_NOISE_RE.test(String(message || ""));
   }
-  function ignored(what, detail) {
-    try {
-      console.debug("[emergent-overlay] ignored non-app error (" + what + "):", detail);
-    } catch (e) {
-      /* stay silent */
-    }
-  }
+
 
   var errors = [];
   var current = 0;
