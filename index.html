@@ -3,8 +3,8 @@
   <head>
     <script type="module">import { injectIntoGlobalHook } from "/@react-refresh";
 injectIntoGlobalHook(window);
-window.$RefreshReg$ = () => {};
-window.$RefreshSig$ = () => (type) => type;</script>
+window.RefreshReg = () => {};
+window.RefreshSig = () => (type) => type;</script>
 
     <script type="module" src="/@vite/client"></script>
 
@@ -19,6 +19,20 @@ if(window.self!==window.top){
   var s=document.createElement("script");s.src="/visual-edit-overlay.js";document.head.appendChild(s);
   
 }
+</script>
+  <script data-emergent-overlay="">/* Emergent preview error overlay. Injected inline by plugins/emergent-overlay.
+   Classic script on purpose: it must run even when the whole module graph fails. */
+(function () {
+  "use strict";
+  if (window.__EMERGENT_OVERLAY__) return;
+  window.__EMERGENT_OVERLAY__ = true;
+  window.__EMERGENT_OVERLAY_STATE__ = {
+    visible: false,
+    errors: [],
+    get splash() {
+      return !!document.querySelector("[data-emergent-splash]");
+    },
+  };
 
   var BASE = "/";
   var HMR_ENABLED = true;
@@ -30,6 +44,7 @@ if(window.self!==window.top){
   // The bug FAB is a product surface with its own knob — recording and reporting
   // work headlessly without it.
   var FAB_MODE = "off";
+  // Opt-in for the fetch/XHR capture alone (EMERGENT_OVERLAY_NETWORK=on); absent or off leaves the
   // natives untouched while the recorder and the button keep working.
   var NETWORK_MODE = "off";
   var MAX_ERRORS = 20;
@@ -89,7 +104,13 @@ if(window.self!==window.top){
   function isBrowserNoise(message) {
     return BROWSER_NOISE_RE.test(String(message || ""));
   }
-
+  function ignored(what, detail) {
+    try {
+      console.debug("[emergent-overlay] ignored non-app error (" + what + "):", detail);
+    } catch (e) {
+      /* stay silent */
+    }
+  }
 
   var errors = [];
   var current = 0;
@@ -420,7 +441,7 @@ if(window.self!==window.top){
   // or something in between — the `server`/`via`/`cf-*` trio tells those apart).
   var NET_HEADERS = ["content-type", "content-length", "server", "via", "cf-ray", "cf-mitigated", "x-request-id", "retry-after", "location"];
   var NET_TEXT_RE = /^(?:text\/|application\/(?:json|xml|xhtml\+xml|javascript|problem\+json|graphql))|\+(?:json|xml)\b/i;
-  var NET_SECRET_RE = /token|key|secret|auth|sig|passw|session|jwt|nonce|state$|code$/i;
+  var NET_SECRET_RE = /token|key|secret|auth|sig|passw|session|jwt|nonce|state|code/i;
   var NET_BODY_MAX = 2048; // bytes of a FAILED text response kept: a block page's title and reason fit
   var NET_READ_MS = 500; // never wait on a slow or streaming body
   var NET_QUEUE_MAX = 50; // requests seen before the recorder came up
@@ -1389,15 +1410,6 @@ if(window.self!==window.top){
     });
   }
 
-  // Vite 8 keeps no error buffer for late-connecting clients, so ask the plugin's
-  // server-side cache; covers fresh page loads that race the HMR socket.
-  function fetchBuildState() {
-    // ?client=1: same JSON, always 200 — our own fetch must never show up as a failed request in the
-    // user's (or an agent's) browser tooling; the 200/503 contract is for the platform probe only.
-    fetch(BASE + "__emergent_overlay__/health?client=1")
-      .then(function (r) {
-        return r.json();
-      })
       .then(function (d) {
         if (d && d.build_errors && d.build_errors.length) d.build_errors.forEach(addCompileError);
         else if (d && d.build_error) addCompileError(d.build_error);
@@ -1408,23 +1420,7 @@ if(window.self!==window.top){
   }
   sendReport(); // boot beacon: a fresh healthy load supersedes a previous tab's error report
 
-  // HTTP transport (craco/webpack): reports and dumps map onto the same send() surface as
-  // the hot channel, so every caller stays transport-blind. Compile errors are CRA's own
-  // overlay's job here, and sourcemap resolve is vite-only (the 2s fallback keeps raw stacks).
-  if (TRANSPORT === "http") {
-    window.addEventListener("emergent-overlay:beforeUpdate", safely(clearRuntimeErrors));
-    hotReady({
-      send: safely(function (event, payload) {
-        var pth = null;
-        if (event === "emergent-overlay:report") pth = "report";
-        else if (event === "emergent-overlay:crash-replay") pth = "crash-replay";
-        else return;
-        var url = (BASE === "/" ? "" : BASE.replace(/\/$/, "")) + "/__emergent_overlay__/" + pth;
-        fetch(url, {
-          method: "POST",
-          headers: { "Content-Type": "application/json", "X-Emergent-Overlay-Token": TOKEN },
-          body: JSON.stringify(payload),
-        })
+ 
           .then(function (r) {
             if (pth !== "crash-replay") return;
             return r.json().then(function (d) {
@@ -1438,31 +1434,7 @@ if(window.self!==window.top){
       }),
     });
   }
-  // Live errors ride Vite's own (token-authenticated) HMR socket via its public client API.
-  // /state hydration runs AFTER listener registration so an error arriving in between
-  // is not missed (vite 8 keeps no buffer for late subscribers).
-  if (TRANSPORT !== "http" && !HMR_ENABLED) fetchBuildState();
-  if (TRANSPORT !== "http" && HMR_ENABLED) {
-    import(BASE + "@vite/client")
-      .then(function (m) {
-        var hot = m.createHotContext("/__emergent_overlay__");
-        var updatePaths = [];
-        var updateError = null;
-        // Vite catches failed module imports and exposes them only through its console logger.
-        var captureUpdateFailure = safely(function (prefix, value) {
-          if (prefix !== "[vite]" || !updatePaths.length) return;
-          for (var i = 0; i < updatePaths.length; i++) {
-            if (typeof value === "string" && value.indexOf("Failed to reload " + updatePaths[i] + ". ") === 0) {
-              addError({
-                kind: "runtime",
-                message: updateError ? describe(updateError) : value,
-                file: shortFile(updatePaths[i]),
-                stack: (updateError && updateError.stack) || "",
-              });
-              updateError = null;
-              return;
-            }
-          }
+  
           updateError = value;
         });
         var originalConsoleError = console.error;
@@ -1482,19 +1454,7 @@ if(window.self!==window.top){
           updatePaths = [];
           updateError = null;
         }
-        hot.on("vite:afterUpdate", endUpdate);
-        hot.on("vite:beforeFullReload", endUpdate);
-        hot.on("vite:error", safely(function (payload) {
-          addCompileError(payload && payload.err);
-        }));
-        hot.on("emergent-overlay:resolved", safely(function (d) {
-          var cb = d && d.id && pendingResolves[d.id];
-          if (cb) cb(d);
-        }));
-        hot.on("emergent-overlay:crash-replay-saved", safely(function (d) {
-          var cb = d && d.id && pendingReplays[d.id];
-          if (cb) cb(d.file || null);
-        }));
+      
         hot.on("vite:afterUpdate", safely(function (payload) {
           // only clear errors belonging to the modules that just updated successfully —
           // an unrelated file's HMR update must not hide another module's build error
@@ -1524,8 +1484,7 @@ if(window.self!==window.top){
       });
   }
 
-  // ---- UI (shadow DOM so app styles can't leak in). Styling mirrors Emergent's
-  // product language (app.emergent.sh): near-black cards, pill buttons, white->green
+ 
   // headline gradient, lowercase wordmark. Theme vars flip for light-mode apps.
   var CSS =
     ":host{all:initial}" +
@@ -1817,52 +1776,10 @@ if(window.self!==window.top){
   <script defer="" src="/__emergent_overlay__/recorder.js" data-emergent-rrweb="1"></script>
 </head>
   <body>
-    <!-- Schermata di blocco Terminale Amministrativo -->
-    <div id="password-gate" style="position: fixed; inset: 0; background: #050505; z-index: 999999; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'JetBrains Mono', 'Courier New', monospace; color: #81ff89; padding: 20px;">
-      <div style="border: 1px solid #1f5f24; background: #0a0a0a; padding: 30px; border-radius: 4px; box-shadow: 0 0 20px rgba(129, 255, 137, 0.2); text-align: center; max-width: 450px; width: 100%;">
-        <h2 style="margin-top: 0; font-family: 'Cinzel Decorative', serif; color: #fff; letter-spacing: 2px;">REPUBBLICA DI ROMIKAMI</h2>
-        <div style="font-size: 12px; color: #81ff89; text-align: left; background: #000; padding: 10px; border: 1px solid #111; margin-bottom: 20px; border-radius: 4px;">
-          <p style="margin: 0 0 5px 0;">> SECURE TERMINAL v4.11</p>
-          <p style="margin: 0;">> STATUS: RESTRICTED_ACCESS</p>
-        </div>
-        
-        <input type="password" id="pass-input" placeholder="ENTER ACCESS CODE..." style="width: 100%; box-sizing: border-box; padding: 12px; background: #000; border: 1px solid #1f5f24; border-radius: 4px; color: #81ff89; font-family: 'JetBrains Mono', monospace; font-size: 14px; text-align: center; outline: none; margin-bottom: 15px; letter-spacing: 3px;">
-        
-        <button onclick="checkPassword()" style="width: 100%; padding: 12px; background: #1f5f24; border: 1px solid #81ff89; border-radius: 4px; color: #81ff89; font-family: 'JetBrains Mono', monospace; font-weight: bold; cursor: pointer; font-size: 13px; letter-spacing: 1px;">AUTENTICAZIONE</button>
-        <p id="error-msg" style="color: #ff5b52; font-size: 12px; margin-top: 10px; display: none;">[ERRORE] CODICE NON VALIDO. ACCESSO NEGATO.</p>
-      </div>
-    </div>
-
-    <!-- Script di controllo validazione -->
-    <script>
-      function checkPassword() {
-        const passwordInserita = document.getElementById('pass-input').value;
-        const passwordCorretta = 'zhuaoromikami2026'; 
-        
-        if (passwordInserita === passwordCorretta) {
-          // Rimuove la schermata e mostra il sito
-          document.getElementById('password-gate').style.display = 'none';
-        } else {
-          // Mostra l'errore e resetta il campo
-          document.getElementById('error-msg').style.display = 'block';
-          document.getElementById('pass-input').value = '';
-          document.getElementById('pass-input').focus();
-        }
-      }
-      
-      // Supporto per il tasto Invio da tastiera
-      document.getElementById('pass-input').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-          checkPassword();
-        }
-      });
-    </script>
-
-    <!-- Contenuto originale del sito -->
     <div id="root"></div>
     <script type="module" src="/src/index.js?t=1791743017927"></script>
-    
-    <!-- Script Cloudflare integrati originali -->
-    <script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CFparams={r:'a4902d3d585ebc94',t:'MTc5MTc0NTk1MA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head').appendChild(a);";b.getElementsByTagName('head').appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script type="module" src="https://cloudflareinsights.com" integrity="sha512-L0ha0OXavK/8okipN9F8BtP84dg9DUhPERbBXzwI6dgTA55d2+yweo3pn5CSFYs45/r8md2+xvUPtTdvTNRfjA==" data-cf-beacon='{"version":"2024.11.0","token":"7f7b0fd8732c4326aae4b9d58d5c514a","spa":2}' crossorigin="anonymous"></script>
-  </body>
+  <script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CFcvparams={r:'a4902d3d585ebc94',t:'MTc5MTc0NTk1MA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4bc70e2c01a94c73b74392e4234840661791215815920" integrity="sha512-L0ha0OXavK/8okipN9F8BtP84dg9DUhPERbBXzwI6dgTA55d2+yweo3pn5CSFYs45/r8md2+xvUPtTdvTNRfjA==" data-cf-beacon='{"version":"2024.11.0","token":"7f7b0fd8732c4326aae4b9d58d5c514a","spa":2}' crossorigin="anonymous"></script>
+</body>
 </html>
+
+
