@@ -131,9 +131,9 @@
                 <p>SALDO REGISTRATO: <span id="idCardSaldo" style="color:#34d399;">---</span></p>
             </div>
         </div>
-
-        // 🗣️ MOTORU DEI TRADUTTORI DI STATO (PATCH v5.0)
-        function translateItaToRmk() { 
+        
+        </function
+        translateItaToRmk(){
             const input = document.getElementById("inputIta").value.toLowerCase(); 
             if (!input.trim()) { document.getElementById("outputRmk").innerText = "In attesa del testo..."; return; } 
             const words = input.replace(/[.,\/#!\$%\^&\*;:{}=\-_`~()]/g,"").split(/\s+/); 
@@ -212,7 +212,7 @@
         function azzeraTuttiXPLive() { if (confirm("🚨 Vuoi resettare tutto il server?")) { puntiXP = 50; saldoSordu = 500; fondoTasseStato = 0; archivioDecreti = ["[Decreto Fondazione]: Reclamata sovranità su Serpentara."]; localStorage.setItem("rmk_xp", puntiXP); localStorage.setItem("rmk_sordu", saldoSordu); localStorage.setItem("rmk_fondo_tasse", fondoTasseStato); localStorage.setItem("rmk_archivio_testi", JSON.stringify(archivioDecreti)); localStorage.removeItem("rmk_inventario"); localStorage.removeItem("rmk_codici_riscattati"); document.getElementById("labelRuoliPosseduti").innerText = "Inventario Elementi Sbloccati: Nessuno"; aggiornaDatiSchermoUtente(); aggiornaGrigliaArchivioLeggi(); alert("💥 DATABASE COMPLETAMENTE AZZERATO."); } }
         function toggleAllertaStato() { allertaStato = !allertaStato; localStorage.setItem("rmk_allerta", allertaStato); applicaStatoAllertaGrafica(); }
         function applicaStatoAllertaGrafica() { const b = document.getElementById("btnAllertaDifesa"), banner = document.getElementById("statoAllertaBanner"); if(allertaStato) { document.body.classList.add("allerta-attiva"); if(b) b.innerText = "DISATTIVA ALLERTA"; if(banner) banner.style.display = "block"; } else { document.body.classList.remove("allerta-attiva"); if(b) b.innerText = "ATTIVA ALLERTA"; if(banner) banner.style.display = "none"; } }
-        function avviaPioggiaCoriandoli() { const c = document.getElementById("rainContainer"); if (!c) return; c.style.display = "block"; c.innerHTML = ""; for(let i=0; i<30; i++) { const drop = document.createElement("div"); drop.style = "position:absolute; width:15px; height:15px; border-radius:50%; background:" + (Math.random() > 0.5 ? "#38bdf8" : "#eab308") + "; left:" + Math.random() * 100 + "%; top:-20px; animation: fall " + (1 + Math.random() * 1.5) + "s linear forwards;"; c.appendChild(drop); } setTimeout(() => c.style.display = "none", 2500); }
+        function avviaPioggiaCoriandoli() { const c = document.getElementById("rainContainer"); if (!c) return; c.style.display = "block"; c.innerHTML = ""; for(let i=0; i<30; i++) { const drop = document.createElement("div"); drop.style = "position:absolute; width:15px; height:15px; border-radius:50%; background:" + (Math.random() > 0.5 ? "#38bdf8" : "#eab308") + "; left:" + Math.random() * 100 + "%; top:-20px; animation: fall " + (1 + Math.random() * 1.5) + "s linear forwards;"; c.appendChild(drop); } setTimeout(() => c.style.display = "none", 2500); }>
     </script>
     <style>@keyframes fall { to { top: 100%; transform: rotate(360deg); } }</style>
 </body>
