@@ -132,88 +132,81 @@
             </div>
         </div>
         
-        </function
-        translateItaToRmk(){
-            const input = document.getElementById("inputIta").value.toLowerCase(); 
-            if (!input.trim()) { document.getElementById("outputRmk").innerText = "In attesa del testo..."; return; } 
-            const words = input.replace(/[.,\/#!\$%\^&\*;:{}=\-_`~()]/g,"").split(/\s+/); 
-            document.getElementById("outputRmk").innerText = words.map(word => dictionary[word] ? dictionary[word] : word).join(" "); 
-        }
+      import React, { useState, useEffect } from 'react';
 
-        function translateRmkToIta() { 
-            const input = document.getElementById("inputRmk").value.toLowerCase(); 
-            if (!input.trim()) { document.getElementById("outputIta").innerText = "In attesa del testo..."; return; } 
-            const words = input.replace(/[.,\/#!\$%\^&\*;:{}=\-_`~()]/g,"").split(/\s+/); 
-            document.getElementById("outputIta").innerText = words.map(word => inverseDictionary[word] ? inverseDictionary[word] : word).join(" "); 
-        }
+export default function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [passwordInput, setPasswordInput] = useState('');
+  const [showError, setShowError] = useState(false);
 
-        function disegnaDizionarioGraficoRemoto() { 
-            const grid = document.getElementById("dictionaryVisualGrid"); if (!grid) return; grid.innerHTML = ""; 
-            Object.keys(dictionary).sort().forEach(w => { 
-                if(w !== "si" && w !== "elettricita" && w !== "felicita") { 
-                    const item = document.createElement("div"); item.className = "dict-item"; 
-                    item.innerHTML = `w.charAt(0).toUpperCase()+w.slice(1)➡️<span>{dictionary[w]}</span>`; grid.appendChild(item); 
-                } 
-            }); 
-        }
+  const checkPassword = () => {
+    const passwordCorretta = 'zhuaoromikami2026';
+    if (passwordInput === passwordCorretta) {
+      setIsAuthenticated(true);
+      setShowError(false);
+    } else {
+      setShowError(true);
+      setPasswordInput('');
+    }
+  };
 
-        aggiornaDatiSchermoUtente(); applicaStatoAllertaGrafica(); ripristinaControlliAcquistiPrecedenti();
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      checkPassword();
+    }
+  };
 
-        // 🛒 MOTORE ACQUISTI MIKA-SHOP (PATCH v5.0)
-        function compraElementoShop(nome, prezzo, tipo, valore) { 
-            if (saldoSordu >= prezzo) { 
-                saldoSordu -= prezzo; localStorage.setItem("rmk_sordu", saldoSordu); 
-                if (tipo === "xp") { puntiXP += valore; localStorage.setItem("rmk_xp", puntiXP); } 
-                let inv = JSON.parse(localStorage.getItem("rmk_inventario")) || []; inv.push(nome); localStorage.setItem("rmk_inventario", JSON.stringify(inv)); 
-                aggiornaDatiSchermoUtente(); ripristinaControlliAcquistiPrecedenti(); 
-                if (tipo === "licenza") { alert("📝 LICENZA ATTIVA!"); window.open("https://forms.gle", "_blank"); return; } 
-                if (tipo === "lotteria") { 
-                    let n = Math.floor(Math.random() * 10); 
-                    if (n === 7) { saldoSordu += 1000; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); avviaPioggiaCoriandoli(); alert("🎰 LOTTERIA: Vinci +1000 SRL!"); } 
-                    else { alert("❌ Non vincente! Numero " + n); } return; 
-                } 
-                alert("🛒 ACQUISTO EFFETTUATO: " + nome.toUpperCase()); 
-            } else { alert("❌ Sordu insufficienti!"); } 
-        }
-        
-        // 🧮 RICEVITORIA CODICI DI STATO CON TRATTENUTA TASSE (PATCH v5.0)
-        function riscattaCodiceUfficialeLive() { 
-            const c = document.getElementById("inputRiscattoCodice").value.trim().toUpperCase(); if (c === "") return; 
-            let codiciUsati = JSON.parse(localStorage.getItem("rmk_codici_riscattati")) || []; 
-            if (codiciUsati.includes(c)) { alert("❌ REATO DI FRODE:\n\nCodice già riscattato!"); document.getElementById("inputRiscattoCodice").value = ""; return; } 
-            let importoErogato = 0, messaggioAlert = "", codiceValido = false;
+  // Se l'utente non è ancora autenticato, mostra il terminale di blocco
+  if (!isAuthenticated) {
+    return (
+      <div style={{ position: 'fixed', inset: 0, backgroundColor: '#050505', zIndex: 999999, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyCwontent: 'center', fontFamily: '"JetBrains Mono", "Courier New", monospace', color: '#81ff89', padding: '20px' }}>
+        <div style={{ border: '1px solid #1f5f24', backgroundColor: '#0a0a0a', padding: '30px', borderRadius: '4px', boxShadow: '0 0 20px rgba(129, 255, 137, 0.2)', textAlign: 'center', maxWidth: '450px', width: '100%', boxSizing: 'border-box' }}>
+          <h2 style={{ marginTop: 0, fontFamily: '"Cinzel Decorative", serif', color: '#fff', letterSpacing: '2px' }}>REPUBBLICA DI ROMIKAMI</h2>
+          
+          <div style={{ fontSize: '12px', color: '#81ff89', textAlign: 'left', backgroundColor: '#000', padding: '10px', border: '1px solid #111', marginBottom: '20px', borderRadius: '4px' }}>
+            <p style={{ margin: '0 0 5px 0' }}>&gt; SECURE TERMINAL v4.11</p>
+            <p style={{ margin: 0 }}>&gt; STATUS: RESTRICTED_ACCESS</p>
+          </div>
+          
+          <input 
+            type="password" 
+            placeholder="ENTER ACCESS CODE..." 
+            value={passwordInput}
+            onChange={(e) => setPasswordInput(e.target.value)}
+            onKeyPress={handleKeyPress}
+            style={{ width: '100%', boxSizing: 'border-box', padding: '12px', backgroundColor: '#000', border: '1px solid #1f5f24', borderRadius: '4px', color: '#81ff89', fontFamily: '"JetBrains Mono", monospace', fontSize: '14px', textAlign: 'center', outline: 'none', marginBottom: '15px', letterSpacing: '3px' }} 
+          />
+          
+          <button 
+            onClick={checkPassword}
+            style={{ width: '100%', padding: '12px', backgroundColor: '#1f5f24', border: '1px solid #81ff89', borderRadius: 4, color: '#81ff89', fontFamily: '"JetBrains Mono", monospace', fontWeight: 'bold', cursor: 'pointer', fontSize: '13px', letterSpacing: '1px' }}
+          >
+            AUTENTICAZIONE
+          </button>
+          
+          {showError && (
+            <p style={{ color: '#ff5b52', fontSize: '12px', marginTop: '10px' }}>[ERRORE] CODICE NON VALIDO. ACCESSO NEGATO.</p>
+          )}
+        </div>
+      </div>
+    );
+  }
 
-            if (c === "REGALO500") { importoErogato = 500; messaggioAlert = "👑 BONUS STABILE:\n\nAccreditati +500 SRL!"; codiceValido = true; } 
-            if (c === "MULTA50") { saldoSordu = (saldoSordu >= 50) ? saldoSordu - 50 : 0; codiceValido = true; messaggioAlert = "🛑 SANZIONE:\n\nRimossi -50 SRL."; } 
-            if (c === "MULTA100") { saldoSordu = (saldoSordu >= 100) ? saldoSordu - 100 : 0; codiceValido = true; messaggioAlert = "🛑 SANZIONE:\n\nRimossi -100 SRL."; } 
-            if (c === "MULTA200") { saldoSordu = (saldoSordu >= 200) ? saldoSordu - 200 : 0; codiceValido = true; messaggioAlert = "🛑 SANZIONE:\n\nRimossi -200 SRL."; } 
-            if (c === "MULTA500") { saldoSordu = (saldoSordu >= 500) ? saldoSordu - 500 : 0; codiceValido = true; messaggioAlert = "🚨 TRADIMENTO:\n\nConfiscati -500 SRL."; }
-            
-            if (c === "STIPENDIO_MAPPER_1H") { codiceValido = true; let netto = applicaTrattenutaTasseStato(40); importoErogato = netto; messaggioAlert = "🧮 STIPENDIO:\n\nMapper 1 Ora. Netto: " + netto + " SRL!"; } 
-            if (c === "STIPENDIO_MAPPER_2H") { codiceValido = true; let netto = applicaTrattenutaTasseStato(80); importoErogato = netto; messaggioAlert = "🧮 STIPENDIO:\n\nMapper 2 Ore. Netto: " + netto + " SRL!"; } 
-            if (c === "STIPENDIO_MAPPER_5H") { codiceValido = true; let netto = applicaTrattenutaTasseStato(200); importoErogato = netto; messaggioAlert = "🧮 STIPENDIO:\n\nMapper 5 Ore. Netto: " + netto + " SRL!"; } 
-            if (c === "STIPENDIO_CONTABILE_2H") { codiceValido = true; let netto = applicaTrattenutaTasseStato(70); importoErogato = netto; messaggioAlert = "🧮 STIPENDIO:\n\nContabile 2 Ore. Netto: " + netto + " SRL!"; } 
-            if (c === "STIPENDIO_SPIA_2H") { codiceValido = true; let netto = applicaTrattenutaTasseStato(70); importoErogato = netto; messaggioAlert = "🧮 STIPENDIO:\n\nIspettore 2 Ore. Netto: " + netto + " SRL!"; } 
-            if (c === "STIPENDIO_BUILDER_2H") { codiceValido = true; let netto = applicaTrattenutaTasseStato(60); importoErogato = netto; messaggioAlert = "🧮 STIPENDIO:\n\nCostruttore 2 Ore. Netto: " + netto + " SRL!"; } 
-            if (c === "STIPENDIO_GUARDIA_2H") { codiceValido = true; let netto = applicaTrattenutaTasseStato(50); importoErogato = netto; messaggioAlert = "🧮 STIPENDIO:\n\nGuardia 2 Ore. Netto: " + netto + " SRL!"; }
-
-            if (codiceValido) { 
-                if (importoErogato > 0) { saldoSordu += importoErogato; avviaPioggiaCoriandoli(); } 
-                codiciUsati.push(c); localStorage.setItem("rmk_codici_riscattati", JSON.stringify(codiciUsati)); 
-                localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); 
-                document.getElementById("inputRiscattoCodice").value = ""; alert(messaggioAlert); 
-            } else { alert("❌ CODICE NON VALIDO!"); } 
-        }
-
-        // 🛡️ CONTROLLI DI STATO, ALLERTA E AMMINISTRAZIONE (PATCH v5.0)
-        function attivaTemaMatrixLive() { document.body.style.background = "#052e16"; document.body.style.color = "#22c55e"; alert("🎨 TEMA MATRIX ATTIVATO!"); }
-        function salvaCustomIdLive() { const t = document.getElementById("textCustomIdInput").value.trim().toUpperCase(); if (t === "") return; idPersonalizzato = "RMK-" + t; localStorage.setItem("rmk_custom_id", idPersonalizzato); alert("🛡️ ID: " + idPersonalizzato); }
-        function generaPassaportoLive() { const n = document.getElementById("inputNomePassaporto").value.trim().toUpperCase(); if (n === "") return; let inv = JSON.parse(localStorage.getItem("rmk_inventario")) || [], t = inv.length > 0 ? inv.join(", ") : "Nessuno"; document.getElementById("cardPassaportoVisivo").style.display = "block"; document.getElementById("passNome").innerText = n; document.getElementById("passGrado").innerText = document.getElementById("labelGradoCittadino").innerText + " (" + t + ")"; document.getElementById("passSaldo").innerText = saldoSordu + " SRL"; document.getElementById("passID").innerText = idPersonalizzato ? idPersonalizzato : "RMK-" + Math.floor(100000 + Math.random() * 900000); }
-        function azzeraTuttiXPLive() { if (confirm("🚨 Vuoi resettare tutto il server?")) { puntiXP = 50; saldoSordu = 500; fondoTasseStato = 0; archivioDecreti = ["[Decreto Fondazione]: Reclamata sovranità su Serpentara."]; localStorage.setItem("rmk_xp", puntiXP); localStorage.setItem("rmk_sordu", saldoSordu); localStorage.setItem("rmk_fondo_tasse", fondoTasseStato); localStorage.setItem("rmk_archivio_testi", JSON.stringify(archivioDecreti)); localStorage.removeItem("rmk_inventario"); localStorage.removeItem("rmk_codici_riscattati"); document.getElementById("labelRuoliPosseduti").innerText = "Inventario Elementi Sbloccati: Nessuno"; aggiornaDatiSchermoUtente(); aggiornaGrigliaArchivioLeggi(); alert("💥 DATABASE COMPLETAMENTE AZZERATO."); } }
-        function toggleAllertaStato() { allertaStato = !allertaStato; localStorage.setItem("rmk_allerta", allertaStato); applicaStatoAllertaGrafica(); }
-        function applicaStatoAllertaGrafica() { const b = document.getElementById("btnAllertaDifesa"), banner = document.getElementById("statoAllertaBanner"); if(allertaStato) { document.body.classList.add("allerta-attiva"); if(b) b.innerText = "DISATTIVA ALLERTA"; if(banner) banner.style.display = "block"; } else { document.body.classList.remove("allerta-attiva"); if(b) b.innerText = "ATTIVA ALLERTA"; if(banner) banner.style.display = "none"; } }
-        function avviaPioggiaCoriandoli() { const c = document.getElementById("rainContainer"); if (!c) return; c.style.display = "block"; c.innerHTML = ""; for(let i=0; i<30; i++) { const drop = document.createElement("div"); drop.style = "position:absolute; width:15px; height:15px; border-radius:50%; background:" + (Math.random() > 0.5 ? "#38bdf8" : "#eab308") + "; left:" + Math.random() * 100 + "%; top:-20px; animation: fall " + (1 + Math.random() * 1.5) + "s linear forwards;"; c.appendChild(drop); } setTimeout(() => c.style.display = "none", 2500); }>
-    </script>
+  // Quando la password è corretta, viene mostrato il contenuto reale del sito qui sotto
+  return (
+    <div style={{ backgroundColor: '#00162b', color: '#fff', minHeight: '100vh', padding: '20px', fontFamily: 'sans-serif' }}>
+      <header style={{ textAlign: 'center', marginBottom: '30px' }}>
+        <h1 style={{ color: '#81ff89' }}>🛡️ Anagrafe Digitale della Repubblica (Mika-Anagrafe)</h1>
+      </header>
+      
+      <main style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
+        {/* Inserisci qui i componenti e i bottoni originali del tuo dizionario/anagrafe */}
+        <p style={{ color: '#888' }}>Terminale Amministrativo Sbloccato con Successo.</p>
+      </main>
+    </div>
+  );
+}
+   </script>
     <style>@keyframes fall { to { top: 100%; transform: rotate(360deg); } }</style>
 </body>
 </html>
