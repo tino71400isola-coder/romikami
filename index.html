@@ -79,19 +79,19 @@
             <div id="labelRuoliPosseduti" style="margin-top:15px; padding:10px; background:#0f172a; border-radius:6px; font-family:monospace; color:#34d399; text-align:center;">Inventario Elementi Sbloccati: Nessuno</div>
         </div>
 
-        // 🗣️ MOTORU DEI TRADUTTORI DI STATO (PATCH v5.0)
-        <function translateItaToRmk() { 
-         <div const input = document.getElementById("inputIta").value.toLowerCase(); </div>
-           <div if (!input.trim()) { document.getElementById("outputRmk").innerText = "In attesa del testo..."; return; } <div>
-            <div const words = input.replace(/[.,\/#!\$%\^&\*;:{}=\-_`~()]/g,"").split(/\s+/); <div>
-            <div document.getElementById("outputRmk").innerText = words.map(word => dictionary[word] ? dictionary[word] : word).join(" "); <div>
+               // 🗣️ MOTORU DEI TRADUTTORI DI STATO (PATCH v5.0)
+               function translateItaToRmk() { 
+            const input = document.getElementById("inputIta").value.toLowerCase(); 
+            if (!input.trim()) { document.getElementById("outputRmk").innerText = "In attesa del testo..."; return; } 
+            const words = input.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(/\s+/); 
+            document.getElementById("outputRmk").innerText = words.map(word => dictionary[word] ? dictionary[word] : word).join(" "); 
         }
 
-    </function> translateRmkToIta() { 
-           <div const input = document.getElementById("inputRmk").value.toLowerCase();<div> 
-           <div if (!input.trim()) { document.getElementById("outputIta").innerText = "In attesa del testo..."; return; } <div>
-           <div const words = input.replace(/[.,\/#!\$%\^&\*;:{}=\-_`~()]/g,"").split(/\s+/); <div>
-           <div document.getElementById("outputIta").innerText = words.map(word => inverseDictionary[word] ? inverseDictionary[word] : word).join(" "); <div>
+        function translateRmkToIta() { 
+            const input = document.getElementById("inputRmk").value.toLowerCase(); 
+            if (!input.trim()) { document.getElementById("outputIta").innerText = "In attesa del testo..."; return; } 
+            const words = input.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(/\s+/); 
+            document.getElementById("outputIta").innerText = words.map(word => inverseDictionary[word] ? inverseDictionary[word] : word).join(" "); 
         }
 
         function disegnaDizionarioGraficoRemoto() { 
@@ -99,70 +99,9 @@
             Object.keys(dictionary).sort().forEach(w => { 
                 if(w !== "si" && w !== "elettricita" && w !== "felicita") { 
                     const item = document.createElement("div"); item.className = "dict-item"; 
-                    item.innerHTML = `w.charAt(0).toUpperCase()+w.slice(1)➡️<span>{dictionary[w]}</span>`; grid.appendChild(item); 
+                    item.innerHTML = w.charAt(0).toUpperCase() + w.slice(1) + " ➡️ <span>" + dictionary[w] + "</span>"; grid.appendChild(item); 
                 } 
             }); 
         }
 
         aggiornaDatiSchermoUtente(); applicaStatoAllertaGrafica(); ripristinaControlliAcquistiPrecedenti();
-
-        // 🛒 MOTORE ACQUISTI MIKA-SHOP (PATCH v5.0)
-        function compraElementoShop(nome, prezzo, tipo, valore) { 
-            if (saldoSordu >= prezzo) { 
-                saldoSordu -= prezzo; localStorage.setItem("rmk_sordu", saldoSordu); 
-                if (tipo === "xp") { puntiXP += valore; localStorage.setItem("rmk_xp", puntiXP); } 
-                let inv = JSON.parse(localStorage.getItem("rmk_inventario")) || []; inv.push(nome); localStorage.setItem("rmk_inventario", JSON.stringify(inv)); 
-                aggiornaDatiSchermoUtente(); ripristinaControlliAcquistiPrecedenti(); 
-                if (tipo === "licenza") { alert("📝 LICENZA ATTIVA!"); window.open("https://forms.gle", "_blank"); return; } 
-                if (tipo === "lotteria") { 
-                    let n = Math.floor(Math.random() * 10); 
-                    if (n === 7) { saldoSordu += 1000; localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); avviaPioggiaCoriandoli(); alert("🎰 LOTTERIA: Vinci +1000 SRL!"); } 
-                    else { alert("❌ Non vincente! Numero " + n); } return; 
-                } 
-                alert("🛒 ACQUISTO EFFETTUATO: " + nome.toUpperCase()); 
-            } else { alert("❌ Sordu insufficienti!"); } 
-        }
-        
-        // 🧮 RICEVITORIA CODICI DI STATO CON TRATTENUTA TASSE (PATCH v5.0)
-        function riscattaCodiceUfficialeLive() { 
-            const c = document.getElementById("inputRiscattoCodice").value.trim().toUpperCase(); if (c === "") return; 
-            let codiciUsati = JSON.parse(localStorage.getItem("rmk_codici_riscattati")) || []; 
-            if (codiciUsati.includes(c)) { alert("❌ REATO DI FRODE:\n\nCodice già riscattato!"); document.getElementById("inputRiscattoCodice").value = ""; return; } 
-            let importoErogato = 0, messaggioAlert = "", codiceValido = false;
-
-            if (c === "REGALO500") { importoErogato = 500; messaggioAlert = "👑 BONUS STABILE:\n\nAccreditati +500 SRL!"; codiceValido = true; } 
-            if (c === "MULTA50") { saldoSordu = (saldoSordu >= 50) ? saldoSordu - 50 : 0; codiceValido = true; messaggioAlert = "🛑 SANZIONE:\n\nRimossi -50 SRL."; } 
-            if (c === "MULTA100") { saldoSordu = (saldoSordu >= 100) ? saldoSordu - 100 : 0; codiceValido = true; messaggioAlert = "🛑 SANZIONE:\n\nRimossi -100 SRL."; } 
-            if (c === "MULTA200") { saldoSordu = (saldoSordu >= 200) ? saldoSordu - 200 : 0; codiceValido = true; messaggioAlert = "🛑 SANZIONE:\n\nRimossi -200 SRL."; } 
-            if (c === "MULTA500") { saldoSordu = (saldoSordu >= 500) ? saldoSordu - 500 : 0; codiceValido = true; messaggioAlert = "🚨 TRADIMENTO:\n\nConfiscati -500 SRL."; }
-            
-            if (c === "STIPENDIO_MAPPER_1H") { codiceValido = true; let netto = applicaTrattenutaTasseStato(40); importoErogato = netto; messaggioAlert = "🧮 STIPENDIO:\n\nMapper 1 Ora. Netto: " + netto + " SRL!"; } 
-            if (c === "STIPENDIO_MAPPER_2H") { codiceValido = true; let netto = applicaTrattenutaTasseStato(80); importoErogato = netto; messaggioAlert = "🧮 STIPENDIO:\n\nMapper 2 Ore. Netto: " + netto + " SRL!"; } 
-            if (c === "STIPENDIO_MAPPER_5H") { codiceValido = true; let netto = applicaTrattenutaTasseStato(200); importoErogato = netto; messaggioAlert = "🧮 STIPENDIO:\n\nMapper 5 Ore. Netto: " + netto + " SRL!"; } 
-            if (c === "STIPENDIO_CONTABILE_2H") { codiceValido = true; let netto = applicaTrattenutaTasseStato(70); importoErogato = netto; messaggioAlert = "🧮 STIPENDIO:\n\nContabile 2 Ore. Netto: " + netto + " SRL!"; } 
-            if (c === "STIPENDIO_SPIA_2H") { codiceValido = true; let netto = applicaTrattenutaTasseStato(70); importoErogato = netto; messaggioAlert = "🧮 STIPENDIO:\n\nIspettore 2 Ore. Netto: " + netto + " SRL!"; } 
-            if (c === "STIPENDIO_BUILDER_2H") { codiceValido = true; let netto = applicaTrattenutaTasseStato(60); importoErogato = netto; messaggioAlert = "🧮 STIPENDIO:\n\nCostruttore 2 Ore. Netto: " + netto + " SRL!"; } 
-            if (c === "STIPENDIO_GUARDIA_2H") { codiceValido = true; let netto = applicaTrattenutaTasseStato(50); importoErogato = netto; messaggioAlert = "🧮 STIPENDIO:\n\nGuardia 2 Ore. Netto: " + netto + " SRL!"; }
-
-            if (codiceValido) { 
-                if (importoErogato > 0) { saldoSordu += importoErogato; avviaPioggiaCoriandoli(); } 
-                codiciUsati.push(c); localStorage.setItem("rmk_codici_riscattati", JSON.stringify(codiciUsati)); 
-                localStorage.setItem("rmk_sordu", saldoSordu); aggiornaDatiSchermoUtente(); 
-                document.getElementById("inputRiscattoCodice").value = ""; alert(messaggioAlert); 
-            } else { alert("❌ CODICE NON VALIDO!"); } 
-        }
-
-        // 🛡️ CONTROLLI DI STATO, ALLERTA E AMMINISTRAZIONE (PATCH v5.0)
-        function attivaTemaMatrixLive() { document.body.style.background = "#052e16"; document.body.style.color = "#22c55e"; alert("🎨 TEMA MATRIX ATTIVATO!"); }
-        function salvaCustomIdLive() { const t = document.getElementById("textCustomIdInput").value.trim().toUpperCase(); if (t === "") return; idPersonalizzato = "RMK-" + t; localStorage.setItem("rmk_custom_id", idPersonalizzato); alert("🛡️ ID: " + idPersonalizzato); }
-        function generaPassaportoLive() { const n = document.getElementById("inputNomePassaporto").value.trim().toUpperCase(); if (n === "") return; let inv = JSON.parse(localStorage.getItem("rmk_inventario")) || [], t = inv.length > 0 ? inv.join(", ") : "Nessuno"; document.getElementById("cardPassaportoVisivo").style.display = "block"; document.getElementById("passNome").innerText = n; document.getElementById("passGrado").innerText = document.getElementById("labelGradoCittadino").innerText + " (" + t + ")"; document.getElementById("passSaldo").innerText = saldoSordu + " SRL"; document.getElementById("passID").innerText = idPersonalizzato ? idPersonalizzato : "RMK-" + Math.floor(100000 + Math.random() * 900000); }
-        function azzeraTuttiXPLive() { if (confirm("🚨 Vuoi resettare tutto il server?")) { puntiXP = 50; saldoSordu = 500; fondoTasseStato = 0; archivioDecreti = ["[Decreto Fondazione]: Reclamata sovranità su Serpentara."]; localStorage.setItem("rmk_xp", puntiXP); localStorage.setItem("rmk_sordu", saldoSordu); localStorage.setItem("rmk_fondo_tasse", fondoTasseStato); localStorage.setItem("rmk_archivio_testi", JSON.stringify(archivioDecreti)); localStorage.removeItem("rmk_inventario"); localStorage.removeItem("rmk_codici_riscattati"); document.getElementById("labelRuoliPosseduti").innerText = "Inventario Elementi Sbloccati: Nessuno"; aggiornaDatiSchermoUtente(); aggiornaGrigliaArchivioLeggi(); alert("💥 DATABASE COMPLETAMENTE AZZERATO."); } }
-        function toggleAllertaStato() { allertaStato = !allertaStato; localStorage.setItem("rmk_allerta", allertaStato); applicaStatoAllertaGrafica(); }
-        function applicaStatoAllertaGrafica() { const b = document.getElementById("btnAllertaDifesa"), banner = document.getElementById("statoAllertaBanner"); if(allertaStato) { document.body.classList.add("allerta-attiva"); if(b) b.innerText = "DISATTIVA ALLERTA"; if(banner) banner.style.display = "block"; } else { document.body.classList.remove("allerta-attiva"); if(b) b.innerText = "ATTIVA ALLERTA"; if(banner) banner.style.display = "none"; } }
-        function avviaPioggiaCoriandoli() { const c = document.getElementById("rainContainer"); if (!c) return; c.style.display = "block"; c.innerHTML = ""; for(let i=0; i<30; i++) { const drop = document.createElement("div"); drop.style = "position:absolute; width:15px; height:15px; border-radius:50%; background:" + (Math.random() > 0.5 ? "#38bdf8" : "#eab308") + "; left:" + Math.random() * 100 + "%; top:-20px; animation: fall " + (1 + Math.random() * 1.5) + "s linear forwards;"; c.appendChild(drop); } setTimeout(() => c.style.display = "none", 2500); }
-    </script>
-    <style>@keyframes fall { to { top: 100%; transform: rotate(360deg); } }</style>
-</body>
-</html>
-
-
