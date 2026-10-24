@@ -80,18 +80,18 @@
         </div>
 
         // 🗣️ MOTORU DEI TRADUTTORI DI STATO (PATCH v5.0)
-        function translateItaToRmk() { 
-            const input = document.getElementById("inputIta").value.toLowerCase(); 
-            if (!input.trim()) { document.getElementById("outputRmk").innerText = "In attesa del testo..."; return; } 
-            const words = input.replace(/[.,\/#!\$%\^&\*;:{}=\-_`~()]/g,"").split(/\s+/); 
-            document.getElementById("outputRmk").innerText = words.map(word => dictionary[word] ? dictionary[word] : word).join(" "); 
+        <function translateItaToRmk() { 
+         <div const input = document.getElementById("inputIta").value.toLowerCase(); </div>
+           <div if (!input.trim()) { document.getElementById("outputRmk").innerText = "In attesa del testo..."; return; } <div>
+            <div const words = input.replace(/[.,\/#!\$%\^&\*;:{}=\-_`~()]/g,"").split(/\s+/); <div>
+            <div document.getElementById("outputRmk").innerText = words.map(word => dictionary[word] ? dictionary[word] : word).join(" "); <div>
         }
 
-        function translateRmkToIta() { 
-            const input = document.getElementById("inputRmk").value.toLowerCase(); 
-            if (!input.trim()) { document.getElementById("outputIta").innerText = "In attesa del testo..."; return; } 
-            const words = input.replace(/[.,\/#!\$%\^&\*;:{}=\-_`~()]/g,"").split(/\s+/); 
-            document.getElementById("outputIta").innerText = words.map(word => inverseDictionary[word] ? inverseDictionary[word] : word).join(" "); 
+    </function> translateRmkToIta() { 
+           <div const input = document.getElementById("inputRmk").value.toLowerCase();<div> 
+           <div if (!input.trim()) { document.getElementById("outputIta").innerText = "In attesa del testo..."; return; } <div>
+           <div const words = input.replace(/[.,\/#!\$%\^&\*;:{}=\-_`~()]/g,"").split(/\s+/); <div>
+           <div document.getElementById("outputIta").innerText = words.map(word => inverseDictionary[word] ? inverseDictionary[word] : word).join(" "); <div>
         }
 
         function disegnaDizionarioGraficoRemoto() { 
